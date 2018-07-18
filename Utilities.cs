@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
@@ -12,7 +12,7 @@ namespace GreenClover
 
         static Utilities()
         {
-            string json = File.ReadAllText("SystemLeng/alerts.json");
+            string json = File.ReadAllText("Texts/alerts.json");
             var data = JsonConvert.DeserializeObject<dynamic>(json);
             alerts = data.ToObject<Dictionary<string, string>>();
         }
@@ -35,6 +35,15 @@ namespace GreenClover
         public static string GetFormattedAlert(string key, object parameter)
         {
             return GetFormattedAlert(key, new object[] { parameter });
+        }
+
+        public static string GetRandomLine(string path)
+        {
+            var lines = File.ReadAllLines(path);
+            var r = new Random();
+            var randomLineNumber = r.Next(0, lines.Length);
+            var line = lines[randomLineNumber];
+            return line;
         }
     }
 }
