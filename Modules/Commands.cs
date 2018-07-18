@@ -113,13 +113,23 @@ namespace GreenClover.Modules
             target = mentionedUser ?? Context.User;
 
             await user.Guild.AddBanAsync(user, 0, reason);
-            await Context.Channel.SendMessageAsync($"Użytkownik <@{target.Id}> został zbanowany.");
+            await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("BAN", target.Id));
         }
 
         [Command("version")]
         public async Task VersionAsync()
         {
-            await Context.Channel.SendMessageAsync(Utilities.GetAlert("VERSION"));
+            await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("VERSION")); 
+        }
+
+        [Command("game")]
+        public async Task GameAsync()
+        {
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithImageUrl(Utilities.GetRandomLine("Texts/gameGif.txt"));
+
+            await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
     }
 }
