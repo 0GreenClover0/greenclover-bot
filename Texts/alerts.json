@@ -1,0 +1,9 @@
+{
+  "BAN": "Użytkownik <@{0}> został zbanowany.",
+  "CHOOSE": "Los wybrał: {0}",
+  "HUG_&AUTHORNAME_&TARGETID": "**{0}** przytula <@{1}> :3",
+  "HUG_IMAGE1": "http://78.media.tumblr.com/2916300da0dda1fe8c214b1cde52a3ec/tumblr_mznf1dS1An1rgi7odo1_400.gif",
+  "PING": "Ping. Ha! Tego się nie spodziewałeś. **{0}ms**",
+  "VERSION": "GreenClovBot version: 0.02",
+  "WELCOME": "Witaj, {0}"
+}
