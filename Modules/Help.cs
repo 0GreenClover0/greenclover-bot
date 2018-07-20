@@ -23,7 +23,10 @@ namespace GreenClover.Modules
             .AddField("[*ping]", "Sprawdź jak bardzo dzisiaj jestem opóźniony")
             .AddField("[*profil]", "Sprawdź swój lub kogoś profil, na którym raczej nie ma niczego ciekawego")
             .AddField("[*przytulas]", "Dotknij kogoś obiema rękami")
-            .AddField("[*wybierz]", "Nie możesz się zdecydować co wybrać? Pozwól botowi wybrać za ciebie")
+            .AddField("[*wybierz]", "Nie możesz zdecydować co wybrać? Pozwól botowi wybrać za ciebie")
+            .AddField("[*gra]", "Pokazuje losowy ciekawy gif/screen o tematyce gier ( ͡° ͜ʖ ͡°)")
+            .AddField("[*kot]", "Pokazuje losowy gif/zdjęcie kota")
+            .AddField("[*pies]", "Pokazuje losowy gif/zdjęcie psa")
             .WithColor(new Color(90, 50, 165));
 
             await Context.Channel.SendMessageAsync(" ", false, builder.Build());

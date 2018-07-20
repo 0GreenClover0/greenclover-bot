@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
@@ -106,7 +107,7 @@ namespace GreenClover.Modules
         [Command("ban")]
         [RequireUserPermission(GuildPermission.BanMembers)]
         [RequireBotPermission(GuildPermission.BanMembers)]  
-        public async Task CovertAsync(IGuildUser user, string reason = "Powód nie został podany"    )
+        public async Task CovertAsync(IGuildUser user, string reason = "Powód nie został podany")
         {
             SocketUser target = null;
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
@@ -122,7 +123,7 @@ namespace GreenClover.Modules
             await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("VERSION")); 
         }
 
-        [Command("game")]
+        [Command("gra")]
         public async Task GameAsync()
         {
             EmbedBuilder builder = new EmbedBuilder();
@@ -130,6 +131,32 @@ namespace GreenClover.Modules
                 .WithImageUrl(Utilities.GetRandomLine("Texts/gameGif.txt"));
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
+        }
+
+        [Command("cat")]
+        public async Task CatAsync()
+        {
+            Random r = new Random();
+            int random = r.Next(1, 327);
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithImageUrl($"https://www.catgifpage.com/gifs/{random}.gif");
+
+            await Context.Channel.SendMessageAsync("", false, builder.Build());
+        }
+
+        [Command("dog")]
+        public async Task DogAsync()
+        {
+            Random r = new Random();
+            int random = r.Next(1, 16);
+
+                EmbedBuilder builder = new EmbedBuilder();
+                builder
+                    .WithImageUrl($"https://www.what-dog.net/Images/faces2/scroll00{random}.jpg");
+
+                await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
     }
 }
