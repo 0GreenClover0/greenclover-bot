@@ -1,8 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
 using System.IO;
+using Newtonsoft.Json;
+using Google.Apis.Customsearch.v1;
+using Google.Apis.Services;
+using Google.Apis.Customsearch.v1.Data;
 
 namespace GreenClover
 {
@@ -44,6 +46,30 @@ namespace GreenClover
             var randomLineNumber = r.Next(0, lines.Length);
             var line = lines[randomLineNumber];
             return line;
+        }
+
+        public static string GetGoogleUrl(string text)
+        {
+            const string apiKey = "AIzaSyAOE5Ilq9ovt9M7epd7QZ78ClPf-MFK97E";
+            const string searchEngineId = "005465617827265131652:so9dtxfb1zk";
+
+            var customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
+            var listRequest = customSearchService.Cse.List(text);
+            listRequest.Cx = searchEngineId;
+
+            IList<Result> paging = new List<Result>();
+
+            paging = listRequest.Execute().Items;
+
+            if (paging != null)
+            {
+                var test = paging[0];
+                return $"Tytuł: {test.Title} Link: {test.Link}";
+            }
+            else if (paging == null)
+                return "Błąd - nie znaleziono wyników";
+            else
+                return "Nieznany błąd";
         }
     }
 }

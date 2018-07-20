@@ -1,6 +1,19 @@
-{
+﻿{
   "BAN": "Użytkownik <@{0}> został zbanowany.",
   "CHOOSE": "Los wybrał: {0}",
+  "EGGPLANTIMG": "https://cdn.discordapp.com/attachments/374222963999768578/469830447254339586/EggplantHand_Animated.gif",
+
+  "HELP_CATDESC": "Pokazuje losowy gif/zdjęcie kota",
+  "HELP_CHOOSEDESC": "Nie możesz zdecydować co wybrać? Pozwól botowi wybrać za ciebie",
+  "HELP_COMMANDS": "Lista dostępnych komend. Aby dowiedzieć się co robi komenda możesz również napisać help [komenda]. Na przykład help ping. // aktualnie nie działa lol",
+  "HELP_DOGDESC": "Pokazuje losowy gif/zdjęcie psa",
+  "HELP_GAMEDESC": "Pokazuje losowy ciekawy gif/screen o tematyce gier ( ͡° ͜ʖ ͡°)",
+  "HELP_GOOGLEDESC": "Pozwala ci wyszukać różne rzeczy",
+  "HELP_HUGDESC": "Dotknij kogoś obiema rękami",
+  "HELP_PINGDESC": "Sprawdź jak bardzo dzisiaj jestem opóźniony",
+  "HELP_PREFIX": "Domyślny prefix to *",
+  "HELP_PROFILEDESC": "Sprawdź swój lub kogoś profil, na którym raczej nie ma niczego ciekawego",
+
   "HUG_&AUTHORNAME_&TARGETID": "**{0}** przytula <@{1}> :3",
   "HUG_IMAGE1": "http://78.media.tumblr.com/2916300da0dda1fe8c214b1cde52a3ec/tumblr_mznf1dS1An1rgi7odo1_400.gif",
   "PING": "Ping. Ha! Tego się nie spodziewałeś. **{0}ms**",

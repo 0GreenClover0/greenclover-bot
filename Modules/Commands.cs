@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using Discord.Rest;
-using NReco.ImageGenerator;
-using System.Net;
-using Newtonsoft.Json;
 
 namespace GreenClover.Modules
+
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
@@ -34,7 +27,7 @@ namespace GreenClover.Modules
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
-        
+
         [Command("ping")]
         [Summary("Sprawdza czy wszystko jest ok")]
         public async Task PingAsync()
@@ -66,7 +59,7 @@ namespace GreenClover.Modules
             .WithColor(Color.DarkRed);
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
-        }   
+        }
 
         [Command("witaj")]
         public async Task HelloAsync()
@@ -96,7 +89,7 @@ namespace GreenClover.Modules
         [Command("wybierz")]
         public async Task ChooseAsync([Remainder]string message)
         {
-            string[] options = message.Split(new char[] {'|'}, StringSplitOptions.RemoveEmptyEntries);
+            string[] options = message.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
 
             Random random = new Random();
             string selection = options[random.Next(0, options.Length)];
@@ -106,21 +99,30 @@ namespace GreenClover.Modules
 
         [Command("ban")]
         [RequireUserPermission(GuildPermission.BanMembers)]
-        [RequireBotPermission(GuildPermission.BanMembers)]  
+        [RequireBotPermission(GuildPermission.BanMembers)]
         public async Task CovertAsync(IGuildUser user, string reason = "Powód nie został podany")
         {
             SocketUser target = null;
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             target = mentionedUser ?? Context.User;
 
-            await user.Guild.AddBanAsync(user, 0, reason);
-            await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("BAN", target.Id));
+            if (target.Id == 371332977428398081)
+            {
+                await user.Guild.AddBanAsync(Context.Message.Author, 0, reason);
+                await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("BAN", Context.Message.Author.Id));
+            }
+
+            else
+            {
+                await user.Guild.AddBanAsync(user, 0, reason);
+                await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("BAN", target.Id));
+            }
         }
 
         [Command("version")]
         public async Task VersionAsync()
         {
-            await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("VERSION")); 
+            await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("VERSION"));
         }
 
         [Command("gra")]
@@ -152,11 +154,27 @@ namespace GreenClover.Modules
             Random r = new Random();
             int random = r.Next(1, 16);
 
-                EmbedBuilder builder = new EmbedBuilder();
-                builder
-                    .WithImageUrl($"https://www.what-dog.net/Images/faces2/scroll00{random}.jpg");
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithImageUrl($"https://www.what-dog.net/Images/faces2/scroll00{random}.jpg");
 
-                await Context.Channel.SendMessageAsync("", false, builder.Build());
+            await Context.Channel.SendMessageAsync("", false, builder.Build());
+        }
+
+        [Command("eggplant")]
+        public async Task EggplantAsync()
+        {
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithImageUrl(Utilities.GetAlert("EGGPLANTIMG"));
+
+            await Context.Channel.SendMessageAsync("", false, builder.Build());
+        }
+
+        [Command("google")]
+        public async Task TestAsync(string text)
+        {
+            await Context.Channel.SendMessageAsync(Utilities.GetGoogleUrl(text));
         }
     }
 }
