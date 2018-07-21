@@ -34,5 +34,7 @@ namespace GreenClover
     {
         public string token;
         public string cmdPrefix;
+        public string apiKey;
+        public string searchEngineId;
     }
 }

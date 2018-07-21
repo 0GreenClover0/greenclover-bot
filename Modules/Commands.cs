@@ -172,9 +172,9 @@ namespace GreenClover.Modules
         }
 
         [Command("google")]
-        public async Task TestAsync(string text)
+        public async Task TestAsync(string query, string second = "", string third = "", string fourth = "", string fifth = "")
         {
-            await Context.Channel.SendMessageAsync(Utilities.GetGoogleUrl(text));
+            await Context.Channel.SendMessageAsync(Utilities.GetGoogleUrl(query, second, third, fourth, fifth));
         }
     }
 }

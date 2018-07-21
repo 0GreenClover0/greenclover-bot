@@ -8,7 +8,7 @@
   "HELP_COMMANDS": "Lista dostępnych komend. Aby dowiedzieć się co robi komenda możesz również napisać help [komenda]. Na przykład help ping. // aktualnie nie działa lol",
   "HELP_DOGDESC": "Pokazuje losowy gif/zdjęcie psa",
   "HELP_GAMEDESC": "Pokazuje losowy ciekawy gif/screen o tematyce gier ( ͡° ͜ʖ ͡°)",
-  "HELP_GOOGLEDESC": "Pozwala ci wyszukać różne rzeczy",
+  "HELP_GOOGLEDESC": "Pozwala ci wyszukać różne rzeczy, przyjmuje do 5 wyrazów",
   "HELP_HUGDESC": "Dotknij kogoś obiema rękami",
   "HELP_PINGDESC": "Sprawdź jak bardzo dzisiaj jestem opóźniony",
   "HELP_PREFIX": "Domyślny prefix to *",

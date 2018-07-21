@@ -48,13 +48,15 @@ namespace GreenClover
             return line;
         }
 
-        public static string GetGoogleUrl(string text)
+        public static string GetGoogleUrl(string query, string second, string third, string fourth, string fifth)
         {
-            const string apiKey = "AIzaSyAOE5Ilq9ovt9M7epd7QZ78ClPf-MFK97E";
-            const string searchEngineId = "005465617827265131652:so9dtxfb1zk";
+            query = query + " " + second + " " + third + " " + fourth + " " + fifth;
+
+            string apiKey = Config.bot.apiKey;
+            string searchEngineId = Config.bot.searchEngineId;
 
             var customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
-            var listRequest = customSearchService.Cse.List(text);
+            var listRequest = customSearchService.Cse.List(query);
             listRequest.Cx = searchEngineId;
 
             IList<Result> paging = new List<Result>();
