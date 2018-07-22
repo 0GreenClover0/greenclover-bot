@@ -172,9 +172,25 @@ namespace GreenClover.Modules
         }
 
         [Command("google")]
-        public async Task TestAsync(string query, string second = "", string third = "", string fourth = "", string fifth = "")
+        public async Task GoogleAsync(string query, string second = "", string third = "", string fourth = "", string fifth = "")
         {
             await Context.Channel.SendMessageAsync(Utilities.GetGoogleUrl(query, second, third, fourth, fifth));
+        }
+
+        [Command("youtube")]
+        public async Task YoutubeAsync(string query, string second = "", string third = "", string fourth = "", string fifth = "")
+        {
+            var videos = Utilities.GetYoutube(query, second, third, fourth, fifth);
+            string authorImgUrl = Context.Message.Author.GetAvatarUrl();
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithAuthor(Context.Message.Author.Username)
+                .WithThumbnailUrl(authorImgUrl)
+                .WithTitle(Utilities.GetAlert("YOUTUBE_FILMEMBED"))
+                .WithDescription(String.Format("{0}", string.Join("\n", videos)))
+                .WithColor(Color.Red);
+            await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
     }
 }

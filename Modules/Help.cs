@@ -23,9 +23,10 @@ namespace GreenClover.Modules
             .AddField("[*kot]", Utilities.GetAlert("HELP_CATDESC"))
             .AddField("[*pies]", Utilities.GetAlert("HELP_DOGDESC"))
             .AddField("[*google]", Utilities.GetAlert("HELP_GOOGLEDESC"))
+            .AddField("[*szukaj]", Utilities.GetAlert("HELP_YOUTUBEDESC"))
             .WithColor(new Color(90, 50, 165));
 
-            await Context.Channel.SendMessageAsync(" ", false, builder.Build());
+            await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
     }
 }
