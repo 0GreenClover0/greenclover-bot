@@ -41,6 +41,8 @@ namespace GreenClover
             return GetFormattedAlert(key, new object[] { parameter });
         }
 
+        // podstawowe funkcje dla pliku Jsona do wyciągania wartości
+
         public static string GetRandomLine(string path)
         {
             var lines = File.ReadAllLines(path);
@@ -53,7 +55,7 @@ namespace GreenClover
         public static string GetGoogleUrl(string query, string second, string third, string fourth, string fifth)
         {
             query = query + " " + second + " " + third + " " + fourth + " " + fifth;
-
+            // Ponieważ customSearchService.Cse.List potrzebuje stringa, to do
             string apiKey = Config.bot.apiKey;
             string searchEngineId = Config.bot.searchEngineId;
 
@@ -67,8 +69,10 @@ namespace GreenClover
 
             if (paging != null)
             {
-                var test = paging[0];
-                return $"Tytuł: {test.Title} Link: {test.Link}";
+                var link = paging[0];
+                return $"Tytuł: {link.Title} Link: {link.Link}";
+                // Można też zrobić tak jak w funkcji GetYoutube (czyli uzyć foreach i dostać więcej wyników),
+                // which will give you more than one result
             }
             else if (paging == null)
                 return "Błąd - nie znaleziono wyników";
@@ -79,10 +83,12 @@ namespace GreenClover
         public static List<string> GetYoutube(string query, string second, string third, string fourth, string fifth)
         {
             query = query + " " + second + " " + third + " " + fourth + " " + fifth;
+            // ponieważ SearchListRequest.Q potrzebuje stringa...
+            // może da się to jakoś obejść? ToDo
             var youtubeService = new YouTubeService(new BaseClientService.Initializer()
             {
                 ApiKey = Config.bot.apiKey,
-                ApplicationName = "test"
+                ApplicationName = "DiscordBot"
             });
             var SearchListRequest = youtubeService.Search.List("snippet");
             SearchListRequest.Q = query;
@@ -95,7 +101,7 @@ namespace GreenClover
             List<string> channels = new List<string>();
             List<string> playlists = new List<string>();
 
-            // Also you can use searchResult.Id.VideoId to get ID of the video (obvious)
+            // w pętli niżej można też użyć searchResult.Id.VideoId aby dostać id każdego filmu
 
             int count = 1;
             foreach (var searchResult in searchListResponse.Items)
@@ -107,14 +113,16 @@ namespace GreenClover
                         count++;
                         break;
 
-                    /*case "youtube#channel":
+                        /*
+                    case "youtube#channel":
                         channels.Add(String.Format("{0}", searchResult.Snippet.Title));
                         break;
 
                     case "youtube#playlist":
                         playlists.Add(String.Format("{0}", searchResult.Snippet.Title));
                         break;
-                   */
+                        */
+                        // Można rónież szukać kanałów i playlisty, jednak trzeba pozmieniać kilka rzeczy oprócz tych caseów wyżej
                 }
             }
             return videos;

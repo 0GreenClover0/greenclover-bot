@@ -10,20 +10,23 @@ namespace GreenClover.Modules
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
-        Random rnd = new Random();
-
         [Command("przytul")]
         public async Task HugAsync([Remainder]string arg = "")
         {
             string authorName = Context.User.Username;
+            string key = "HUG_&AUTHORNAME_&TARGETID";
 
             SocketUser target = null;
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             target = mentionedUser ?? Context.User;
 
-            EmbedBuilder builder = new EmbedBuilder()
-            .WithDescription(Utilities.GetFormattedAlert("HUG_&AUTHORNAME_&TARGETID", authorName, target.Id))
-            .WithImageUrl(Utilities.GetAlert("HUG_IMAGE1"));
+            if(target.Id == Context.Message.Author.Id)
+                key = "HUG_&AUTHORNAME";
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithDescription(Utilities.GetFormattedAlert(key, authorName, target.Id))
+                .WithImageUrl(Utilities.GetRandomLine("Texts/hugGif.txt"));
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
@@ -54,26 +57,11 @@ namespace GreenClover.Modules
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder
-            .WithDescription(":womens: | **Wyślij sms'a o treści 69 na mój numer aby dostać więcej**")
-            .WithImageUrl("http://fakty.dinoanimals.pl/wp-content/uploads/2014/04/Nosacz3.jpg")
-            .WithColor(Color.DarkRed);
+                .WithDescription(":womens: | **Wyślij sms'a o treści 69 na mój numer aby dostać więcej**")
+                .WithImageUrl("http://fakty.dinoanimals.pl/wp-content/uploads/2014/04/Nosacz3.jpg")
+                .WithColor(Color.DarkRed);
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
-        }
-
-        [Command("witaj")]
-        public async Task HelloAsync()
-        {
-            int randChoose = rnd.Next(1, 4);
-
-            if (randChoose == 1)
-                await Context.Channel.SendMessageAsync("witaj");
-
-            if (randChoose == 2)
-                await Context.Channel.SendMessageAsync("cześć");
-
-            if (randChoose == 3)
-                await Context.Channel.SendMessageAsync("siema");
         }
 
         [Command("shop")]
@@ -100,20 +88,25 @@ namespace GreenClover.Modules
         [Command("ban")]
         [RequireUserPermission(GuildPermission.BanMembers)]
         [RequireBotPermission(GuildPermission.BanMembers)]
-        public async Task CovertAsync(IGuildUser user, string reason = "Powód nie został podany")
+        public async Task BanAsync(IGuildUser user, string reason = "Nie podano powodu")
         {
             SocketUser target = null;
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             target = mentionedUser ?? Context.User;
+            var dmChannel = await target.GetOrCreateDMChannelAsync();
 
             if (target.Id == 371332977428398081)
             {
+                await dmChannel.SendMessageAsync(Utilities.GetFormattedAlert("BAN_USERMESSAGE",
+                    Context.Guild.Name, Context.Message.Author.Username, "Nie banuje się Mistrza."));
                 await user.Guild.AddBanAsync(Context.Message.Author, 0, reason);
                 await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("BAN", Context.Message.Author.Id));
             }
 
             else
             {
+                await dmChannel.SendMessageAsync(Utilities.GetFormattedAlert("BAN_USERMESSAGE",
+                    Context.Guild.Name, Context.Message.Author.Username, reason));
                 await user.Guild.AddBanAsync(user, 0, reason);
                 await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("BAN", target.Id));
             }
@@ -135,7 +128,7 @@ namespace GreenClover.Modules
             await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
 
-        [Command("cat")]
+        [Command("kot")]
         public async Task CatAsync()
         {
             Random r = new Random();
@@ -148,7 +141,7 @@ namespace GreenClover.Modules
             await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
 
-        [Command("dog")]
+        [Command("pies")]
         public async Task DogAsync()
         {
             Random r = new Random();
@@ -177,7 +170,7 @@ namespace GreenClover.Modules
             await Context.Channel.SendMessageAsync(Utilities.GetGoogleUrl(query, second, third, fourth, fifth));
         }
 
-        [Command("youtube")]
+        [Command("search")]
         public async Task YoutubeAsync(string query, string second = "", string third = "", string fourth = "", string fifth = "")
         {
             var videos = Utilities.GetYoutube(query, second, third, fourth, fifth);
