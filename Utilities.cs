@@ -6,7 +6,10 @@ using Google.Apis.Customsearch.v1;
 using Google.Apis.Services;
 using Google.Apis.Customsearch.v1.Data;
 using Google.Apis.YouTube.v3;
-
+using SharpLink;
+using System.Linq;
+using System.Threading.Tasks;
+using Discord;
 
 namespace GreenClover
 {
@@ -52,9 +55,8 @@ namespace GreenClover
             return line;
         }
 
-        public static string GetGoogleUrl(string query, string second, string third, string fourth, string fifth)
+        public static string GetGoogleUrl(string query)
         {
-            query = query + " " + second + " " + third + " " + fourth + " " + fifth;
             // Ponieważ customSearchService.Cse.List potrzebuje stringa, to do
             string apiKey = Config.bot.apiKey;
             string searchEngineId = Config.bot.searchEngineId;
@@ -78,54 +80,6 @@ namespace GreenClover
                 return "Błąd - nie znaleziono wyników";
             else
                 return "Nieznany błąd";
-        }
-
-        public static List<string> GetYoutube(string query, string second, string third, string fourth, string fifth)
-        {
-            query = query + " " + second + " " + third + " " + fourth + " " + fifth;
-            // ponieważ SearchListRequest.Q potrzebuje stringa...
-            // może da się to jakoś obejść? ToDo
-            var youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            {
-                ApiKey = Config.bot.apiKey,
-                ApplicationName = "DiscordBot"
-            });
-            var SearchListRequest = youtubeService.Search.List("snippet");
-            SearchListRequest.Q = query;
-            SearchListRequest.Type = "video";
-            SearchListRequest.MaxResults = 10;
-
-            var searchListResponse = SearchListRequest.Execute();
-
-            List<string> videos = new List<string>();
-            List<string> channels = new List<string>();
-            List<string> playlists = new List<string>();
-
-            // w pętli niżej można też użyć searchResult.Id.VideoId aby dostać id każdego filmu
-
-            int count = 1;
-            foreach (var searchResult in searchListResponse.Items)
-            {
-                switch (searchResult.Id.Kind)
-                {
-                    case "youtube#video":
-                        videos.Add(String.Format("`{0}`. {1} \n", count, searchResult.Snippet.Title));
-                        count++;
-                        break;
-
-                        /*
-                    case "youtube#channel":
-                        channels.Add(String.Format("{0}", searchResult.Snippet.Title));
-                        break;
-
-                    case "youtube#playlist":
-                        playlists.Add(String.Format("{0}", searchResult.Snippet.Title));
-                        break;
-                        */
-                        // Można rónież szukać kanałów i playlisty, jednak trzeba pozmieniać kilka rzeczy oprócz tych caseów wyżej
-                }
-            }
-            return videos;
         }
     }
 }

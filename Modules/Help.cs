@@ -28,5 +28,11 @@ namespace GreenClover.Modules
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
+
+        [Command("powiedz mi coś o sobie")]
+        public async Task AboutAsync()
+        {
+            await Context.Channel.SendMessageAsync("Jestem tutaj aby wykonywać twoje polecenia, na tyle, ile potrafię :)");
+        }
     }
 }

@@ -6,10 +6,12 @@ using Discord.Commands;
 using Discord.WebSocket;
 
 namespace GreenClover.Modules
-
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
+        // Czy return jest potrzebne i czy w ogóle coś robi na końcu komendy/funkcji?
+        // W sensie dodałem na wszelki wypadek xd bo wcześniej działało bez
+
         [Command("przytul")]
         public async Task HugAsync([Remainder]string arg = "")
         {
@@ -29,6 +31,7 @@ namespace GreenClover.Modules
                 .WithImageUrl(Utilities.GetRandomLine("Texts/hugGif.txt"));
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
+            return;
         }
 
         [Command("ping")]
@@ -37,6 +40,19 @@ namespace GreenClover.Modules
         {
             int latency = Context.Client.Latency;
             await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("PING", latency));
+
+            System.Collections.Generic.IReadOnlyCollection<Discord.Rest.RestInviteMetadata> invites = await Context.Guild.GetInvitesAsync();
+            if (invites.Select(x => x.Url).FirstOrDefault() != null)
+            {
+                Console.WriteLine(invites);
+                Console.WriteLine(invites.Select(x => x.Url).FirstOrDefault());
+                return;
+            }
+            else
+            {
+                Console.WriteLine($"Na tym serwerze {Context.Guild.Id}, {Context.Guild.Name} nie ma żadnych zaproszeń");
+                return;
+            }
         }
 
         [Command("kim jestem")]
@@ -62,6 +78,7 @@ namespace GreenClover.Modules
                 .WithColor(Color.DarkRed);
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
+            return;
         }
 
         [Command("shop")]
@@ -72,6 +89,7 @@ namespace GreenClover.Modules
                 .WithImageUrl("https://cdn.discordapp.com/attachments/412190473042657280/467989946599342080/bxKSjhxFL2U.png");
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
+            return;
         }
 
         [Command("wybierz")]
@@ -79,10 +97,11 @@ namespace GreenClover.Modules
         {
             string[] options = message.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
 
-            Random random = new Random();
-            string selection = options[random.Next(0, options.Length)];
+            Random r = new Random();
+            string selection = options[r.Next(0, options.Length)];
 
             await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("CHOOSE", selection));
+            return;
         }
 
         [Command("ban")]
@@ -101,6 +120,7 @@ namespace GreenClover.Modules
                     Context.Guild.Name, Context.Message.Author.Username, "Nie banuje się Mistrza."));
                 await user.Guild.AddBanAsync(Context.Message.Author, 0, reason);
                 await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("BAN", Context.Message.Author.Id));
+                return;
             }
 
             else
@@ -109,6 +129,7 @@ namespace GreenClover.Modules
                     Context.Guild.Name, Context.Message.Author.Username, reason));
                 await user.Guild.AddBanAsync(user, 0, reason);
                 await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("BAN", target.Id));
+                return;
             }
         }
 
@@ -116,6 +137,7 @@ namespace GreenClover.Modules
         public async Task VersionAsync()
         {
             await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("VERSION"));
+            return;
         }
 
         [Command("gra")]
@@ -126,6 +148,7 @@ namespace GreenClover.Modules
                 .WithImageUrl(Utilities.GetRandomLine("Texts/gameGif.txt"));
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
+            return;
         }
 
         [Command("kot")]
@@ -139,6 +162,7 @@ namespace GreenClover.Modules
                 .WithImageUrl($"https://www.catgifpage.com/gifs/{random}.gif");
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
+            return;
         }
 
         [Command("pies")]
@@ -152,6 +176,7 @@ namespace GreenClover.Modules
                 .WithImageUrl($"https://www.what-dog.net/Images/faces2/scroll00{random}.jpg");
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
+            return;
         }
 
         [Command("eggplant")]
@@ -162,18 +187,22 @@ namespace GreenClover.Modules
                 .WithImageUrl(Utilities.GetAlert("EGGPLANTIMG"));
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
+            return;
         }
 
         [Command("google")]
-        public async Task GoogleAsync(string query, string second = "", string third = "", string fourth = "", string fifth = "")
+        public async Task GoogleAsync([Remainder] string query = null)
         {
-            await Context.Channel.SendMessageAsync(Utilities.GetGoogleUrl(query, second, third, fourth, fifth));
+            if (query == null)
+                await Context.Channel.SendMessageAsync("Słucham");
+            await Context.Channel.SendMessageAsync(Utilities.GetGoogleUrl(query));
+            return;
         }
 
         [Command("search")]
-        public async Task YoutubeAsync(string query, string second = "", string third = "", string fourth = "", string fifth = "")
+        public async Task YoutubeAsync([Remainder] string query = "")
         {
-            var videos = Utilities.GetYoutube(query, second, third, fourth, fifth);
+            var videos = AudioService.GetYoutube(query);
             string authorImgUrl = Context.Message.Author.GetAvatarUrl();
 
             EmbedBuilder builder = new EmbedBuilder();
@@ -184,6 +213,15 @@ namespace GreenClover.Modules
                 .WithDescription(String.Format("{0}", string.Join("\n", videos)))
                 .WithColor(Color.Red);
             await Context.Channel.SendMessageAsync("", false, builder.Build());
+            return;
+        }
+
+        [Command("test")]
+        public async Task TestAsync()
+        {
+            Random r = new Random();
+            int random = r.Next(0, 3);
+            await Context.Channel.SendMessageAsync($"{random}");
         }
     }
 }
