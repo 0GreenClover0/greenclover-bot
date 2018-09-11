@@ -6,33 +6,39 @@ namespace GreenClover.Modules
 {
     public class Help : ModuleBase<SocketCommandContext>
     {
-        [Command("pomoc")]
-        public async Task HelpAsync()
+        [Command("help")]
+        [Alias("pomoc")]
+        public async Task HelpAsync([Remainder] string msg = "")
         {
+            string avatarUrl = Context.Client.CurrentUser.GetAvatarUrl();
+
+            if (msg == "ping")
+            {
+                EmbedBuilder builderPing = new EmbedBuilder();
+                builderPing
+                .WithAuthor("Komenda Ping", avatarUrl)
+                .AddField(" - Pomoc - ", "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~")
+                .AddField("[*ping]", Utilities.GetAlert("HELP_PINGDESC"))
+                .WithColor(new Color(90, 50, 165));
+
+                await Context.Channel.SendMessageAsync("", false, builderPing.Build());
+                return;
+            }
+
             EmbedBuilder builder = new EmbedBuilder();
 
             builder
-            .AddField("- GreenClover - pomoc", "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~")
+            .WithAuthor("Paulinka", avatarUrl)
+            .AddField(" - Pomoc - ", "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~")
             .AddField("Komendy", Utilities.GetAlert("HELP_COMMANDS"))
             .AddField("Prefix", Utilities.GetAlert("HELP_PREFIX"))
-            .AddField("[*ping]", Utilities.GetAlert("HELP_PINGDESC"))
-            .AddField("[*profil]", Utilities.GetAlert("HELP_PROFILEDESC"))
-            .AddField("[*przytul]", Utilities.GetAlert("HELP_HUGDESC"))
-            .AddField("[*wybierz]", Utilities.GetAlert("HELP_CHOOSEDESC"))
-            .AddField("[*gra]", Utilities.GetAlert("HELP_GAMEDESC"))
-            .AddField("[*kot]", Utilities.GetAlert("HELP_CATDESC"))
-            .AddField("[*pies]", Utilities.GetAlert("HELP_DOGDESC"))
-            .AddField("[*google]", Utilities.GetAlert("HELP_GOOGLEDESC"))
-            .AddField("[*szukaj]", Utilities.GetAlert("HELP_YOUTUBEDESC"))
+            .AddField("Zabawa", Utilities.GetAlert("HELP_FUN"))
+            .AddField("Muzyka", Utilities.GetAlert("HELP_AUDIO"))
+            .AddField("Google", Utilities.GetAlert("HELP_GOOGLE"))
+            .AddField("Systemowe", Utilities.GetAlert("HELP_SYSTEM"))
             .WithColor(new Color(90, 50, 165));
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
-        }
-
-        [Command("powiedz mi coś o sobie")]
-        public async Task AboutAsync()
-        {
-            await Context.Channel.SendMessageAsync("Jestem tutaj aby wykonywać twoje polecenia, na tyle, ile potrafię :)");
         }
     }
 }

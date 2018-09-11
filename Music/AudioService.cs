@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord;
+using Discord.WebSocket;
 using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using SharpLink;
@@ -11,12 +12,46 @@ namespace GreenClover
 {
     class AudioService
     {
+        private static DiscordSocketClient _client = new DiscordSocketClient();
+
+        public static LavalinkManager lavalinkManager = new LavalinkManager(_client, new LavalinkManagerConfig()
+        {
+            RESTHost = "localhost",
+            RESTPort = 2333,
+            WebSocketHost = "localhost",
+            WebSocketPort = 80,
+            Authorization = "youshallnotpass",
+            TotalShards = 1,
+            LogSeverity = LogSeverity.Verbose
+        });
+
         public async static Task PlayAsync(ulong guildId, IVoiceChannel voiceChannel, string song)
         {
-            LavalinkPlayer player = Program._lavalinkManager.GetPlayer(guildId) ?? await Program._lavalinkManager.JoinAsync(voiceChannel);
-            LoadTracksResponse response = await Program._lavalinkManager.GetTracksAsync(song);
+            LavalinkPlayer player = lavalinkManager.GetPlayer(guildId) ?? await lavalinkManager.JoinAsync(voiceChannel);
+            LoadTracksResponse response = await lavalinkManager.GetTracksAsync(song);
             LavalinkTrack track = response.Tracks.First();
+            await player.ResumeAsync();
             await player.PlayAsync(track);
+        }
+
+        public async static Task LeaveAsync(ulong guildId)
+        {
+            await lavalinkManager.LeaveAsync(guildId);
+        }
+
+        public async static Task StopAsync(ulong guildId)
+        {
+            LavalinkPlayer player = lavalinkManager.GetPlayer(guildId);
+            await player.PauseAsync();
+        }
+
+        public async static Task LoopAsync(ulong guildId)
+        {
+            LavalinkPlayer player = lavalinkManager.GetPlayer(guildId);
+            {
+                if (player.Playing == false)
+                    await player.PlayAsync(player.CurrentTrack);
+            } 
         }
 
         public static List<string> GetYoutube(string query)
@@ -66,6 +101,7 @@ namespace GreenClover
             }
             string[] options = videoId.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
             string selection = options[1];
+
             return videos;
         }
     }

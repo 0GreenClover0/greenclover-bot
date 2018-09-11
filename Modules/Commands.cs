@@ -11,8 +11,11 @@ namespace GreenClover.Modules
     {
         // Czy return jest potrzebne i czy w ogóle coś robi na końcu komendy/funkcji?
         // W sensie dodałem na wszelki wypadek xd bo wcześniej działało bez
+        // Prawdopodobnie nie jest potrzebne
+        // avatar: Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl()
 
-        [Command("przytul")]
+        [Command("hug")]
+        [Alias("przytul")]
         public async Task HugAsync([Remainder]string arg = "")
         {
             string authorName = Context.User.Username;
@@ -92,7 +95,8 @@ namespace GreenClover.Modules
             return;
         }
 
-        [Command("wybierz")]
+        [Command("choose")]
+        [Alias("wybierz")]
         public async Task ChooseAsync([Remainder]string message)
         {
             string[] options = message.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
@@ -134,13 +138,15 @@ namespace GreenClover.Modules
         }
 
         [Command("version")]
+        [Alias("wersja")]
         public async Task VersionAsync()
         {
             await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("VERSION"));
             return;
         }
 
-        [Command("gra")]
+        [Command("game")]
+        [Alias("gra")]
         public async Task GameAsync()
         {
             EmbedBuilder builder = new EmbedBuilder();
@@ -151,7 +157,8 @@ namespace GreenClover.Modules
             return;
         }
 
-        [Command("kot")]
+        [Command("cat")]
+        [Alias("kot")]
         public async Task CatAsync()
         {
             Random r = new Random();
@@ -165,7 +172,8 @@ namespace GreenClover.Modules
             return;
         }
 
-        [Command("pies")]
+        [Command("dog")]
+        [Alias("pies")]
         public async Task DogAsync()
         {
             Random r = new Random();
@@ -197,31 +205,12 @@ namespace GreenClover.Modules
                 await Context.Channel.SendMessageAsync("Słucham");
             await Context.Channel.SendMessageAsync(Utilities.GetGoogleUrl(query));
             return;
-        }
-
-        [Command("search")]
-        public async Task YoutubeAsync([Remainder] string query = "")
-        {
-            var videos = AudioService.GetYoutube(query);
-            string authorImgUrl = Context.Message.Author.GetAvatarUrl();
-
-            EmbedBuilder builder = new EmbedBuilder();
-            builder
-                .WithAuthor(Context.Message.Author.Username)
-                .WithThumbnailUrl(authorImgUrl)
-                .WithTitle(Utilities.GetAlert("YOUTUBE_FILMEMBED"))
-                .WithDescription(String.Format("{0}", string.Join("\n", videos)))
-                .WithColor(Color.Red);
-            await Context.Channel.SendMessageAsync("", false, builder.Build());
-            return;
-        }
+        }   
 
         [Command("test")]
         public async Task TestAsync()
         {
-            Random r = new Random();
-            int random = r.Next(0, 3);
-            await Context.Channel.SendMessageAsync($"{random}");
+            await Context.Channel.SendMessageAsync("To testowa komenda");
         }
     }
 }

@@ -10,7 +10,7 @@ namespace GreenClover.Modules
         public async Task ProfileAsync()
         {
             EmbedBuilder builder = new EmbedBuilder();
-
+            
              builder
             .WithThumbnailUrl($"https://cdn.discordapp.com/avatars/{Context.User.Id}/{Context.User.AvatarId}.png")
             .WithDescription($"Profil użytkownika: **{Context.User.Username}**")

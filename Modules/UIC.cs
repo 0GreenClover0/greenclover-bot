@@ -15,7 +15,7 @@ namespace GreenClover.Modules
                 int random = r.Next(1, 3);
 
                 if (random == 1)
-                    await Context.Channel.SendMessageAsync("Słucham?");
+                    await Context.Channel.SendMessageAsync("Słucham?", true);
 
                 if (random == 2)
                     await Context.Channel.SendMessageAsync("?");

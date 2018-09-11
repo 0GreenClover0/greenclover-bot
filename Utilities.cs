@@ -5,11 +5,6 @@ using Newtonsoft.Json;
 using Google.Apis.Customsearch.v1;
 using Google.Apis.Services;
 using Google.Apis.Customsearch.v1.Data;
-using Google.Apis.YouTube.v3;
-using SharpLink;
-using System.Linq;
-using System.Threading.Tasks;
-using Discord;
 
 namespace GreenClover
 {
@@ -74,7 +69,6 @@ namespace GreenClover
                 var link = paging[0];
                 return $"Tytuł: {link.Title} Link: {link.Link}";
                 // Można też zrobić tak jak w funkcji GetYoutube (czyli uzyć foreach i dostać więcej wyników),
-                // which will give you more than one result
             }
             else if (paging == null)
                 return "Błąd - nie znaleziono wyników";

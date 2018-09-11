@@ -11,20 +11,8 @@ namespace GreenClover
         static void Main(string[] args)
             => new Program().RunBotAsync().GetAwaiter().GetResult();
 
-        private static DiscordSocketClient _client = new DiscordSocketClient();
-        private CommandHandler _handler;
-        private AudioService _audioService;
-
-        public static LavalinkManager _lavalinkManager = new LavalinkManager(_client, new LavalinkManagerConfig()
-        {
-            RESTHost = "localhost",
-            RESTPort = 2333,
-            WebSocketHost = "localhost",
-            WebSocketPort = 80,
-            Authorization = "youshallnotpass",
-            TotalShards = 1,
-            LogSeverity = LogSeverity.Debug
-        });
+        DiscordSocketClient _client;
+        CommandHandler _handler;
 
         public async Task RunBotAsync()
         {
@@ -35,7 +23,7 @@ namespace GreenClover
                 LogLevel = LogSeverity.Verbose
             });
 
-            _lavalinkManager = new LavalinkManager(_client, new LavalinkManagerConfig()
+            AudioService.lavalinkManager = new LavalinkManager(_client, new LavalinkManagerConfig()
             {
                 RESTHost = "localhost",
                 RESTPort = 2333,
@@ -43,22 +31,22 @@ namespace GreenClover
                 WebSocketPort = 80,
                 Authorization = "youshallnotpass",
                 TotalShards = 1,
-                LogSeverity = LogSeverity.Debug
+                LogSeverity = LogSeverity.Verbose
             });
 
-            _client.Log += Log;
             await _client.LoginAsync(TokenType.Bot, Config.bot.token);
             await _client.StartAsync();
-
             _handler = new CommandHandler();
             await _handler.InitializeAsync(_client);
-            _client.UserJoined += AnnounceUserJoined;
             
             _client.Ready += async () =>
             {
-                await _lavalinkManager.StartAsync();
+                await AudioService.lavalinkManager.StartAsync();
             };
-            _lavalinkManager.Log += message =>
+
+            _client.Log += Log;
+            _client.UserJoined += AnnounceUserJoined;
+            AudioService.lavalinkManager.Log += message =>
             {
                 Console.WriteLine(message);
                 return Task.CompletedTask;
