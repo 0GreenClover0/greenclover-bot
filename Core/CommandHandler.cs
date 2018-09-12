@@ -9,9 +9,9 @@ namespace GreenClover
 {
     class CommandHandler
     {
-        DiscordSocketClient _client;
-        CommandService _commands;
-        IServiceProvider _services;
+        private DiscordSocketClient _client;
+        private CommandService _commands;
+        private IServiceProvider _services;
 
         public async Task InitializeAsync(DiscordSocketClient client)
         {

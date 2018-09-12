@@ -36,7 +36,7 @@ namespace GreenClover.Music
                 return;
             }
 
-            var videos = AudioService.GetYoutube(query);
+            var videos = AudioService.GetYoutubeAsync(query, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel);
             string authorImgUrl = Context.Message.Author.GetAvatarUrl();
 
             EmbedBuilder builder = new EmbedBuilder();

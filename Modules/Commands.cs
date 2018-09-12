@@ -25,8 +25,10 @@ namespace GreenClover.Modules
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             target = mentionedUser ?? Context.User;
 
-            if(target.Id == Context.Message.Author.Id)
+            if (target.Id == Context.Message.Author.Id)
+            {
                 key = "HUG_&AUTHORNAME";
+            }
 
             EmbedBuilder builder = new EmbedBuilder();
             builder
@@ -45,12 +47,14 @@ namespace GreenClover.Modules
             await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("PING", latency));
 
             System.Collections.Generic.IReadOnlyCollection<Discord.Rest.RestInviteMetadata> invites = await Context.Guild.GetInvitesAsync();
+
             if (invites.Select(x => x.Url).FirstOrDefault() != null)
             {
                 Console.WriteLine(invites);
                 Console.WriteLine(invites.Select(x => x.Url).FirstOrDefault());
                 return;
             }
+
             else
             {
                 Console.WriteLine($"Na tym serwerze {Context.Guild.Id}, {Context.Guild.Name} nie ma żadnych zaproszeń");
@@ -62,13 +66,19 @@ namespace GreenClover.Modules
         public async Task WhoAmIAsync()
         {
             if (Context.User.Id == 375300562893275138)
+            {
                 await Context.Channel.SendMessageAsync($"{Context.User.Username} jest najlepsza");
+            }
 
             else if (Context.User.Id == 259435378878971927)
+            {
                 await Context.Channel.SendMessageAsync($"{Context.User.Username} to lamus!");
+            }
 
             else if (Context.User.Id == 371332977428398081)
+            {
                 await Context.Channel.SendMessageAsync($"{Context.User.Username} jest najbogatszy!");
+            }
         }
 
         [Command("send nudes")]
@@ -198,19 +208,14 @@ namespace GreenClover.Modules
             return;
         }
 
-        [Command("google")]
-        public async Task GoogleAsync([Remainder] string query = null)
-        {
-            if (query == null)
-                await Context.Channel.SendMessageAsync("Słucham");
-            await Context.Channel.SendMessageAsync(Utilities.GetGoogleUrl(query));
-            return;
-        }   
-
-        [Command("test")]
+        [Command("dobranoc")]
         public async Task TestAsync()
         {
-            await Context.Channel.SendMessageAsync("To testowa komenda");
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithImageUrl("http://thuglifememe.com/wp-content/uploads/2018/05/Funny-goodnight-memes-14.jpg");
+
+            await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
     }
 }

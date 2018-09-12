@@ -11,8 +11,8 @@ namespace GreenClover
         static void Main(string[] args)
             => new Program().RunBotAsync().GetAwaiter().GetResult();
 
-        DiscordSocketClient _client;
-        CommandHandler _handler;
+        private DiscordSocketClient _client;
+        private CommandHandler _handler;
 
         public async Task RunBotAsync()
         {
@@ -34,16 +34,26 @@ namespace GreenClover
                 LogSeverity = LogSeverity.Verbose
             });
 
+            await InitializationClient();
+            await InitializationLogs();
+
+            await Task.Delay(-1);
+        }
+
+        private async Task InitializationClient()
+        {
             await _client.LoginAsync(TokenType.Bot, Config.bot.token);
             await _client.StartAsync();
             _handler = new CommandHandler();
             await _handler.InitializeAsync(_client);
-            
             _client.Ready += async () =>
             {
                 await AudioService.lavalinkManager.StartAsync();
             };
+        }
 
+        private async Task InitializationLogs()
+        {
             _client.Log += Log;
             _client.UserJoined += AnnounceUserJoined;
             AudioService.lavalinkManager.Log += message =>
@@ -51,8 +61,6 @@ namespace GreenClover
                 Console.WriteLine(message);
                 return Task.CompletedTask;
             };
-
-            await Task.Delay(-1);
         }
 
         private async Task AnnounceUserJoined(SocketGuildUser user)

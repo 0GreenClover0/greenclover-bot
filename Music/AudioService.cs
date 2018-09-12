@@ -13,7 +13,6 @@ namespace GreenClover
     class AudioService
     {
         private static DiscordSocketClient _client = new DiscordSocketClient();
-
         public static LavalinkManager lavalinkManager = new LavalinkManager(_client, new LavalinkManagerConfig()
         {
             RESTHost = "localhost",
@@ -49,12 +48,12 @@ namespace GreenClover
         {
             LavalinkPlayer player = lavalinkManager.GetPlayer(guildId);
             {
-                if (player.Playing == false)
-                    await player.PlayAsync(player.CurrentTrack);
+                LavalinkTrack track = player.CurrentTrack;
+                await player.PlayAsync(track);
             } 
         }
 
-        public static List<string> GetYoutube(string query)
+        public static List<string> GetYoutubeAsync(string query, ulong guildId, IVoiceChannel voiceChannel)
         {
             var youtubeService = new YouTubeService(new BaseClientService.Initializer()
             {
