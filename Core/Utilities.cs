@@ -54,6 +54,7 @@ namespace GreenClover
             return line;
         }
 
+        // Pobieranie zaproszeń danego serwera
         public static async Task GetInvites(SocketCommandContext context)
         {
             var invites = await context.Guild.GetInvitesAsync();

@@ -13,6 +13,7 @@
   "HELP_DESCGAME": "Pokazuje losowy ciekawy gif/screen o tematyce gier ( ͡° ͜ʖ ͡°)",
   "HELP_DESCGOOGLE": "Pozwala ci wyszukać różne rzeczy, przyjmuje do 5 wyrazów",
   "HELP_DESCHUG": "Dotknij kogoś obiema rękami",
+  "HELP_DESCIMAGE": "Wyszukuje obraz w wyszukiwarce Google i zwraca pierwszy z rzędu",
   "HELP_DESCLEAVE": "Bot opuszcza kanał głosowy",
   "HELP_DESCLOOP": "Zapętla grany aktualnie utwór lub wskazany utwór",
   "HELP_DESCPING": "Sprawdź jak bardzo dzisiaj się spóźniam",
@@ -28,12 +29,12 @@
   "HELP_LISTMOD": "`ban`",
   "HELP_LISTPROFILE": "`profile`",
   "HELP_LISTSYSTEM": "`ping`, `version`",
-  "HELP_PREFIX": "Domyślny prefix to: *****",
 
+  "HELP_PREFIX": "Domyślny prefix to: *****",
   "HUG_&AUTHORNAME": "**{0}** przytula samego siebie! :3",
   "HUG_&AUTHORNAME_&TARGETID": "**{0}** przytula <@{1}> :3",
   "PING": "Ping. Ha! Tego się nie spodziewałeś. **{0}ms**",
-  "VERSION": "GreenClovBot version: 0.13",
+  "VERSION": "GreenClovBot version: 0.135",
   "WELCOME": "Witaj, {0}",
   "YOUTUBE_FILMEMBED": "Filmy"
 }
