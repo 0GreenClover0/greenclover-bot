@@ -45,40 +45,7 @@ namespace GreenClover.Modules
         {
             int latency = Context.Client.Latency;
             await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("PING", latency));
-
-            System.Collections.Generic.IReadOnlyCollection<Discord.Rest.RestInviteMetadata> invites = await Context.Guild.GetInvitesAsync();
-
-            if (invites.Select(x => x.Url).FirstOrDefault() != null)
-            {
-                Console.WriteLine(invites);
-                Console.WriteLine(invites.Select(x => x.Url).FirstOrDefault());
-                return;
-            }
-
-            else
-            {
-                Console.WriteLine($"Na tym serwerze {Context.Guild.Id}, {Context.Guild.Name} nie ma żadnych zaproszeń");
-                return;
-            }
-        }
-
-        [Command("kim jestem")]
-        public async Task WhoAmIAsync()
-        {
-            if (Context.User.Id == 375300562893275138)
-            {
-                await Context.Channel.SendMessageAsync($"{Context.User.Username} jest najlepsza");
-            }
-
-            else if (Context.User.Id == 259435378878971927)
-            {
-                await Context.Channel.SendMessageAsync($"{Context.User.Username} to lamus!");
-            }
-
-            else if (Context.User.Id == 371332977428398081)
-            {
-                await Context.Channel.SendMessageAsync($"{Context.User.Username} jest najbogatszy!");
-            }
+            return;
         }
 
         [Command("send nudes")]
@@ -94,21 +61,14 @@ namespace GreenClover.Modules
             return;
         }
 
-        [Command("shop")]
-        public async Task ShopAsync()
-        {
-            EmbedBuilder builder = new EmbedBuilder();
-            builder
-                .WithImageUrl("https://cdn.discordapp.com/attachments/412190473042657280/467989946599342080/bxKSjhxFL2U.png");
-
-            await Context.Channel.SendMessageAsync("", false, builder.Build());
-            return;
-        }
-
         [Command("choose")]
         [Alias("wybierz")]
-        public async Task ChooseAsync([Remainder]string message)
+        public async Task ChooseAsync([Remainder]string message = "")
         {
+            if (message == "")
+            {
+                await Context.Channel.SendMessageAsync("Zbyt mały wybór");
+            }
             string[] options = message.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
 
             Random r = new Random();
@@ -121,22 +81,24 @@ namespace GreenClover.Modules
         [Command("ban")]
         [RequireUserPermission(GuildPermission.BanMembers)]
         [RequireBotPermission(GuildPermission.BanMembers)]
-        public async Task BanAsync(IGuildUser user, string reason = "Nie podano powodu")
+        public async Task BanAsync(IGuildUser user, [Remainder] string reason = "Nie podano powodu")
         {
-            SocketUser target = null;
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
-            target = mentionedUser ?? Context.User;
-            var dmChannel = await target.GetOrCreateDMChannelAsync();
-
-            if (target.Id == 371332977428398081)
+            if (mentionedUser == null)
             {
-                await dmChannel.SendMessageAsync(Utilities.GetFormattedAlert("BAN_USERMESSAGE",
-                    Context.Guild.Name, Context.Message.Author.Username, "Nie banuje się Mistrza."));
-                await user.Guild.AddBanAsync(Context.Message.Author, 0, reason);
-                await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("BAN", Context.Message.Author.Id));
+                await Context.Channel.SendMessageAsync("Nie oznaczono użytkownika do zbanowania");
                 return;
             }
 
+            SocketUser target = null;
+            target = mentionedUser ?? Context.User;
+            var dmChannel = await target.GetOrCreateDMChannelAsync();
+            if (target.IsBot == true)
+            {
+                await user.Guild.AddBanAsync(user, 0, reason);
+                await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("BAN", Context.Message.Author.Id));
+                return;
+            }
             else
             {
                 await dmChannel.SendMessageAsync(Utilities.GetFormattedAlert("BAN_USERMESSAGE",
@@ -202,20 +164,16 @@ namespace GreenClover.Modules
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder
-                .WithImageUrl(Utilities.GetAlert("EGGPLANTIMG"));
+                .WithImageUrl("https://cdn.discordapp.com/attachments/374222963999768578/469830447254339586/EggplantHand_Animated.gif");
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
             return;
         }
 
-        [Command("dobranoc")]
+        [Command("test")]
         public async Task TestAsync()
         {
-            EmbedBuilder builder = new EmbedBuilder();
-            builder
-                .WithImageUrl("http://thuglifememe.com/wp-content/uploads/2018/05/Funny-goodnight-memes-14.jpg");
-
-            await Context.Channel.SendMessageAsync("", false, builder.Build());
+            await Context.Channel.SendMessageAsync("");
         }
     }
 }

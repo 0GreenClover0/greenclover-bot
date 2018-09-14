@@ -24,12 +24,29 @@ namespace GreenClover
             LogSeverity = LogSeverity.Verbose
         });
 
-        public async static Task PlayAsync(ulong guildId, IVoiceChannel voiceChannel, string song)
+        public async static Task PlayAsync(ulong guildId, IVoiceChannel voiceChannel, string song, ISocketMessageChannel channel)
         {
+            if (voiceChannel == null)
+            {
+                await channel.SendMessageAsync("Nie jesteś na żadnym kanale głosowym ćwoku");
+                return;
+            }
+
             LavalinkPlayer player = lavalinkManager.GetPlayer(guildId) ?? await lavalinkManager.JoinAsync(voiceChannel);
+
+            if (song == "" && player.Playing == true)
+            {
+                await channel.SendMessageAsync("Brak nazwy/linku");
+                return;
+            }
+            else if (song == "" & player.Playing == false)
+            {
+                await player.ResumeAsync();
+                return;
+            }
+
             LoadTracksResponse response = await lavalinkManager.GetTracksAsync(song);
             LavalinkTrack track = response.Tracks.First();
-            await player.ResumeAsync();
             await player.PlayAsync(track);
         }
 
@@ -42,15 +59,6 @@ namespace GreenClover
         {
             LavalinkPlayer player = lavalinkManager.GetPlayer(guildId);
             await player.PauseAsync();
-        }
-
-        public async static Task LoopAsync(ulong guildId)
-        {
-            LavalinkPlayer player = lavalinkManager.GetPlayer(guildId);
-            {
-                LavalinkTrack track = player.CurrentTrack;
-                await player.PlayAsync(track);
-            } 
         }
 
         public static List<string> GetYoutubeAsync(string query, ulong guildId, IVoiceChannel voiceChannel)

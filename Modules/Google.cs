@@ -9,11 +9,12 @@ namespace GreenClover.Modules
         [Alias("wygoogluj", "wyszukaj")]
         public async Task GoogleAsync([Remainder] string query = "")
         {
-            if (query == "" || query == " ")
+            if (query == "")
             {
                 await Context.Channel.SendMessageAsync("Nie podano frazy do wyszukania");
+                return;
             }
-            await Context.Channel.SendMessageAsync(Utilities.GetGoogleUrl(query));
+            await Context.Channel.SendMessageAsync(GoogleService.GetGoogleUrl(query));
             return;
         }
     }

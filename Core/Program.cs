@@ -56,6 +56,8 @@ namespace GreenClover
         {
             _client.Log += Log;
             _client.UserJoined += AnnounceUserJoined;
+
+            // Logi lavalink
             AudioService.lavalinkManager.Log += message =>
             {
                 Console.WriteLine(message);
@@ -71,6 +73,7 @@ namespace GreenClover
             await channel.SendMessageAsync(Utilities.GetFormattedAlert("WELCOME", mention));  
         }
 
+        // Logi clienta
         private async Task Log(LogMessage msg)
         {
             Console.WriteLine(msg.Message);

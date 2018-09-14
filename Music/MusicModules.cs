@@ -11,20 +11,7 @@ namespace GreenClover.Music
         [Command("play", RunMode = RunMode.Async)]
         public async Task PlayAsync([Remainder] string song = "")
         {
-            if ((Context.User as IVoiceState).VoiceChannel == null)
-            {
-                await Context.Channel.SendMessageAsync("Nie jesteś na żadnym kanale głosowym ćwoku");
-                return;
-            }
-
-            if (song == "")
-            {
-                await Context.Channel.SendMessageAsync("Brak nazwy/linku");
-                return;
-            }
-
-            else
-                await AudioService.PlayAsync(Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, song);
+            await AudioService.PlayAsync(Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, song, Context.Channel);
         }
 
         [Command("search")]
@@ -60,13 +47,6 @@ namespace GreenClover.Music
         public async Task StopAsync()
         {
             await AudioService.StopAsync(Context.Guild.Id);
-        }
-
-        [Command("loop")]
-        public async Task LoopAsync()
-        {
-            await Context.Channel.SendMessageAsync("Utwór zapętlony");
-            await AudioService.LoopAsync(Context.Guild.Id);
         }
     }
 }

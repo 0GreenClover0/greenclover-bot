@@ -15,6 +15,8 @@ namespace GreenClover.Modules
 
             if (msg != "")
             {
+                // Pobieranie pierwszego wyrazu po komendzie. Tworzony jest {alertkey}, który jest potrzebny do pobrania
+                // opisu danej komendy
                 msg = msg.ToLower();
                 string[] wholeMsg = msg.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 string alertKey = wholeMsg[0].ToUpper();
@@ -26,6 +28,10 @@ namespace GreenClover.Modules
                     alertKey = "SENDNUDES";
                 }
 
+                // Pobierany jest jego opis, znajdujący się w pliku json'a pod tą samą nazwą
+                // w postaci HELP_DESC{alertKey}
+                // Jeśli wyraz ten znajduje się na liście komend tworzona jest wiadomość jej opisem
+                // Jeśli nie bot wysyła zwykłą listę komend
                 if (GlobalVar.allCommandsEng.Contains(wholeMsg[0]))
                 {
                     EmbedBuilder builderHelp = new EmbedBuilder();

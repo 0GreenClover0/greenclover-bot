@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Discord.Commands;
 using Newtonsoft.Json;
-using Google.Apis.Customsearch.v1;
-using Google.Apis.Services;
-using Google.Apis.Customsearch.v1.Data;
 
 namespace GreenClover
 {
@@ -19,9 +19,14 @@ namespace GreenClover
             alerts = data.ToObject<Dictionary<string, string>>();
         }
 
+        // Podstawowe funkcje dla pliku Jsona do wyciągania wartości
         public static string GetAlert(string key)
         {
-            if (alerts.ContainsKey(key)) return alerts[key];
+            if (alerts.ContainsKey(key))
+            {
+                return alerts[key];
+            }
+
             return "Error - does not contains key to alert";
         }
 
@@ -39,8 +44,7 @@ namespace GreenClover
             return GetFormattedAlert(key, new object[] { parameter });
         }
 
-        // podstawowe funkcje dla pliku Jsona do wyciągania wartości
-
+        // Pobieranie losowej linii z pliku tekstowego
         public static string GetRandomLine(string path)
         {
             var lines = File.ReadAllLines(path);
@@ -50,29 +54,21 @@ namespace GreenClover
             return line;
         }
 
-        public static string GetGoogleUrl(string query)
+        public static async Task GetInvites(SocketCommandContext context)
         {
-            string apiKey = Config.bot.apiKey;
-            string searchEngineId = Config.bot.searchEngineId;
+            var invites = await context.Guild.GetInvitesAsync();
 
-            var customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
-            var listRequest = customSearchService.Cse.List(query);
-            listRequest.Cx = searchEngineId;
-
-            IList<Result> paging = new List<Result>();
-
-            paging = listRequest.Execute().Items;
-
-            if (paging != null)
+            if (invites.Select(x => x.Url).FirstOrDefault() != null)
             {
-                var link = paging[0];
-                return $"Tytuł: {link.Title} Link: {link.Link}";
-                // Można też zrobić tak jak w funkcji GetYoutube (czyli uzyć foreach i dostać więcej wyników),
+                Console.WriteLine(invites);
+                Console.WriteLine(invites.Select(x => x.Url).FirstOrDefault());
+                return;
             }
-            else if (paging == null)
-                return "Błąd - nie znaleziono wyników";
+
             else
-                return "Nieznany błąd";
+            {
+                Console.WriteLine($"Na tym serwerze {context.Guild.Id}, {context.Guild.Name} nie ma żadnych zaproszeń");
+            }
         }
     }
 }

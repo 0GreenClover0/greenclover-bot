@@ -7,15 +7,20 @@ namespace GreenClover.Modules
     public class UIC : ModuleBase<SocketCommandContext>
     {
         [Command("paulinko")]
-        public async Task UICAsync([Remainder] string message = null)
+        public async Task UICAsync([Remainder] string message = "")
         {
-            if (message == null)
+            // Jest to prototyp bota, z którym można rozmawiać
+            // Im więcej if'ów tym lepiej działa
+            // Zrobienie go tym sposobem jest wysoce nieefektywne i mało skuteczne
+
+            // Jeśli użytkownik jedynie wpisze komendę
+            if (message == "")
             {
                 Random r = new Random();
                 int random = r.Next(1, 3);
 
                 if (random == 1)
-                    await Context.Channel.SendMessageAsync("Słucham?", true);
+                    await Context.Channel.SendMessageAsync("Słucham?");
 
                 if (random == 2)
                     await Context.Channel.SendMessageAsync("?");
@@ -24,6 +29,7 @@ namespace GreenClover.Modules
 
             message = message.ToLower();
 
+            // Przywitanie
             if (message.Contains("cześć") || message.Contains("hej") || message.Contains("witaj") || message.Contains("wróciłem")
                 || message.Contains("siema") || message.Contains("dzień dobry") || message.Contains("hello"))
             {
@@ -52,6 +58,7 @@ namespace GreenClover.Modules
                     await Context.Channel.SendMessageAsync("Słucham");
             }
 
+            // Pytanie o pokazanie/polecenie książek
             else if (message.Contains("pokaż") && message.Contains("książki")
                 || message.Contains("znasz") && message.Contains("książki")
                 || message.Contains("polecasz") && message.Contains("książki")
@@ -76,6 +83,9 @@ namespace GreenClover.Modules
                     await Context.Channel.SendMessageAsync("Wattpad to *** ale jest jedna taka https://www.wattpad.com/story/134343836-verta");
             }
 
+            // Gdy wiadomość zawiera jedynie wyraz książka
+            // W związku z tym, że bot zadaje pytanie, trzeba tutaj stworzyć komendę confirm
+            // TO DO
             else if (message.Contains("książka"))
             {
                 await Context.Channel.SendMessageAsync("Chcesz abym poleciła ci jakąś książkę?");
@@ -83,7 +93,7 @@ namespace GreenClover.Modules
 
             else
             {
-                await Context.Channel.SendMessageAsync(Utilities.GetGoogleUrl(message));
+                await Context.Channel.SendMessageAsync(GoogleService.GetGoogleUrl(message));
                 return;
             }
         }
