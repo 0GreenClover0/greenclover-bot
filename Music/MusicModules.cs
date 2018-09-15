@@ -1,12 +1,12 @@
 ﻿using Discord;
 using Discord.Commands;
-using SharpLink;
 using System;
 using System.Threading.Tasks;
+using Discord.Addons.Interactive;
 
 namespace GreenClover.Music
 {
-    public class MusicModules : ModuleBase<SocketCommandContext>
+    public class MusicModules : InteractiveBase
     {
         [Command("play", RunMode = RunMode.Async)]
         public async Task PlayAsync([Remainder] string song = "")
@@ -14,16 +14,17 @@ namespace GreenClover.Music
             await AudioService.PlayAsync(Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, song, Context.Channel);
         }
 
-        [Command("search")]
+        [Command("search", RunMode = RunMode.Async)]
         public async Task YoutubeAsync([Remainder] string query = "")
         {
             if (query == "")
             {
-                await Context.Channel.SendMessageAsync("Czego mam szukać?");
+                await ReplyAsync("Czego mam szukać?");
                 return;
             }
 
             var videos = AudioService.GetYoutubeAsync(query, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel);
+            string[] links = AudioService.GetYoutubeLinksAsync(query, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel);
             string authorImgUrl = Context.Message.Author.GetAvatarUrl();
 
             EmbedBuilder builder = new EmbedBuilder();
@@ -33,7 +34,23 @@ namespace GreenClover.Music
                 .WithTitle(Utilities.GetAlert("YOUTUBE_FILMEMBED"))
                 .WithDescription(String.Format("{0}", string.Join("\n", videos)))
                 .WithColor(Color.Red);
-            await Context.Channel.SendMessageAsync("", false, builder.Build());
+            await ReplyAsync("", false, builder.Build());
+
+            var response = await NextMessageAsync();
+            string answer = response.ToString();
+            int choose = Utilities.ConvertToInt(answer, Context.Channel);
+
+            if (choose == 0)
+            {
+                return;
+            }
+
+            else
+            {
+                choose = choose - 1;
+                string song = links[choose];
+                await AudioService.PlayAsync(Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, $"https://www.youtube.com/watch?v={song}", Context.Channel);
+            }
             return;
         }
 

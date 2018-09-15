@@ -35,7 +35,7 @@ namespace GreenClover.Modules
                 .WithDescription(Utilities.GetFormattedAlert(key, authorName, target.Id))
                 .WithImageUrl(Utilities.GetRandomLine("Texts/hugGif.txt"));
 
-            await Context.Channel.SendMessageAsync("", false, builder.Build());
+            await ReplyAsync("", false, builder.Build());
             return;
         }
 
@@ -44,7 +44,7 @@ namespace GreenClover.Modules
         public async Task PingAsync()
         {
             int latency = Context.Client.Latency;
-            await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("PING", latency));
+            await ReplyAsync(Utilities.GetFormattedAlert("PING", latency));
             return;
         }
 
@@ -57,7 +57,7 @@ namespace GreenClover.Modules
                 .WithImageUrl("http://fakty.dinoanimals.pl/wp-content/uploads/2014/04/Nosacz3.jpg")
                 .WithColor(Color.DarkRed);
 
-            await Context.Channel.SendMessageAsync("", false, builder.Build());
+            await ReplyAsync("", false, builder.Build());
             return;
         }
 
@@ -67,14 +67,14 @@ namespace GreenClover.Modules
         {
             if (message == "")
             {
-                await Context.Channel.SendMessageAsync("Zbyt mały wybór");
+                await ReplyAsync("Zbyt mały wybór");
             }
             string[] options = message.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
 
             Random r = new Random();
             string selection = options[r.Next(0, options.Length)];
 
-            await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("CHOOSE", selection));
+            await ReplyAsync(Utilities.GetFormattedAlert("CHOOSE", selection));
             return;
         }
 
@@ -86,7 +86,7 @@ namespace GreenClover.Modules
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             if (mentionedUser == null)
             {
-                await Context.Channel.SendMessageAsync("Nie oznaczono użytkownika do zbanowania");
+                await ReplyAsync("Nie oznaczono użytkownika do zbanowania");
                 return;
             }
 
@@ -96,7 +96,7 @@ namespace GreenClover.Modules
             if (target.IsBot == true)
             {
                 await user.Guild.AddBanAsync(user, 0, reason);
-                await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("BAN", Context.Message.Author.Id));
+                await ReplyAsync(Utilities.GetFormattedAlert("BAN", Context.Message.Author.Id));
                 return;
             }
             else
@@ -104,7 +104,7 @@ namespace GreenClover.Modules
                 await dmChannel.SendMessageAsync(Utilities.GetFormattedAlert("BAN_USERMESSAGE",
                     Context.Guild.Name, Context.Message.Author.Username, reason));
                 await user.Guild.AddBanAsync(user, 0, reason);
-                await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("BAN", target.Id));
+                await ReplyAsync(Utilities.GetFormattedAlert("BAN", target.Id));
                 return;
             }
         }
@@ -113,7 +113,7 @@ namespace GreenClover.Modules
         [Alias("wersja")]
         public async Task VersionAsync()
         {
-            await Context.Channel.SendMessageAsync(Utilities.GetFormattedAlert("VERSION"));
+            await ReplyAsync(Utilities.GetFormattedAlert("VERSION"));
             return;
         }
 
@@ -125,7 +125,7 @@ namespace GreenClover.Modules
             builder
                 .WithImageUrl(Utilities.GetRandomLine("Texts/gameGif.txt"));
 
-            await Context.Channel.SendMessageAsync("", false, builder.Build());
+            await ReplyAsync("", false, builder.Build());
             return;
         }
 
@@ -140,7 +140,7 @@ namespace GreenClover.Modules
             builder
                 .WithImageUrl($"https://www.catgifpage.com/gifs/{random}.gif");
 
-            await Context.Channel.SendMessageAsync("", false, builder.Build());
+            await ReplyAsync("", false, builder.Build());
             return;
         }
 
@@ -155,25 +155,15 @@ namespace GreenClover.Modules
             builder
                 .WithImageUrl($"https://www.what-dog.net/Images/faces2/scroll00{random}.jpg");
 
-            await Context.Channel.SendMessageAsync("", false, builder.Build());
+            await ReplyAsync("", false, builder.Build());
             return;
         }
 
-        [Command("eggplant")]
-        public async Task EggplantAsync()
-        {
-            EmbedBuilder builder = new EmbedBuilder();
-            builder
-                .WithImageUrl("https://cdn.discordapp.com/attachments/374222963999768578/469830447254339586/EggplantHand_Animated.gif");
-
-            await Context.Channel.SendMessageAsync("", false, builder.Build());
-            return;
-        }
 
         [Command("test")]
         public async Task TestAsync()
         {
-            await Context.Channel.SendMessageAsync("");
+            await ReplyAsync("");
         }
     }
 }

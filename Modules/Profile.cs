@@ -18,7 +18,7 @@ namespace GreenClover.Modules
                 .WithFooter("GreenClover Inc. © 2018")
                 .WithColor(Color.Magenta);
 
-            await Context.Channel.SendMessageAsync(" ", false, builder.Build());
+            await ReplyAsync(" ", false, builder.Build());
         }
     }
 }

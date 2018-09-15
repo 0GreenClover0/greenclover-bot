@@ -41,7 +41,7 @@ namespace GreenClover.Modules
                         .AddField($"[*{wholeMsg[0]}]", Utilities.GetAlert($"HELP_DESC{alertKey}"))
                         .WithColor(new Color(110, 80, 120));
 
-                    await Context.Channel.SendMessageAsync("", false, builderHelp.Build());
+                    await ReplyAsync("", false, builderHelp.Build());
                     return;
                 }
             }
@@ -60,7 +60,7 @@ namespace GreenClover.Modules
                 .AddField("Systemowe", Utilities.GetAlert("HELP_LISTSYSTEM"))
                 .WithColor(new Color(90, 50, 165));
 
-            await Context.Channel.SendMessageAsync("", false, builder.Build());
+            await ReplyAsync("", false, builder.Build());
         }
     }
 }

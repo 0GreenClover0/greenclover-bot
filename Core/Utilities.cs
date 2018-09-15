@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Discord.Commands;
+using Discord.WebSocket;
 using Newtonsoft.Json;
 
 namespace GreenClover
@@ -54,22 +52,91 @@ namespace GreenClover
             return line;
         }
 
-        // Pobieranie zaproszeń danego serwera
-        public static async Task GetInvites(SocketCommandContext context)
+        public static int ConvertToInt(string answer, ISocketMessageChannel channel)
         {
-            var invites = await context.Guild.GetInvitesAsync();
-
-            if (invites.Select(x => x.Url).FirstOrDefault() != null)
+            int response = 0;
+            if (answer == "1")
             {
-                Console.WriteLine(invites);
-                Console.WriteLine(invites.Select(x => x.Url).FirstOrDefault());
-                return;
+                response = 1;
+                return response;
+            }
+
+            if (answer == "2")
+            {
+                response = 2;
+                return response;
+            }
+
+            if (answer == "3")
+            {
+                response = 3;
+                return response;
+            }
+
+            if (answer == "4")
+            {
+                response = 4;
+                return response;
+            }
+
+            if (answer == "5")
+            {
+                response = 5;
+                return response;
+            }
+
+            if (answer == "6")
+            {
+                response = 6;
+                return response;
+            }
+
+            if (answer == "7")
+            {
+                response = 7;
+                return response;
+            }
+
+            if (answer == "8")
+            {
+                response = 8;
+                return response;
+            }
+
+            if (answer == "9")
+            {
+                response = 9;
+                return response;
+            }
+
+            if (answer == "10")
+            {
+                response = 10;
+                return response;
             }
 
             else
             {
-                Console.WriteLine($"Na tym serwerze {context.Guild.Id}, {context.Guild.Name} nie ma żadnych zaproszeń");
+                channel.SendMessageAsync("Wymagania jest liczba od 1 do 10");
+                return 0;
             }
         }
+        // Pobieranie zaproszeń danego serwera
+        //public static async Task GetInvites(SocketCommandContext context)
+        //{
+        //   var invites = await context.Guild.GetInvitesAsync();
+
+        //    if (invites.Select(x => x.Url).FirstOrDefault() != null)
+        //    {
+        //        Console.WriteLine(invites);
+        //        Console.WriteLine(invites.Select(x => x.Url).FirstOrDefault());
+        //        return;
+        //    }
+
+        //    else
+        //    {
+        //        Console.WriteLine($"Na tym serwerze {context.Guild.Id}, {context.Guild.Name} nie ma żadnych zaproszeń");
+        //    }
+        //}
     }
 }

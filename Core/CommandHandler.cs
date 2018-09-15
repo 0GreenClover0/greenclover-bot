@@ -1,9 +1,10 @@
-﻿using Discord.Commands;
-using Discord.WebSocket;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Reflection;
 using System;
 using Microsoft.Extensions.DependencyInjection;
+using Discord.Commands;
+using Discord.WebSocket;
+using Discord.Addons.Interactive;
 
 namespace GreenClover
 {
@@ -19,6 +20,7 @@ namespace GreenClover
             _commands = new CommandService();
             _services = new ServiceCollection()
             .AddSingleton(_client)
+            .AddSingleton(new InteractiveService(client))
             .AddSingleton(_commands)
             .BuildServiceProvider();
             

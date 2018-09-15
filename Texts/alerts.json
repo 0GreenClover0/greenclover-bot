@@ -34,7 +34,7 @@
   "HUG_&AUTHORNAME": "**{0}** przytula samego siebie! :3",
   "HUG_&AUTHORNAME_&TARGETID": "**{0}** przytula <@{1}> :3",
   "PING": "Ping. Ha! Tego się nie spodziewałeś. **{0}ms**",
-  "VERSION": "GreenClovBot version: 0.135",
+  "VERSION": "GreenClovBot version: 0.14",
   "WELCOME": "Witaj, {0}",
   "YOUTUBE_FILMEMBED": "Filmy"
 }

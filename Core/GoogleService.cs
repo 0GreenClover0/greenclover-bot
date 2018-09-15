@@ -15,6 +15,7 @@ namespace GreenClover
             var customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
             var listRequest = customSearchService.Cse.List(query);
             listRequest.Cx = searchEngineId;
+            listRequest.Safe = CseResource.ListRequest.SafeEnum.High;
 
             IList<Result> paging = new List<Result>();
 
@@ -40,7 +41,6 @@ namespace GreenClover
             listRequest.Cx = searchEngineId;
             listRequest.SearchType = CseResource.ListRequest.SearchTypeEnum.Image;
             listRequest.Safe = CseResource.ListRequest.SafeEnum.High;
-            listRequest.ImgSize = CseResource.ListRequest.ImgSizeEnum.Xxlarge;
 
             IList<Result> paging = new List<Result>();
             paging = listRequest.Execute().Items;

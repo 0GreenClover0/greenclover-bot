@@ -12,20 +12,21 @@ namespace GreenClover.Modules
         {
             if (query == "")
             {
-                await Context.Channel.SendMessageAsync("Nie podano frazy do wyszukania");
+                await ReplyAsync("Nie podano frazy do wyszukania");
                 return;
             }
 
-            await Context.Channel.SendMessageAsync(GoogleService.GetGoogleUrl(query));
+            await ReplyAsync(GoogleService.GetGoogleUrl(query));
             return;
         }
 
         [Command("image")]
+        [Alias("zdjęcie", "obraz")]
         public async Task GoogleImageAsync([Remainder] string query = "")
         {
             if (query == "")
             {
-                await Context.Channel.SendMessageAsync("Nie podano frazy do wyszukania");
+                await ReplyAsync("Nie podano frazy do wyszukania");
                 return;
             }
 
@@ -35,7 +36,7 @@ namespace GreenClover.Modules
             builder
                 .WithImageUrl(googleImage);
 
-            await Context.Channel.SendMessageAsync("", false, builder.Build());
+            await ReplyAsync("", false, builder.Build());
         }
     }
 }
