@@ -3,6 +3,7 @@ using Discord.WebSocket;
 using SharpLink;
 using System;
 using System.Threading.Tasks;
+using InstaSharp;
 
 namespace GreenClover
 {
@@ -60,6 +61,7 @@ namespace GreenClover
             // Logi lavalink
             AudioService.lavalinkManager.Log += message =>
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(message);
                 return Task.CompletedTask;
             };
@@ -76,6 +78,7 @@ namespace GreenClover
         // Logi clienta
         private async Task Log(LogMessage msg)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(msg.Message);
         }
     }

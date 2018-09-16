@@ -19,7 +19,7 @@
   "HELP_DESCPING": "Sprawdź jak bardzo dzisiaj się spóźniam",
   "HELP_DESCPLAY": "Gra muzyka, gra. Pozwala wybrać utwór z youtuba, soundclouda i innych",
   "HELP_DESCPROFILE": "Sprawdź swój lub kogoś profil, na którym raczej nie ma niczego ciekawego",
-  "HELP_DESCSEARCH": "Wyszukaj film na youtube",
+  "HELP_DESCSEARCH": "Wyszukaj i zagraj film z serwisu youtube",
   "HELP_DESCSENDNUDES": "Wysyła gorące nudeski",
   "HELP_DESCSTOP": "Stopuje grany aktualnie utwór",
   "HELP_DESCVERSION": "Pokazuje aktualną wersję bota",
@@ -34,7 +34,7 @@
   "HUG_&AUTHORNAME": "**{0}** przytula samego siebie! :3",
   "HUG_&AUTHORNAME_&TARGETID": "**{0}** przytula <@{1}> :3",
   "PING": "Ping. Ha! Tego się nie spodziewałeś. **{0}ms**",
-  "VERSION": "GreenClovBot version: 0.14",
+  "VERSION": "GreenClovBot version: 0.145",
   "WELCOME": "Witaj, {0}",
   "YOUTUBE_FILMEMBED": "Filmy"
 }

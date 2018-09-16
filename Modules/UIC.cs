@@ -53,7 +53,7 @@ namespace GreenClover.Modules
                     await ReplyAsync("Hi :3");
 
                 if (random == 6)
-                    await ReplyAsync("Jestem tu by ci pomóc");
+                    await ReplyAsync("Jestem tu by ci pomagać");
 
                 if (random == 7)
                     await ReplyAsync("Słucham");

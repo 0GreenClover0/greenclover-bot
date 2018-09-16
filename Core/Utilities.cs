@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Discord.WebSocket;
 using Newtonsoft.Json;
 
 namespace GreenClover
@@ -52,7 +51,8 @@ namespace GreenClover
             return line;
         }
 
-        public static int ConvertToInt(string answer, ISocketMessageChannel channel)
+        // Zamienianie liczb od 1 do 10, które znajdują się w stringu (odpowiedź użytkownika)
+        public static int ConvertToInt(string answer)
         {
             int response = 0;
             if (answer == "1")
@@ -117,26 +117,8 @@ namespace GreenClover
 
             else
             {
-                channel.SendMessageAsync("Wymagania jest liczba od 1 do 10");
                 return 0;
             }
         }
-        // Pobieranie zaproszeń danego serwera
-        //public static async Task GetInvites(SocketCommandContext context)
-        //{
-        //   var invites = await context.Guild.GetInvitesAsync();
-
-        //    if (invites.Select(x => x.Url).FirstOrDefault() != null)
-        //    {
-        //        Console.WriteLine(invites);
-        //        Console.WriteLine(invites.Select(x => x.Url).FirstOrDefault());
-        //        return;
-        //    }
-
-        //    else
-        //    {
-        //        Console.WriteLine($"Na tym serwerze {context.Guild.Id}, {context.Guild.Name} nie ma żadnych zaproszeń");
-        //    }
-        //}
     }
 }

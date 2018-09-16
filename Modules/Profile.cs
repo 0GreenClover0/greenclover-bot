@@ -6,7 +6,8 @@ namespace GreenClover.Modules
 {
     public class Profile : ModuleBase<SocketCommandContext>
     {
-        [Command("profil")]
+        [Command("profile")]
+        [Alias("profil")]
         public async Task ProfileAsync()
         {
             EmbedBuilder builder = new EmbedBuilder();

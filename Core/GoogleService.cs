@@ -58,7 +58,6 @@ namespace GreenClover
             // {
             //     imageUrls.Add(result.Image.ThumbnailLink);
             // }
-            // Coś w tym stylu, nie
         }
     }
 }

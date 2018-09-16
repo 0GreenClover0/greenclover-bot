@@ -62,7 +62,7 @@ namespace GreenClover
             await player.PauseAsync();
         }
 
-        public static List<string> GetYoutubeAsync(string query, ulong guildId, IVoiceChannel voiceChannel)
+        public static Google.Apis.YouTube.v3.Data.SearchListResponse GetYoutubeAsync(string query, ulong guildId, IVoiceChannel voiceChannel)
         {
             var youtubeService = new YouTubeService(new BaseClientService.Initializer()
             {
@@ -70,72 +70,14 @@ namespace GreenClover
                 ApplicationName = "DiscordBot"
             });
             var SearchListRequest = youtubeService.Search.List("snippet");
+
             SearchListRequest.Q = query;
             SearchListRequest.Type = "video";
             SearchListRequest.MaxResults = 10;
 
             var searchListResponse = SearchListRequest.Execute();
 
-            List<string> videos = new List<string>();
-            //List<string> channels = new List<string>();
-            List<string> playlists = new List<string>();
-            List<string> videosLinks = new List<string>();
-
-            int count = 1;
-            string videoId = "";
-            foreach (var searchResult in searchListResponse.Items)
-            {
-                videos.Add(String.Format("`{0}`. {1} \n", count, searchResult.Snippet.Title));
-                videosLinks.Add(searchResult.Id.VideoId);
-                videoId = videoId + searchResult.Id.VideoId + '.';
-                count++;
-
-                //switch (searchResult.Id.Kind)
-                //{
-                    //case "youtube#video":
-                        //videos.Add(String.Format("`{0}`. {1} \n", count, searchResult.Snippet.Title));
-                        //videosLinks.Add(searchResult.Id.VideoId);
-                        //videoId = videoId + searchResult.Id.VideoId + '.';
-                        //count++;
-                        //break;
-
-                        //case "youtube#channel":
-                        //    channels.Add(String.Format("{0}", searchResult.Snippet.Title));
-                        //    break;
-
-                        //case "youtube#playlist":
-                        //    playlists.Add(String.Format("{0}", searchResult.Snippet.Title));
-                        //    break;
-
-                        // Można rónież szukać kanałów i playlisty, jednak trzeba pozmieniać kilka rzeczy oprócz tych caseów wyżej
-                        // a konkretnie SearchListRequest.Type = "video"; i moze coś jeszcze(?)
-                //}
-            }
-            return videos;
-        }
-
-        public static string[] GetYoutubeLinksAsync(string query, ulong guildId, IVoiceChannel voiceChannel)
-        {
-            var youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            {
-                ApiKey = Config.bot.apiKey,
-                ApplicationName = "DiscordBot"
-            });
-            var SearchListRequest = youtubeService.Search.List("snippet");
-            SearchListRequest.Q = query;
-            SearchListRequest.Type = "video";
-            SearchListRequest.MaxResults = 10;
-
-            var searchListResponse = SearchListRequest.Execute();
-
-            string videoId = "";
-            foreach (var searchResult in searchListResponse.Items)
-            {
-                videoId = videoId + searchResult.Id.VideoId + '.';
-            }
-            string[] options = videoId.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
-
-            return options;
+            return searchListResponse;
         }
     }
 }
