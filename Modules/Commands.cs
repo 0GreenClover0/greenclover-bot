@@ -40,7 +40,6 @@ namespace GreenClover.Modules
         }
 
         [Command("ping")]
-        [Summary("Sprawdza czy wszystko jest ok")]
         public async Task PingAsync()
         {
             int latency = Context.Client.Latency;
@@ -67,8 +66,10 @@ namespace GreenClover.Modules
         {
             if (message == "")
             {
-                await ReplyAsync("Zbyt mały wybór");
+                await ReplyAsync(Utilities.GetAlert("CHOOSE_NULLMSG"));
+                return;
             }
+
             string[] options = message.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
 
             Random r = new Random();
@@ -86,19 +87,21 @@ namespace GreenClover.Modules
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             if (mentionedUser == null)
             {
-                await ReplyAsync("Nie oznaczono użytkownika do zbanowania");
+                await ReplyAsync(Utilities.GetAlert("BAN_NULLMENTION"));
                 return;
             }
 
             SocketUser target = null;
             target = mentionedUser ?? Context.User;
             var dmChannel = await target.GetOrCreateDMChannelAsync();
+
             if (target.IsBot == true)
             {
                 await user.Guild.AddBanAsync(user, 0, reason);
                 await ReplyAsync(Utilities.GetFormattedAlert("BAN", Context.Message.Author.Id));
                 return;
             }
+
             else
             {
                 await dmChannel.SendMessageAsync(Utilities.GetFormattedAlert("BAN_USERMESSAGE",
@@ -158,7 +161,6 @@ namespace GreenClover.Modules
             await ReplyAsync("", false, builder.Build());
             return;
         }
-
 
         [Command("test")]
         public async Task TestAsync()

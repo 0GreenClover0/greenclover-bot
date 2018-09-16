@@ -20,7 +20,7 @@ namespace GreenClover.Music
         {
             if (query == "")
             {
-                await ReplyAsync("Czego mam szukać?");
+                await ReplyAsync(Utilities.GetAlert("PLAY_NULL_QUERY"));
                 return;
             }
 
@@ -61,19 +61,19 @@ namespace GreenClover.Music
 
             if (choose == 0)
             {
-                await ReplyAsync("Wymagana jest liczba od 1 do 10");
+                await ReplyAsync(Utilities.GetAlert("PLAY_WRONG_ANSWER"));
                 return;
             }
 
             if (answer == "cancel" || answer == "anuluj")
             {
-                await ReplyAsync("Anulowano");
+                await ReplyAsync(Utilities.GetAlert("PLAY_CANCEL"));
                 return;
             }
 
             if ((Context.User as IVoiceState).VoiceChannel == null)
             {
-                await ReplyAsync("Nie jesteś na żadnym kanale głosowym ćwoku");
+                await ReplyAsync(Utilities.GetAlert("PLAY_NULL_CHANNEL"));
                 return;
             }
 
@@ -82,7 +82,7 @@ namespace GreenClover.Music
 
             if (videoDescs[choose] == null || videoDescs[choose] == "")
             {
-                videoDescs[choose] = "Brak opisu";
+                videoDescs[choose] = Utilities.GetAlert("PLAY_NULL_DESC");
             }
 
             EmbedBuilder builderPlay = new EmbedBuilder();

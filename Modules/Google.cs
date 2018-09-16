@@ -12,7 +12,7 @@ namespace GreenClover.Modules
         {
             if (query == "")
             {
-                await ReplyAsync("Nie podano frazy do wyszukania");
+                await ReplyAsync(Utilities.GetAlert("GOOGLE_NULL_QUERY"));
                 return;
             }
 
@@ -26,11 +26,17 @@ namespace GreenClover.Modules
         {
             if (query == "")
             {
-                await ReplyAsync("Nie podano frazy do wyszukania");
+                await ReplyAsync(Utilities.GetAlert("GOOGLE_NULL_QUERY"));
                 return;
             }
 
             string googleImage = GoogleService.GetGoogleImage(query);
+
+            if (googleImage == "0")
+            {
+                await ReplyAsync(Utilities.GetAlert("GOOGLE_NULL_RESULTS"));
+                return;
+            }
 
             EmbedBuilder builder = new EmbedBuilder();
             builder

@@ -15,20 +15,22 @@ namespace GreenClover.Modules
 
             EmbedBuilder builderConfirm = new EmbedBuilder();
             builderConfirm
-                .WithAuthor("GreenClover", avatar)
-                .WithDescription("Jesteś pewien, że chcesz użyć tej komendy?")
-                .WithFooter("Wpisz tak lub nie");
+                .WithAuthor(Context.Message.Author.Username, avatar)
+                .WithDescription(Utilities.GetAlert("EGGPLANT_CONFIRM"))
+                .WithFooter(Utilities.GetAlert("INTERACTIVE_CONFIRM_YES_OR_NO"));
 
             await ReplyAsync("", false, builderConfirm.Build());
             var response = await NextMessageAsync();
 
             if (response == null)
             {
-                await ReplyAsync("Słucham?");
+                await ReplyAsync(Utilities.GetAlert("INTERACTIVE_TIMEOUT"));
+                return;
             }
 
             string answer = response.ToString();
             answer = answer.ToLower();
+
             if (answer == "tak")
             {
                 EmbedBuilder builderYes = new EmbedBuilder();
@@ -39,15 +41,15 @@ namespace GreenClover.Modules
                 return;
             }
 
-            if (answer == "nie")
+            else if (answer == "nie")
             {
-                await ReplyAsync("Dobry wybór");
+                await ReplyAsync(Utilities.GetAlert("EGGPLANT_NO"));
                 return;
             }
 
             else
             {
-                await ReplyAndDeleteAsync("Nie rozumiem", timeout: TimeSpan.FromSeconds(5));
+                await ReplyAndDeleteAsync(Utilities.GetAlert("EGGPLANT_WRONG_ANSWER"), timeout: TimeSpan.FromSeconds(5));
                 return;
             }
         }

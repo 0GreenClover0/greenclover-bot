@@ -28,7 +28,7 @@ namespace GreenClover
         {
             if (voiceChannel == null)
             {
-                await channel.SendMessageAsync("Nie jesteś na żadnym kanale głosowym ćwoku");
+                await channel.SendMessageAsync(Utilities.GetAlert("PLAY_NULL_CHANNEL"));
                 return;
             }
 
@@ -36,7 +36,7 @@ namespace GreenClover
 
             if (song == "" && player.Playing == true)
             {
-                await channel.SendMessageAsync("Brak nazwy/linku");
+                await channel.SendMessageAsync(Utilities.GetAlert("PLAY_NULL_LINK"));
                 return;
             }
 

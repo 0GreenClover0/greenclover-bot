@@ -31,7 +31,10 @@ namespace GreenClover
         private async Task HandleCommandAsync(SocketMessage arg)
         {
             var message = arg as SocketUserMessage;
-            if (message == null || message.Author.IsBot) return;
+            if (message == null || message.Author.IsBot)
+            {
+                return;
+            }
 
             int argPos = 0;
             if (message.HasStringPrefix(Config.bot.cmdPrefix, ref argPos)

@@ -21,7 +21,7 @@ namespace GreenClover
 
             _client = new DiscordSocketClient(new DiscordSocketConfig
             {
-                LogLevel = LogSeverity.Verbose
+                LogLevel = LogSeverity.Info
             });
 
             AudioService.lavalinkManager = new LavalinkManager(_client, new LavalinkManagerConfig()

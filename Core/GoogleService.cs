@@ -23,11 +23,11 @@ namespace GreenClover
 
             if (paging == null)
             {
-                return "Błąd - nie znaleziono wyników";
+                return Utilities.GetAlert("GOOGLE_NULL_RESULTS");
             }
 
             var link = paging[0];
-            return $"Tytuł: {link.Title} Link: {link.Link}";
+            return Utilities.GetFormattedAlert("GOOGLE_IMAGE_RESULT", link.Title, link.Link);
             // Można też zrobić tak jak w funkcji GetYoutube (czyli uzyć foreach i dostać więcej wyników)
         }
 
@@ -47,12 +47,18 @@ namespace GreenClover
 
             if (paging == null)
             {
-                return "Błąd - nie znaleziono wyników";
+                return "0";
             }
 
-            var link = paging[0];
-            System.Console.WriteLine(link.Image.ThumbnailLink);
-            return link.Image.ThumbnailLink;
+            var result = paging[0];
+            string link = result.Image.ThumbnailLink;
+
+            if (link == null || link == "")
+            {
+                return Utilities.GetAlert("GOOGLE_IMAGE_ERROR");
+            }
+
+            return link;
             // Można też zrobić tak jak w funkcji GetYoutube (czyli uzyć foreach i dostać więcej wyników)
             // foreach (Result result in paging.Items)
             // {
