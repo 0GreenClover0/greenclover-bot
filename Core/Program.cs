@@ -72,7 +72,15 @@ namespace GreenClover
             var guild = user.Guild;
             var channel = guild.DefaultChannel;
             string mention = user.Mention;
-            await channel.SendMessageAsync(Utilities.GetFormattedAlert("WELCOME", mention));  
+            string avatar = user.GetAvatarUrl() ?? user.GetDefaultAvatarUrl();
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithAuthor(user.Username, avatar)
+                .WithDescription(Utilities.GetFormattedAlert("WELCOME", mention))
+                .WithColor(new Color(65, 140, 230));
+
+            await channel.SendMessageAsync("", false, builder.Build());  
         }
 
         // Logi clienta

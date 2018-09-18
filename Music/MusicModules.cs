@@ -89,12 +89,12 @@ namespace GreenClover.Music
             builderPlay
                 .WithAuthor(Context.Message.Author.Username, authorImgUrl)
                 .WithThumbnailUrl(videoImages[choose])
-                .WithDescription($"Grany utwór:\n[{videoTitles[choose]}](https://www.youtube.com/watch?v={song})")
+                .WithDescription(Utilities.GetAlert("PLAY_PLAYED_SONG") + $"[{videoTitles[choose]}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{song})")
                 .AddField("Opis:", videoDescs[choose])
                 .WithColor(Color.DarkRed);
 
             await ReplyAsync("", false, builderPlay.Build());
-            await AudioService.PlayAsync(Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, $"https://www.youtube.com/watch?v={song}", Context.Channel);
+            await AudioService.PlayAsync(Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, $"{Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{song})", Context.Channel);
             return;
         }
 

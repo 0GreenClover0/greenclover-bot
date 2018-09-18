@@ -11,7 +11,7 @@ namespace GreenClover.Modules
         [Alias("pomoc")]
         public async Task HelpAsync([Remainder] string msg = "")
         {
-            string avatarUrl = Context.Client.CurrentUser.GetAvatarUrl();
+            string avatar = Context.Client.CurrentUser.GetAvatarUrl() ?? Context.Client.CurrentUser.GetDefaultAvatarUrl();
 
             if (msg != "")
             {
@@ -36,7 +36,7 @@ namespace GreenClover.Modules
                 {
                     EmbedBuilder builderHelp = new EmbedBuilder();
                     builderHelp
-                        .WithAuthor(Utilities.GetFormattedAlert("HELP_SPECIFIC_COMMAND", wholeMsg[0]), avatarUrl)
+                        .WithAuthor(Utilities.GetFormattedAlert("HELP_SPECIFIC_COMMAND", wholeMsg[0]), avatar)
                         .AddField(Utilities.GetAlert("HELP_TEXT"), "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~")
                         .AddField($"[*{wholeMsg[0]}]", Utilities.GetAlert($"HELP_DESC_{alertKey}"))
                         .WithColor(new Color(110, 80, 120));
@@ -49,7 +49,7 @@ namespace GreenClover.Modules
             EmbedBuilder builder = new EmbedBuilder();
 
             builder
-                .WithAuthor(Utilities.GetAlert("BOT_NAME"), avatarUrl)
+                .WithAuthor(Utilities.GetAlert("BOT_NAME"), avatar)
                 .AddField(Utilities.GetAlert("HELP_TEXT"), "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~")
                 .AddField(Utilities.GetAlert("HELP_CAT_COMMANDS"), Utilities.GetAlert("HELP_DESC_COMMANDS"))
                 .AddField(Utilities.GetAlert("HELP_CAT_PREFIX"), Utilities.GetAlert("HELP_DESC_PREFIX"))

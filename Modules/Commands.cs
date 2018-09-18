@@ -18,7 +18,6 @@ namespace GreenClover.Modules
         [Alias("przytul")]
         public async Task HugAsync([Remainder]string arg = "")
         {
-            string authorName = Context.User.Username;
             string key = "HUG_&AUTHORNAME_&TARGETID";
 
             SocketUser target = null;
@@ -32,7 +31,7 @@ namespace GreenClover.Modules
 
             EmbedBuilder builder = new EmbedBuilder();
             builder
-                .WithDescription(Utilities.GetFormattedAlert(key, authorName, target.Id))
+                .WithDescription(Utilities.GetFormattedAlert(key, Context.User.Username, target.Id))
                 .WithImageUrl(Utilities.GetRandomLine("Texts/hugGif.txt"));
 
             await ReplyAsync("", false, builder.Build());
@@ -42,8 +41,7 @@ namespace GreenClover.Modules
         [Command("ping")]
         public async Task PingAsync()
         {
-            int latency = Context.Client.Latency;
-            await ReplyAsync(Utilities.GetFormattedAlert("PING", latency));
+            await ReplyAsync(Utilities.GetFormattedAlert("PING", Context.Client.Latency));
             return;
         }
 

@@ -1,5 +1,7 @@
 ﻿{
   // Polish language
+  "PLAY_PLAYED_SONG": "Grany utwór:\n",
+  "PLAY_YOUTUBE_LINK": "https://www.youtube.com/watch?v=",
   "BAN": "Użytkownik <@{0}> został zbanowany.",
   "BAN_NULLMENTION": "Nie oznaczono użytkownika do zbanowania",
   "BAN_USERMESSAGE": "Zostałeś zbanowany na serwerze: **{0}** przez: {1}. Powód: {2}",
@@ -62,7 +64,7 @@
   "PLAY_NULL_CHANNEL": "Nie jesteś na żadnym kanale głosowym ćwoku",
   "PLAY_NULL_LINK": "Brak nazwy/linku",
   "PLAY_NULL_DESC": "Brak opisu",
-  "VERSION": "GreenClovBot version: 0.15",
+  "VERSION": "GreenClovBot version: 0.16",
   "WELCOME": "Witaj, {0}",
   "YOUTUBE_FILMEMBED": "Filmy"
 }
