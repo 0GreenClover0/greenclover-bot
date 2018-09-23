@@ -1,5 +1,7 @@
 ﻿using Discord;
 using Discord.WebSocket;
+using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GreenClover.src
@@ -20,6 +22,16 @@ namespace GreenClover.src
 
             string answer = response.ToString();
             answer = answer.ToLower();
+
+            string[] wholeMsg = answer.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            wholeMsg[0] = Regex.Replace(wholeMsg[0], "[*]", string.Empty);
+
+            if (answer.Contains("send") && answer.Contains("nudes")
+                || GlobalVar.allCommandsEng.Contains(wholeMsg[0])
+                || GlobalVar.allCommandsPl.Contains(wholeMsg[0]))
+            {
+                return true;
+            }
 
             if (answer == "tak")
             {

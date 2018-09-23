@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Addons.Interactive;
@@ -23,12 +24,12 @@ namespace GreenClover.Modules
 
             await ReplyAsync("", false, builderConfirm.Build());
 
-            SocketMessage response = await NextMessageAsync(true, true, timeout: TimeSpan.FromSeconds(120));
             DateTime timeStart = DateTime.Now;
+            SocketMessage response = await NextMessageAsync(true, true, timeout: TimeSpan.FromSeconds(40));
 
-            bool answered = await InteractiveUtil.CheckAnswerAsync(response, Context.Channel);
+            bool completed = await InteractiveUtil.CheckAnswerAsync(response, Context.Channel);
 
-            if (answered == true)
+            if (goodAnswerGiven == true)
             {
                 return;
             }
@@ -44,13 +45,23 @@ namespace GreenClover.Modules
 
                     if (responseSecond == null)
                     {
-                        await ReplyAsync("Czas na odpowiedź upłynął)");
+                        await ReplyAsync("Czas na odpowiedź upłynął");
                         return;
                     }
 
-                    // Przekształcenie SocketMessage na string
+                    // Konwertowanie SocketMessage na string
                     string answerSecond = responseSecond.ToString();
                     answerSecond = answerSecond.ToLower();
+
+                    string[] wholeMsg = answerSecond.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    wholeMsg[0] = Regex.Replace(wholeMsg[0], "[*]", string.Empty);
+
+                    if (answerSecond.Contains("send") && answerSecond.Contains("nudes")
+                        || GlobalVar.allCommandsEng.Contains(wholeMsg[0])
+                        || GlobalVar.allCommandsPl.Contains(wholeMsg[0]))
+                    {
+                        return;
+                    }
 
                     if (answerSecond == "tak")
                     {
@@ -77,6 +88,7 @@ namespace GreenClover.Modules
                 } while (timePassed.TotalSeconds < 30);
 
                 await ReplyAsync("Czas na odpowiedź upłynął");
+                return;
             }
         }
     }

@@ -80,7 +80,7 @@ namespace GreenClover.Modules
         [Command("ban")]
         [RequireUserPermission(GuildPermission.BanMembers)]
         [RequireBotPermission(GuildPermission.BanMembers)]
-        public async Task BanAsync(IGuildUser user, [Remainder] string reason = "Nie podano powodu")
+        public async Task BanAsync(SocketGuildUser user, [Remainder] string reason = "Nie podano powodu")
         {
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             if (mentionedUser == null)
