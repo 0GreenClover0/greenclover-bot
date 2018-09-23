@@ -29,7 +29,7 @@ namespace GreenClover.Modules
 
             bool completed = await InteractiveUtil.CheckAnswerAsync(response, Context.Channel);
 
-            if (goodAnswerGiven == true)
+            if (completed == true)
             {
                 return;
             }
