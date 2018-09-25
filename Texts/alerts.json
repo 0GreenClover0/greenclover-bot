@@ -8,8 +8,9 @@
 
   //"BOT_INFO":
   "BOT_NAME": "Paulinka",
-  "VERSION": "GreenClovBot version: 0.17",
+  "VERSION": "GreenClovBot version: 0.18",
   "BOT_NAME_INPROFILE": "GreenCloverBot © 2018",
+  "BOT_AUTHOR_INFO": "Bot został stworzony przez GreenClover#1592 \nLink do githuba: https://github.com/0GreenClover0/greenclover-bot \nPatronite na razie nie ma hehe",
 
   //"CHOOSE_COMMAND":
   "CHOOSE": "Los wybrał: {0}",
@@ -24,11 +25,14 @@
   "EGGPLANT_NO": "Dobry wybór",
   "EGGPLANT_WRONG_ANSWER": "Nie rozumiem",
 
+  //AVATAR_COMMAND
+  "AVATAR_GET": ":frame_photo: Avatar użytkownika **{0}** \n {1}",
+
   //"GOOGLE_COMMAND":
   "GOOGLE_NULL_QUERY": "Nie podano frazy do wyszukania",
-  "GOOGLE_IMAGE_ERROR": "Błędny link do obrazu",
+  "GOOGLE_IMAGE_ERROR": "Błędny link obrazu",
   "GOOGLE_NULL_RESULTS": "Nie odnaleziono wyników",
-  "GOOGLE_IMAGE_RESULT": "Tytuł: {0} Link: {1}",
+  "GOOGLE_RESULT": "Tytuł: {0} Link: {1}",
 
   //"HELP_COMMAND":
   "HELP_CAT_AUDIO": "Muzyka",
@@ -69,6 +73,8 @@
   "HELP_TEXT": "- Pomoc -",
   "HELP_DESC_DESCRIPTION": "Pozwala zmienić ci opis profilu. Użycie <description set {opis}>",
   "HELP_DESC_LEVEL": "Pozwala sprawdzić kogoś poziom",
+  "HELP_DESC_ABOUT": "Pokazuje najważniejsze informacje o bocie",
+  "HELP_DESC_AVATAR": "Wyświetla link avatara podanego użytkownika",
 
   //"HUG_COMMAND":
   "HUG_&AUTHORNAME": "**{0}** przytula samego siebie! :3",

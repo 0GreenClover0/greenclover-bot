@@ -1,10 +1,10 @@
-﻿using GreenClover.src.UserAccounts;
+﻿using GreenClover.Core.UserAccounts;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace GreenClover.src
+namespace GreenClover.Core
 {
     public static class DataStorage
     {

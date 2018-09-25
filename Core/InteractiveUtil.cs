@@ -4,7 +4,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace GreenClover.src
+namespace GreenClover.Core
 {
     class InteractiveUtil
     {

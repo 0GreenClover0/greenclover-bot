@@ -46,6 +46,7 @@ namespace GreenClover.Modules
         }
 
         [Command("send nudes")]
+        [Alias("nudes")]
         public async Task NudesAsync()
         {
             EmbedBuilder builder = new EmbedBuilder();
@@ -111,10 +112,33 @@ namespace GreenClover.Modules
         }
 
         [Command("version")]
-        [Alias("wersja")]
+        [Alias("wersja", "ver")]
         public async Task VersionAsync()
         {
-            await ReplyAsync(Utilities.GetFormattedAlert("VERSION"));
+            string avatar = Context.Client.CurrentUser.GetAvatarUrl() ?? Context.Client.CurrentUser.GetDefaultAvatarUrl();
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithAuthor(Context.Client.CurrentUser.Username, avatar)
+                .WithDescription(Utilities.GetAlert("VERSION"))
+                .WithColor(Color.Gold);
+            await ReplyAsync("", false, builder.Build());
+            return;
+        }
+
+        [Command("about")]
+        [Alias("informacje", "info")]
+        public async Task AboutAsync()
+        {
+            string avatar = Context.Client.CurrentUser.GetAvatarUrl() ?? Context.Client.CurrentUser.GetDefaultAvatarUrl();
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithAuthor(Context.Client.CurrentUser.Username, avatar)
+                .WithDescription(Utilities.GetAlert("BOT_AUTHOR_INFO"))
+                .WithFooter(Utilities.GetAlert("VERSION"))
+                .WithColor(Color.Gold);
+            await ReplyAsync("", false, builder.Build());
             return;
         }
 
@@ -158,6 +182,19 @@ namespace GreenClover.Modules
 
             await ReplyAsync("", false, builder.Build());
             return;
+        }
+
+        [Command("avatar")]
+        [Alias("dp")]
+        public async Task AvatarAsync([Remainder] string arg = "")
+        {
+            SocketUser target = null;
+            var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
+            target = mentionedUser ?? Context.User;
+
+            string avatar = target.GetAvatarUrl() ?? target.GetDefaultAvatarUrl();
+
+            await ReplyAsync(Utilities.GetFormattedAlert("AVATAR_GET", target.Username, avatar));
         }
 
         [Command("test")]

@@ -12,12 +12,38 @@ namespace GreenClover.Music
         [Command("play", RunMode = RunMode.Async)]
         public async Task PlayAsync([Remainder] string song = "")
         {
+            string avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
+
+            if (!song.Contains(".com") && song != "")
+            {
+                var searchList = AudioService.GetYoutubeAsync(song, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel);
+                Google.Apis.YouTube.v3.Data.SearchResult searchResult = searchList.Items[0];
+                string videoLink = searchResult.Id.VideoId;
+                string videoTitle = searchResult.Snippet.Title;
+                string videoDesc = searchResult.Snippet.Description;
+                string videoImage = searchResult.Snippet.Thumbnails.High.Url;
+
+                EmbedBuilder builderPlay = new EmbedBuilder();
+                builderPlay
+                    .WithAuthor(Context.Message.Author.Username, avatar)
+                    .WithThumbnailUrl(videoImage)
+                    .WithDescription(Utilities.GetAlert("PLAY_PLAYED_SONG") + $"[{videoTitle}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{videoLink})")
+                    .AddField("Opis:", videoDesc)
+                    .WithColor(Color.DarkRed);
+
+                await ReplyAsync("", false, builderPlay.Build());
+                await AudioService.PlayAsync(Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, $"{Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{videoLink})", Context.Channel);
+                return;
+            }
+
             await AudioService.PlayAsync(Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, song, Context.Channel);
         }
 
         [Command("search", RunMode = RunMode.Async)]
         public async Task YoutubeAsync([Remainder] string query = "")
         {
+            string avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
+
             if (query == "")
             {
                 await ReplyAsync(Utilities.GetAlert("PLAY_NULL_QUERY"));
@@ -43,12 +69,11 @@ namespace GreenClover.Music
                 count++;
                 i++;
             }
-            string authorImgUrl = Context.Message.Author.GetAvatarUrl();
 
             EmbedBuilder builder = new EmbedBuilder();
             builder
-                .WithAuthor(Context.Message.Author.Username, authorImgUrl)
-                .WithThumbnailUrl(authorImgUrl)
+                .WithAuthor(Context.Message.Author.Username, avatar)
+                .WithThumbnailUrl("http://i65.tinypic.com/2uqk3yr.png")
                 .WithTitle(Utilities.GetAlert("YOUTUBE_FILMEMBED"))
                 .WithDescription(String.Format("{0}", string.Join("\n", videos)))
                 .WithColor(Color.Red);
@@ -87,7 +112,7 @@ namespace GreenClover.Music
 
             EmbedBuilder builderPlay = new EmbedBuilder();
             builderPlay
-                .WithAuthor(Context.Message.Author.Username, authorImgUrl)
+                .WithAuthor(Context.Message.Author.Username, avatar)
                 .WithThumbnailUrl(videoImages[choose])
                 .WithDescription(Utilities.GetAlert("PLAY_PLAYED_SONG") + $"[{videoTitles[choose]}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{song})")
                 .AddField("Opis:", videoDescs[choose])

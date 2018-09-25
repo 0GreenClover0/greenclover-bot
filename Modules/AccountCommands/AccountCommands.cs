@@ -1,7 +1,7 @@
 ﻿using Discord.Commands;
 using Discord;
 using System.Threading.Tasks;
-using GreenClover.src.UserAccounts;
+using GreenClover.Core.UserAccounts;
 using Discord.WebSocket;
 using System.Linq;
 

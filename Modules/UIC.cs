@@ -141,7 +141,8 @@ namespace GreenClover.Modules
             // Jeżeli coś jest niezrozumiałe
             else
             {
-                await ReplyAsync(GoogleService.GetGoogleUrl(message));
+                int searchType = 1;
+                await ReplyAsync(GoogleService.GetGoogle(message, searchType));
                 return;
             }
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GreenClover.src.UserAccounts
+namespace GreenClover.Core.UserAccounts
 {
     public class UserAccount
     {

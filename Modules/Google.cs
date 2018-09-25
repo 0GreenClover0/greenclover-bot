@@ -10,13 +10,15 @@ namespace GreenClover.Modules
         [Alias("wygoogluj", "wyszukaj")]
         public async Task GoogleAsync([Remainder] string query = "")
         {
+            int searchType = 1;
+
             if (query == "")
             {
                 await ReplyAsync(Utilities.GetAlert("GOOGLE_NULL_QUERY"));
                 return;
             }
 
-            await ReplyAsync(GoogleService.GetGoogleUrl(query));
+            await ReplyAsync(GoogleService.GetGoogle(query, searchType));
             return;
         }
 
@@ -24,19 +26,15 @@ namespace GreenClover.Modules
         [Alias("zdjęcie", "obraz")]
         public async Task GoogleImageAsync([Remainder] string query = "")
         {
+            int searchType = 0;
+
             if (query == "")
             {
                 await ReplyAsync(Utilities.GetAlert("GOOGLE_NULL_QUERY"));
                 return;
             }
 
-            string googleImage = GoogleService.GetGoogleImage(query);
-
-            if (googleImage == "0")
-            {
-                await ReplyAsync(Utilities.GetAlert("GOOGLE_NULL_RESULTS"));
-                return;
-            }
+            string googleImage = GoogleService.GetGoogle(query, searchType);
 
             EmbedBuilder builder = new EmbedBuilder();
             builder

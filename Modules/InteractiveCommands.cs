@@ -5,7 +5,7 @@ using Discord;
 using Discord.Addons.Interactive;
 using Discord.Commands;
 using Discord.WebSocket;
-using GreenClover.src;
+using GreenClover.Core;
 
 namespace GreenClover.Modules
 {

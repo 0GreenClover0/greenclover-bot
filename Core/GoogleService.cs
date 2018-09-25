@@ -7,63 +7,46 @@ namespace GreenClover
 {
     public class GoogleService
     {
-        public static string GetGoogleUrl(string query)
+        public static string GetGoogle(string query, int type)
         {
-            string apiKey = Config.bot.apiKey;
-            string searchEngineId = Config.bot.searchEngineId;
-
-            var customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
-            var listRequest = customSearchService.Cse.List(query);
-            listRequest.Cx = searchEngineId;
-            listRequest.Safe = CseResource.ListRequest.SafeEnum.High;
-
             IList<Result> paging = new List<Result>();
-
-            paging = listRequest.Execute().Items;
-
-            if (paging == null)
-            {
-                return Utilities.GetAlert("GOOGLE_NULL_RESULTS");
-            }
-
-            var link = paging[0];
-            return Utilities.GetFormattedAlert("GOOGLE_IMAGE_RESULT", link.Title, link.Link);
-            // Można też zrobić tak jak w funkcji GetYoutube (czyli uzyć foreach i dostać więcej wyników)
-        }
-
-        public static string GetGoogleImage(string query)
-        {
-            string apiKey = Config.bot.apiKey;
-            string searchEngineId = Config.bot.searchEngineId;
-
-            var customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
-            var listRequest = customSearchService.Cse.List(query);
-            listRequest.Cx = searchEngineId;
-            listRequest.SearchType = CseResource.ListRequest.SearchTypeEnum.Image;
-            listRequest.Safe = CseResource.ListRequest.SafeEnum.High;
-
-            IList<Result> paging = new List<Result>();
-            paging = listRequest.Execute().Items;
-
-            if (paging == null)
-            {
-                return "0";
-            }
-
+            paging = GoogleSearch(query, type);
+            if (paging == null) return Utilities.GetAlert("GOOGLE_NULL_RESULTS");
             var result = paging[0];
-            string link = result.Image.ThumbnailLink;
 
-            if (link == null || link == "")
+            if (type == 0)
             {
-                return Utilities.GetAlert("GOOGLE_IMAGE_ERROR");
+                string imageLink = result.Image.ThumbnailLink;
+                if (imageLink == null || imageLink == "") return Utilities.GetAlert("GOOGLE_IMAGE_ERROR");
+
+                return imageLink;
             }
 
-            return link;
+            return Utilities.GetFormattedAlert("GOOGLE_RESULT", result.Title, result.Link);
             // Można też zrobić tak jak w funkcji GetYoutube (czyli uzyć foreach i dostać więcej wyników)
             // foreach (Result result in paging.Items)
             // {
             //     imageUrls.Add(result.Image.ThumbnailLink);
             // }
+        }
+
+        private static IList<Result> GoogleSearch(string query, int type)
+        {
+            // Klucz do wyszukiwarki "Custom Search"
+            string apiKey = Config.bot.apiKey;
+            string searchEngineId = Config.bot.searchEngineId;
+
+            // Serwis wyszukiwania, ustawienia wyszukiwarki
+            var customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
+            var listRequest = customSearchService.Cse.List(query);
+            listRequest.Cx = searchEngineId;
+            listRequest.Safe = CseResource.ListRequest.SafeEnum.High;
+            if (type == 0)
+            {
+                listRequest.SearchType = CseResource.ListRequest.SearchTypeEnum.Image;
+            }
+
+            return listRequest.Execute().Items;
         }
     }
 }

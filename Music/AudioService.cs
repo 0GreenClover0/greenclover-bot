@@ -22,7 +22,7 @@ namespace GreenClover
             LogSeverity = LogSeverity.Verbose
         });
 
-        public async static Task PlayAsync(ulong guildId, IVoiceChannel voiceChannel, string song, ISocketMessageChannel channel)
+        public static async Task PlayAsync(ulong guildId, IVoiceChannel voiceChannel, string song, ISocketMessageChannel channel)
         {
             if (voiceChannel == null)
             {
@@ -49,12 +49,12 @@ namespace GreenClover
             await player.PlayAsync(track);
         }
 
-        public async static Task LeaveAsync(ulong guildId)
+        public static async Task LeaveAsync(ulong guildId)
         {
             await lavalinkManager.LeaveAsync(guildId);
         }
 
-        public async static Task StopAsync(ulong guildId)
+        public static async Task StopAsync(ulong guildId)
         {
             LavalinkPlayer player = lavalinkManager.GetPlayer(guildId);
             await player.PauseAsync();
