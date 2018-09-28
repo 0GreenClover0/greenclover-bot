@@ -39,17 +39,17 @@ namespace GreenClover.Modules
                 TimeSpan timePassed;
                 do
                 {
-                    // W przypadku braku odpowiedzi w ciągu {30 sekund} bot przestanie jej oczekiwać
-                    // i responseSecond przyjmie wartość null
+                    // In case that a bot doesn't receive a response within 30 seconds,
+                    // it stops awaiting it and responseSecond takes the value null
                     var responseSecond = await NextMessageAsync(true, true, timeout: TimeSpan.FromSeconds(30));
 
                     if (responseSecond == null)
                     {
-                        await ReplyAsync("Czas na odpowiedź upłynął");
+                        await ReplyAsync(Utilities.GetAlert("INTERACTIVE_TIMEOUT"));
                         return;
                     }
 
-                    // Konwertowanie SocketMessage na string
+                    // SocketMessage to string
                     string answerSecond = responseSecond.ToString();
                     answerSecond = answerSecond.ToLower();
 
@@ -63,7 +63,9 @@ namespace GreenClover.Modules
                         return;
                     }
 
-                    if (answerSecond == "tak")
+                    //Utilities answerTrue is a TODO, when we introduce other languages
+                    if (answerSecond == Utilities.GetAlert("answerTrueEng")
+                        || answerSecond == Utilities.GetAlert("answerTruePl"))
                     {
                         EmbedBuilder builderYes = new EmbedBuilder();
                         builderYes
@@ -73,7 +75,8 @@ namespace GreenClover.Modules
                         return;
                     }
 
-                    else if (answerSecond == "nie")
+                    else if (answerSecond == Utilities.GetAlert("answerFalseEng")
+                        || answerSecond == Utilities.GetAlert("answerFalsePl"))
                     {
                         await ReplyAsync(Utilities.GetAlert("EGGPLANT_NO"));
                         return;
@@ -87,7 +90,7 @@ namespace GreenClover.Modules
 
                 } while (timePassed.TotalSeconds < 30);
 
-                await ReplyAsync("Czas na odpowiedź upłynął");
+                await ReplyAsync(Utilities.GetAlert("INTERACTIVE_TIMEOUT"));
                 return;
             }
         }

@@ -15,23 +15,24 @@ namespace GreenClover.Modules
 
             if (msg != "")
             {
-                // Pobieranie pierwszego wyrazu po komendzie. Tworzony jest {alertkey}, który jest potrzebny do pobrania
-                // opisu danej komendy
+                // Getting a first word after a command. There is creating an {alertkey}, which is used to get
+                // a description of a specific command.
                 msg = msg.ToLower();
                 string[] wholeMsg = msg.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 string alertKey = wholeMsg[0].ToUpper();
 
-                // Wyjątek dla send nudes, jedyna komenda składająca się z dwóch wyrazów
+                // Exception for a "send nudes" because it's the only command which is composed of two words
                 if (msg.Contains("send") && msg.Contains("nudes") && !GlobalVar.allCommandsEng.Contains(wholeMsg[0]))
                 {
                     wholeMsg[0] = "send nudes";
                     alertKey = "SENDNUDES";
                 }
 
-                // Pobierany jest jego opis, znajdujący się w pliku json'a pod tą samą nazwą
-                // w postaci HELP_DESC_{alertKey}
-                // Jeśli wyraz ten znajduje się na liście angielskich komend tworzona jest wiadomość jej opisem
-                // Jeśli nie bot wysyła zwykłą listę komend
+                // Getting a description which is store in a json file by using HELP_DESC_{alertKey}
+                // It's important to use this way of naming descriptions in the next commands
+                // If a variable GlobalVar.allCommandsEng contains a word that the user send,
+                // We get description of that command
+                // If not, the bot displays a list of commands
                 if (GlobalVar.allCommandsEng.Contains(wholeMsg[0]) || wholeMsg[0] == "send nudes")
                 {
                     EmbedBuilder builderHelp = new EmbedBuilder();

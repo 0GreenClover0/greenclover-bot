@@ -28,7 +28,7 @@ namespace GreenClover.Music
                     .WithAuthor(Context.Message.Author.Username, avatar)
                     .WithThumbnailUrl(videoImage)
                     .WithDescription(Utilities.GetAlert("PLAY_PLAYED_SONG") + $"[{videoTitle}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{videoLink})")
-                    .AddField("Opis:", videoDesc)
+                    .AddField(Utilities.GetAlert("PLAY_VIDEO_DESC"), videoDesc)
                     .WithColor(Color.DarkRed);
 
                 await ReplyAsync("", false, builderPlay.Build());
@@ -90,7 +90,8 @@ namespace GreenClover.Music
                 return;
             }
 
-            if (answer == "cancel" || answer == "anuluj")
+            if (answer == Utilities.GetAlert("answerCancelEng")
+                || answer == Utilities.GetAlert("answerCancelPl"))
             {
                 await ReplyAsync(Utilities.GetAlert("PLAY_CANCEL"));
                 return;
@@ -115,7 +116,7 @@ namespace GreenClover.Music
                 .WithAuthor(Context.Message.Author.Username, avatar)
                 .WithThumbnailUrl(videoImages[choose])
                 .WithDescription(Utilities.GetAlert("PLAY_PLAYED_SONG") + $"[{videoTitles[choose]}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{song})")
-                .AddField("Opis:", videoDescs[choose])
+                .AddField(Utilities.GetAlert("PLAY_VIDEO_DESC"), videoDescs[choose])
                 .WithColor(Color.DarkRed);
 
             await ReplyAsync("", false, builderPlay.Build());

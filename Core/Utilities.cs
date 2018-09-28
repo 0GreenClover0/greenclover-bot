@@ -16,7 +16,7 @@ namespace GreenClover
             alerts = data.ToObject<Dictionary<string, string>>();
         }
 
-        // Podstawowe funkcje dla pliku Jsona do wyciągania wartości
+        // Basic functions to get alerts
         public static string GetAlert(string key)
         {
             if (alerts.ContainsKey(key))
@@ -41,7 +41,7 @@ namespace GreenClover
             return GetFormattedAlert(key, new object[] { parameter });
         }
 
-        // Pobieranie losowej linii z pliku tekstowego
+        // Get random line from a text file
         public static string GetRandomLine(string path)
         {
             var lines = File.ReadAllLines(path);
@@ -51,7 +51,7 @@ namespace GreenClover
             return line;
         }
 
-        // Zamienianie liczb od 1 do 10, które znajdują się w stringu (odpowiedź użytkownika)
+        // Changing user's answer (from 1 to 10) from string to int
         public static int ConvertToInt(string answer)
         {
             int response = 0;

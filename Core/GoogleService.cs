@@ -18,12 +18,11 @@ namespace GreenClover
             {
                 string imageLink = result.Image.ThumbnailLink;
                 if (imageLink == null || imageLink == "") return Utilities.GetAlert("GOOGLE_IMAGE_ERROR");
-
                 return imageLink;
             }
 
             return Utilities.GetFormattedAlert("GOOGLE_RESULT", result.Title, result.Link);
-            // Można też zrobić tak jak w funkcji GetYoutube (czyli uzyć foreach i dostać więcej wyników)
+            // You can also get more results by
             // foreach (Result result in paging.Items)
             // {
             //     imageUrls.Add(result.Image.ThumbnailLink);
@@ -32,11 +31,11 @@ namespace GreenClover
 
         private static IList<Result> GoogleSearch(string query, int type)
         {
-            // Klucz do wyszukiwarki "Custom Search"
+            // Key to the "Custom Search" browser
             string apiKey = Config.bot.apiKey;
             string searchEngineId = Config.bot.searchEngineId;
 
-            // Serwis wyszukiwania, ustawienia wyszukiwarki
+            // Browser service, settings
             var customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
             var listRequest = customSearchService.Cse.List(query);
             listRequest.Cx = searchEngineId;

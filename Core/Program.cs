@@ -58,7 +58,7 @@ namespace GreenClover
             _client.Log += Log;
             _client.UserJoined += AnnounceUserJoined;
 
-            // Logi lavalink
+            // Lavalink logs
             AudioService.lavalinkManager.Log += message =>
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -83,7 +83,7 @@ namespace GreenClover
             await channel.SendMessageAsync("", false, builder.Build());  
         }
 
-        // Logi clienta
+        // Client logs
         private async Task Log(LogMessage msg)
         {
             Console.ForegroundColor = ConsoleColor.Green;

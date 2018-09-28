@@ -57,7 +57,7 @@ namespace GreenClover.Core.UserAccounts
             var newAccount = new UserAccount()
             {
                 ID = id,
-                Description = "Nie ustanowiono opisu",
+                Description = Utilities.GetAlert("USER_DEFAULT_DESC"),
                 Points = 10,
                 XP = 0,
             };
@@ -71,7 +71,7 @@ namespace GreenClover.Core.UserAccounts
         {
             if (account.Description == null)
             {
-                account.Description = "Nie ustawiono opisu.";
+                account.Description = Utilities.GetAlert("USER_DEFAULT_DESC");
             }
             SaveAccounts();
             return account;

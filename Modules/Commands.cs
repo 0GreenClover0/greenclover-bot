@@ -9,10 +9,8 @@ namespace GreenClover.Modules
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
-        // Czy return jest potrzebne i czy w ogóle coś robi na końcu komendy/funkcji?
-        // W sensie dodałem na wszelki wypadek xd bo wcześniej działało bez
-        // Prawdopodobnie nie jest potrzebne
-        // avatar: Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl()
+        // Just because I use it a lot
+        // avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
 
         [Command("hug")]
         [Alias("przytul")]

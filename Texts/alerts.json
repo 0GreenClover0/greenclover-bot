@@ -1,5 +1,7 @@
 ﻿{
   // Polish language
+  // answerTrue etc. is a TODO, when we introduce other languages (it's used in: InteractiveCommands, InteractiveCommands
+  // InteractiveUtils and MusicModules
 
   //"BAN_COMMAND":
   "BAN": "Użytkownik <@{0}> został zbanowany.",
@@ -8,7 +10,7 @@
 
   //"BOT_INFO":
   "BOT_NAME": "Paulinka",
-  "VERSION": "GreenClovBot version: 0.18",
+  "VERSION": "GreenClovBot version: 0.185",
   "BOT_NAME_INPROFILE": "GreenCloverBot © 2018",
   "BOT_AUTHOR_INFO": "Bot został stworzony przez GreenClover#1592 \nLink do githuba: https://github.com/0GreenClover0/greenclover-bot \nPatronite na razie nie ma hehe",
 
@@ -99,8 +101,21 @@
   "PLAY_PLAYED_SONG": "Grany utwór:\n",
   "PLAY_WRONG_ANSWER": "Wymagana jest liczba od 1 do 10",
   "PLAY_YOUTUBE_LINK": "https://www.youtube.com/watch?v=",
+  "PLAY_VIDEO_DESC": "Opis:",
   "YOUTUBE_FILMEMBED": "Filmy",
 
   //"AUTO_COMMANDS":
-  "WELCOME": "Witaj, {0}"
+  "WELCOME": "Witaj, {0}",
+
+  //ALERTS/ERRORS/GLOBAL_VARS
+  "answerTruePl": "tak",
+  "answerFalsePl": "nie",
+  "answerTrueEng": "yes",
+  "answerFalseEng": "no",
+  "answerCancelPl": "anuluj",
+  "answerCancelEng": "cancel",
+
+
+  //USER_ACCOUNTS
+  "USER_DEFAULT_DESC": "Nie ustanowiono opisu"
 }
