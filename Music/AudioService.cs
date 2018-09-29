@@ -10,17 +10,8 @@ namespace GreenClover
 {
     class AudioService
     {
-        private static DiscordSocketClient _client = new DiscordSocketClient();
-        public static LavalinkManager lavalinkManager = new LavalinkManager(_client, new LavalinkManagerConfig()
-        {
-            RESTHost = "localhost",
-            RESTPort = 2333,
-            WebSocketHost = "localhost",
-            WebSocketPort = 80,
-            Authorization = "youshallnotpass",
-            TotalShards = 1,
-            LogSeverity = LogSeverity.Verbose
-        });
+        private static readonly DiscordSocketClient _client = new DiscordSocketClient();
+        public static LavalinkManager lavalinkManager = new LavalinkManager(_client);
 
         public static async Task PlayAsync(ulong guildId, IVoiceChannel voiceChannel, string song, ISocketMessageChannel channel)
         {

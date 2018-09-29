@@ -63,7 +63,6 @@ namespace GreenClover.Modules
                         return;
                     }
 
-                    //Utilities answerTrue is a TODO, when we introduce other languages
                     if (answerSecond == Utilities.GetAlert("answerTrueEng")
                         || answerSecond == Utilities.GetAlert("answerTruePl"))
                     {

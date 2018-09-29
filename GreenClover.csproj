@@ -13,8 +13,8 @@
 
   <ItemGroup>
     <PackageReference Include="Discord.Addons.Interactive" Version="1.0.1" />
-    <PackageReference Include="Discord.Net" Version="2.0.0-beta2-00991" />
-    <PackageReference Include="Discord.Net.Commands" Version="2.0.0-beta2-00991" />
+    <PackageReference Include="Discord.Net" Version="2.0.0-beta2-00995" />
+    <PackageReference Include="Discord.Net.Commands" Version="2.0.0-beta2-00995" />
     <PackageReference Include="Google.Apis.Customsearch.v1" Version="1.35.2.1322" />
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.35.2.1226" />
     <PackageReference Include="InstaSharp" Version="2.0.6" />

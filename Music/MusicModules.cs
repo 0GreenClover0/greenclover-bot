@@ -18,21 +18,20 @@ namespace GreenClover.Music
             {
                 var searchList = AudioService.GetYoutubeAsync(song, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel);
                 Google.Apis.YouTube.v3.Data.SearchResult searchResult = searchList.Items[0];
-                string videoLink = searchResult.Id.VideoId;
-                string videoTitle = searchResult.Snippet.Title;
-                string videoDesc = searchResult.Snippet.Description;
-                string videoImage = searchResult.Snippet.Thumbnails.High.Url;
+                YoutubeVideo video = new YoutubeVideo();
+                video.AssignInformation(searchResult.Snippet.Description, searchResult.Snippet.Thumbnails.High.Url,
+                    searchResult.Id.VideoId, searchResult.Snippet.Title);
 
                 EmbedBuilder builderPlay = new EmbedBuilder();
                 builderPlay
                     .WithAuthor(Context.Message.Author.Username, avatar)
-                    .WithThumbnailUrl(videoImage)
-                    .WithDescription(Utilities.GetAlert("PLAY_PLAYED_SONG") + $"[{videoTitle}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{videoLink})")
-                    .AddField(Utilities.GetAlert("PLAY_VIDEO_DESC"), videoDesc)
+                    .WithThumbnailUrl(video.image)
+                    .WithDescription(Utilities.GetAlert("PLAY_PLAYED_SONG") + $"[{video.title}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{video.link})")
+                    .AddField(Utilities.GetAlert("PLAY_VIDEO_DESC"), video.desc)
                     .WithColor(Color.DarkRed);
 
                 await ReplyAsync("", false, builderPlay.Build());
-                await AudioService.PlayAsync(Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, $"{Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{videoLink})", Context.Channel);
+                await AudioService.PlayAsync(Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, $"{Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{video.link})", Context.Channel);
                 return;
             }
 
@@ -75,7 +74,7 @@ namespace GreenClover.Music
                 .WithAuthor(Context.Message.Author.Username, avatar)
                 .WithThumbnailUrl("http://i65.tinypic.com/2uqk3yr.png")
                 .WithTitle(Utilities.GetAlert("YOUTUBE_FILMEMBED"))
-                .WithDescription(String.Format("{0}", string.Join("\n", videos)))
+                .WithDescription(string.Format("{0}", string.Join("\n", videos)))
                 .WithColor(Color.Red);
 
             await ReplyAsync("", false, builder.Build());
