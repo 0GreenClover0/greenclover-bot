@@ -1,7 +1,7 @@
 ﻿using Discord.Commands;
 using Discord;
 using System.Threading.Tasks;
-using GreenClover.Core.UserAccounts;
+using GreenClover.Core.Accounts;
 using Discord.WebSocket;
 using System.Linq;
 
@@ -60,7 +60,7 @@ namespace GreenClover.Modules.AccountCommands
             var account = UserAccounts.GetAccount(Context.User);
             string avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
 
-            if (desc.Length > 60)
+            if (desc.Length > 140)
             {
                 await ReplyAsync(Utilities.GetFormattedAlert("DESCRIPTION_TOO_MANY_CHARS", desc.Length));
                 return;

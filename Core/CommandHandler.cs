@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Discord.Commands;
 using Discord.WebSocket;
 using Discord.Addons.Interactive;
+using GreenClover.Core.Accounts;
 
 namespace GreenClover
 {
@@ -30,18 +31,27 @@ namespace GreenClover
 
         private async Task HandleCommandAsync(SocketMessage arg)
         {
-            var message = arg as SocketUserMessage;
-            if (message == null || message.Author.IsBot)
-            {
-                return;
-            }
+            if (!(arg is SocketUserMessage message) || message.Author.IsBot) return;
+            var context = new SocketCommandContext(_client, message);
+            await CheckPrefix(context, message);
+        }
+
+        private async Task CheckPrefix(SocketCommandContext context, SocketUserMessage message)
+        {
+            var guildAccount = GuildAccounts.GetGuildAccount(context.Guild);
 
             int argPos = 0;
             if (message.HasStringPrefix(Config.bot.cmdPrefix, ref argPos)
                     || message.HasMentionPrefix(_client.CurrentUser, ref argPos))
             {
-                var context = new SocketCommandContext(_client, message);
+                var result = await _commands.ExecuteAsync(context, argPos, _services);
 
+                if (!result.IsSuccess && result.Error != CommandError.UnknownCommand)
+                    Console.WriteLine(result.ErrorReason);
+            }
+
+            else if (message.HasStringPrefix(guildAccount.Prefix, ref argPos))
+            {
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
 
                 if (!result.IsSuccess && result.Error != CommandError.UnknownCommand)

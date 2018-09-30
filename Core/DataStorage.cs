@@ -1,4 +1,4 @@
-﻿using GreenClover.Core.UserAccounts;
+﻿using GreenClover.Core.Accounts;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +26,26 @@ namespace GreenClover.Core
 
             string json = File.ReadAllText(filePath);
             return JsonConvert.DeserializeObject<List<UserAccount>>(json);
+        }
+
+        // Saves guilds
+        public static void SaveGuilds(IEnumerable<GuildAccount> guilds, string filePath)
+        {
+            string json = JsonConvert.SerializeObject(guilds, Formatting.Indented);
+            File.WriteAllText(filePath, json);
+        }
+
+        // Loads guilds
+        public static IEnumerable<GuildAccount> LoadGuilds(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("File with guilds doesn't exist");
+                return null;
+            }
+
+            string json = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<List<GuildAccount>>(json);
         }
 
         public static bool SaveExists(string filePath)

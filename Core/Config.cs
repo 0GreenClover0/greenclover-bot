@@ -32,9 +32,10 @@ namespace GreenClover
 
     public struct BotConfig
     {
-        public string token;
-        public string cmdPrefix;
         public string apiKey;
+        public string cmdPrefix;
+        public string language;
         public string searchEngineId;
+        public string token;
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GreenClover.Core.UserAccounts
+namespace GreenClover.Core.Accounts
 {
     public static class UserAccounts
     {
@@ -47,9 +47,7 @@ namespace GreenClover.Core.UserAccounts
                 account = CreateUserAccount(id);
                 return account;
             }
-
-            var checkedAccount = UserAccountCheck(account);
-            return checkedAccount;
+            return account;
         }
 
         private static UserAccount CreateUserAccount(ulong id)
@@ -65,16 +63,6 @@ namespace GreenClover.Core.UserAccounts
             accounts.Add(newAccount);
             SaveAccounts();
             return newAccount;
-        }
-
-        private static UserAccount UserAccountCheck(UserAccount account)
-        {
-            if (account.Description == null)
-            {
-                account.Description = Utilities.GetAlert("USER_DEFAULT_DESC");
-            }
-            SaveAccounts();
-            return account;
         }
     }
 }
