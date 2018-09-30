@@ -8,14 +8,14 @@ namespace GreenClover.Core
 {
     public static class DataStorage
     {
-        // Zapisuje wszystkie userAccounts
+        // Saves accounts
         public static void SaveUserAccounts(IEnumerable<UserAccount> accounts, string filePath)
         {
             string json = JsonConvert.SerializeObject(accounts, Formatting.Indented);
             File.WriteAllText(filePath, json);
         }
 
-        // Wczytuje userAccounts
+        // Loads accounts
         public static IEnumerable<UserAccount> LoadUserAccounts(string filePath)
         {
             if (!File.Exists(filePath))

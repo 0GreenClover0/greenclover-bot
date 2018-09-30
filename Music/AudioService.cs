@@ -31,6 +31,11 @@ namespace GreenClover
 
             else if (song == "" & player.Playing == false)
             {
+                if (player.CurrentTrack == null)
+                {
+                    await channel.SendMessageAsync(Utilities.GetAlert("PLAY_NULL_LINK"));
+                    return;
+                }
                 await player.ResumeAsync();
                 return;
             }
@@ -42,12 +47,21 @@ namespace GreenClover
 
         public static async Task LeaveAsync(ulong guildId)
         {
+            LavalinkPlayer player = lavalinkManager.GetPlayer(guildId);
+            if (player == null)
+            {
+                return;
+            }
             await lavalinkManager.LeaveAsync(guildId);
         }
 
         public static async Task StopAsync(ulong guildId)
         {
             LavalinkPlayer player = lavalinkManager.GetPlayer(guildId);
+            if (player.Playing == false)
+            {
+                return;
+            }
             await player.PauseAsync();
         }
 
@@ -65,7 +79,6 @@ namespace GreenClover
             SearchListRequest.MaxResults = 10;
 
             var searchListResponse = SearchListRequest.Execute();
-
             return searchListResponse;
         }
     }
