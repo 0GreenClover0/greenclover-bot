@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Discord.WebSocket;
+using GreenClover.Core.Accounts;
 using Newtonsoft.Json;
 
 namespace GreenClover
@@ -9,11 +11,19 @@ namespace GreenClover
     {
         private static Dictionary<string, string> alerts;
 
-        static Utilities()
+        public Utilities(SocketGuild guild)
         {
-            string json = File.ReadAllText("Texts/alerts.json");
+            string filePath = CheckLanguage(guild);
+            string json = File.ReadAllText(filePath);
             var data = JsonConvert.DeserializeObject<dynamic>(json);
             alerts = data.ToObject<Dictionary<string, string>>();
+        }
+
+        private static string CheckLanguage(SocketGuild guild)
+        {
+            var guildAccount = GuildAccounts.GetGuildAccount(guild);
+            string filePath = guildAccount.ConfigLang;
+            return filePath;
         }
 
         // Basic functions to get alerts

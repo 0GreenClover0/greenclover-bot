@@ -56,7 +56,7 @@ namespace GreenClover
         private async Task InitializationLogs()
         {
             _client.Log += Log;
-            _client.UserJoined += AnnounceUserJoined;
+            //_client.UserJoined += AnnounceUserJoined;
 
             // Lavalink logs
             AudioService.lavalinkManager.Log += message =>
@@ -67,7 +67,7 @@ namespace GreenClover
             };
         }
 
-        private async Task AnnounceUserJoined(SocketGuildUser user)
+        /*private async Task AnnounceUserJoined(SocketGuildUser user)
         {
             var guild = user.Guild;
             var channel = guild.DefaultChannel;
@@ -77,11 +77,11 @@ namespace GreenClover
             EmbedBuilder builder = new EmbedBuilder();
             builder
                 .WithAuthor(user.Username, avatar)
-                .WithDescription(Utilities.GetFormattedAlert("WELCOME", mention))
+                .WithDescription($"Hello {mention}")
                 .WithColor(new Color(65, 140, 230));
 
             await channel.SendMessageAsync("", false, builder.Build());  
-        }
+        }*/
 
         // Client logs
         private async Task Log(LogMessage msg)

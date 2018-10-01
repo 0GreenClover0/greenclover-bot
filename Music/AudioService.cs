@@ -13,8 +13,9 @@ namespace GreenClover
         private static readonly DiscordSocketClient _client = new DiscordSocketClient();
         public static LavalinkManager lavalinkManager = new LavalinkManager(_client);
 
-        public static async Task PlayAsync(ulong guildId, IVoiceChannel voiceChannel, string song, ISocketMessageChannel channel)
+        public static async Task PlayAsync(SocketGuild guild, ulong guildId, IVoiceChannel voiceChannel, string song, ISocketMessageChannel channel)
         {
+            Utilities utilities = new Utilities(guild);
             if (voiceChannel == null)
             {
                 await channel.SendMessageAsync(Utilities.GetAlert("PLAY_NULL_CHANNEL"));

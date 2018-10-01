@@ -14,6 +14,7 @@ namespace GreenClover.Modules
         [Command("eggplant", RunMode = RunMode.Async)]
         public async Task EggplantAsync()
         {
+            Utilities utilities = new Utilities(Context.Guild);
             string avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
 
             EmbedBuilder builderConfirm = new EmbedBuilder();
@@ -27,7 +28,7 @@ namespace GreenClover.Modules
             DateTime timeStart = DateTime.Now;
             SocketMessage response = await NextMessageAsync(true, true, timeout: TimeSpan.FromSeconds(40));
 
-            bool completed = await InteractiveUtil.CheckAnswerAsync(response, Context.Channel);
+            bool completed = await InteractiveUtil.CheckAnswerAsync(Context.Guild, response, Context.Channel);
 
             if (completed == true)
             {

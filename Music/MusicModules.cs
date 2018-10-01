@@ -1,9 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
-using System;
 using System.Threading.Tasks;
 using Discord.Addons.Interactive;
-using System.Collections.Generic;
 
 namespace GreenClover.Music
 {
@@ -12,6 +10,7 @@ namespace GreenClover.Music
         [Command("play", RunMode = RunMode.Async)]
         public async Task PlayAsync([Remainder] string song = "")
         {
+            Utilities utilities = new Utilities(Context.Guild);
             string avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
 
             if (!song.Contains(".com") && song != "")
@@ -31,16 +30,17 @@ namespace GreenClover.Music
                     .WithColor(Color.DarkRed);
 
                 await ReplyAsync("", false, builderPlay.Build());
-                await AudioService.PlayAsync(Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, $"{Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{video.link[0]})", Context.Channel);
+                await AudioService.PlayAsync(Context.Guild, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, $"{Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{video.link[0]})", Context.Channel);
                 return;
             }
 
-            await AudioService.PlayAsync(Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, song, Context.Channel);
+            await AudioService.PlayAsync(Context.Guild, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, song, Context.Channel);
         }
 
         [Command("search", RunMode = RunMode.Async)]
         public async Task YoutubeAsync([Remainder] string query = "")
         {
+            Utilities utilities = new Utilities(Context.Guild);
             string avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
 
             if (query == "")
@@ -103,7 +103,7 @@ namespace GreenClover.Music
                 .WithColor(Color.DarkRed);
 
             await ReplyAsync("", false, builderPlay.Build());
-            await AudioService.PlayAsync(Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, $"{Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{song})", Context.Channel);
+            await AudioService.PlayAsync(Context.Guild, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, $"{Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{song})", Context.Channel);
             return;
         }
 

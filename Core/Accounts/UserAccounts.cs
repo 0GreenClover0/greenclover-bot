@@ -29,12 +29,12 @@ namespace GreenClover.Core.Accounts
             DataStorage.SaveUserAccounts(accounts, accountsFile);
         }
 
-        public static UserAccount GetAccount(SocketUser user)
+        public static UserAccount GetAccount(SocketGuild guild, SocketUser user)
         {
-            return GetOrCreateAccount(user.Id);
+            return GetOrCreateAccount(guild, user.Id);
         }
 
-        private static UserAccount GetOrCreateAccount(ulong id)
+        private static UserAccount GetOrCreateAccount(SocketGuild guild, ulong id)
         {
             var result = from a in accounts
                          where a.ID == id
@@ -44,14 +44,15 @@ namespace GreenClover.Core.Accounts
 
             if (account == null)
             {
-                account = CreateUserAccount(id);
+                account = CreateUserAccount(guild, id);
                 return account;
             }
             return account;
         }
 
-        private static UserAccount CreateUserAccount(ulong id)
+        private static UserAccount CreateUserAccount(SocketGuild guild, ulong id)
         {
+            Utilities utilities = new Utilities(guild);
             var newAccount = new UserAccount()
             {
                 ID = id,

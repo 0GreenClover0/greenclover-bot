@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GreenClover.Core.Accounts
+﻿namespace GreenClover.Core.Accounts
 {
     public class GuildAccount
     {
@@ -11,5 +7,7 @@ namespace GreenClover.Core.Accounts
         public string ConfigLang { get; set; }
 
         public string Prefix { get; set; }
+
+        public string BotReligion { get; set; }
     }
 }

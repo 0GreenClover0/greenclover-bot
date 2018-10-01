@@ -16,6 +16,7 @@ namespace GreenClover.Modules
         [Alias("przytul")]
         public async Task HugAsync([Remainder]string arg = "")
         {
+            Utilities utilities = new Utilities(Context.Guild);
             string key = "HUG_&AUTHORNAME_&TARGETID";
 
             SocketUser target = null;
@@ -39,6 +40,7 @@ namespace GreenClover.Modules
         [Command("ping")]
         public async Task PingAsync()
         {
+            Utilities utilities = new Utilities(Context.Guild);
             await ReplyAsync(Utilities.GetFormattedAlert("PING", Context.Client.Latency));
             return;
         }
@@ -47,6 +49,7 @@ namespace GreenClover.Modules
         [Alias("nudes")]
         public async Task NudesAsync()
         {
+            Utilities utilities = new Utilities(Context.Guild);
             EmbedBuilder builder = new EmbedBuilder();
             builder
                 .WithDescription(":womens: | **Wyślij sms'a o treści 69 na mój numer aby dostać więcej**")
@@ -61,6 +64,7 @@ namespace GreenClover.Modules
         [Alias("wybierz")]
         public async Task ChooseAsync([Remainder]string message = "")
         {
+            Utilities utilities = new Utilities(Context.Guild);
             if (message == "")
             {
                 await ReplyAsync(Utilities.GetAlert("CHOOSE_NULLMSG"));
@@ -81,6 +85,7 @@ namespace GreenClover.Modules
         [RequireBotPermission(GuildPermission.BanMembers)]
         public async Task BanAsync(SocketGuildUser user, [Remainder] string reason = "Nie podano powodu")
         {
+            Utilities utilities = new Utilities(Context.Guild);
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             if (mentionedUser == null)
             {
@@ -113,6 +118,7 @@ namespace GreenClover.Modules
         [Alias("wersja", "ver")]
         public async Task VersionAsync()
         {
+            Utilities utilities = new Utilities(Context.Guild);
             string avatar = Context.Client.CurrentUser.GetAvatarUrl() ?? Context.Client.CurrentUser.GetDefaultAvatarUrl();
 
             EmbedBuilder builder = new EmbedBuilder();
@@ -128,6 +134,7 @@ namespace GreenClover.Modules
         [Alias("informacje", "info")]
         public async Task AboutAsync()
         {
+            Utilities utilities = new Utilities(Context.Guild);
             string avatar = Context.Client.CurrentUser.GetAvatarUrl() ?? Context.Client.CurrentUser.GetDefaultAvatarUrl();
 
             EmbedBuilder builder = new EmbedBuilder();
@@ -144,6 +151,7 @@ namespace GreenClover.Modules
         [Alias("gra")]
         public async Task GameAsync()
         {
+            Utilities utilities = new Utilities(Context.Guild);
             EmbedBuilder builder = new EmbedBuilder();
             builder
                 .WithImageUrl(Utilities.GetRandomLine("Texts/gameGif.txt"));
@@ -156,6 +164,7 @@ namespace GreenClover.Modules
         [Alias("kot")]
         public async Task CatAsync()
         {
+            Utilities utilities = new Utilities(Context.Guild);
             Random r = new Random();
             int random = r.Next(1, 327);
 
@@ -171,6 +180,7 @@ namespace GreenClover.Modules
         [Alias("pies")]
         public async Task DogAsync()
         {
+            Utilities utilities = new Utilities(Context.Guild);
             Random r = new Random();
             int random = r.Next(1, 16);
 
@@ -186,6 +196,7 @@ namespace GreenClover.Modules
         [Alias("dp")]
         public async Task AvatarAsync([Remainder] string arg = "")
         {
+            Utilities utilities = new Utilities(Context.Guild);
             SocketUser target = null;
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             target = mentionedUser ?? Context.User;
@@ -198,6 +209,7 @@ namespace GreenClover.Modules
         [Command("test")]
         public async Task TestAsync()
         {
+            Utilities utilities = new Utilities(Context.Guild);
             await ReplyAsync("");
         }
     }

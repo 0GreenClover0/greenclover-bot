@@ -1,0 +1,8 @@
+{
+  // English language
+  // answerTrue etc. is a TODO, when we introduce other languages (so probably now) (it's used in: InteractiveCommands, InteractiveCommands
+  // InteractiveUtils and MusicModules
+
+  //"PING_COMMAND":
+  "PING": "Ping. You didn't expect that, didn't you? **{0}ms**"
+}

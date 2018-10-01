@@ -11,6 +11,7 @@ namespace GreenClover.Modules
         [Alias("pomoc")]
         public async Task HelpAsync([Remainder] string msg = "")
         {
+            Utilities utilities = new Utilities(Context.Guild);
             string avatar = Context.Client.CurrentUser.GetAvatarUrl() ?? Context.Client.CurrentUser.GetDefaultAvatarUrl();
 
             if (msg != "")
@@ -48,7 +49,6 @@ namespace GreenClover.Modules
             }
 
             EmbedBuilder builder = new EmbedBuilder();
-
             builder
                 .WithAuthor(Utilities.GetAlert("BOT_NAME"), avatar)
                 .AddField(Utilities.GetAlert("HELP_TEXT"), "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~")

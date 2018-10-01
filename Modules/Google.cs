@@ -10,6 +10,7 @@ namespace GreenClover.Modules
         [Alias("wygoogluj", "wyszukaj")]
         public async Task GoogleAsync([Remainder] string query = "")
         {
+            Utilities utilities = new Utilities(Context.Guild);
             int searchType = 1;
 
             if (query == "")
@@ -18,7 +19,7 @@ namespace GreenClover.Modules
                 return;
             }
 
-            await ReplyAsync(GoogleService.GetGoogle(query, searchType));
+            await ReplyAsync(GoogleService.GetGoogle(Context.Guild, query, searchType));
             return;
         }
 
@@ -26,6 +27,7 @@ namespace GreenClover.Modules
         [Alias("zdjęcie", "obraz")]
         public async Task GoogleImageAsync([Remainder] string query = "")
         {
+            Utilities utilities = new Utilities(Context.Guild);
             int searchType = 0;
 
             if (query == "")
@@ -34,7 +36,7 @@ namespace GreenClover.Modules
                 return;
             }
 
-            string googleImage = GoogleService.GetGoogle(query, searchType);
+            string googleImage = GoogleService.GetGoogle(Context.Guild, query, searchType);
 
             EmbedBuilder builder = new EmbedBuilder();
             builder

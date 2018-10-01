@@ -1,5 +1,4 @@
 ﻿using Discord.WebSocket;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,10 +31,10 @@ namespace GreenClover.Core.Accounts
 
         public static GuildAccount GetGuildAccount(SocketGuild guild)
         {
-            return GetOrCreateGuildAccount(guild.Id);
+            return GetOrCreateGuildAccount(guild, guild.Id);
         }
 
-        private static GuildAccount GetOrCreateGuildAccount(ulong id)
+        private static GuildAccount GetOrCreateGuildAccount(SocketGuild guild, ulong id)
         {
             var result = from g in guildAccounts
                          where g.ID == id
@@ -45,19 +44,21 @@ namespace GreenClover.Core.Accounts
 
             if (account == null)
             {
-                account = CreateGuildAccount(id);
+                account = CreateGuildAccount(id, guild);
                 return account;
             }
             return account;
         }
 
-        private static GuildAccount CreateGuildAccount(ulong id)
+        private static GuildAccount CreateGuildAccount(ulong id, SocketGuild guild)
         {
+            Utilities utilities = new Utilities(guild);
             var newAccount = new GuildAccount()
             {
                 ID = id,
                 Prefix = Config.bot.cmdPrefix,
                 ConfigLang = Config.bot.language,
+                BotReligion = Utilities.GetAlert("BOT_RELIGION"),
             };
 
             guildAccounts.Add(newAccount);

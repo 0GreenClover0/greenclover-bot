@@ -13,15 +13,15 @@ namespace GreenClover.Modules.AccountCommands
         [Alias("profil")]
         public async Task ProfileAsync([Remainder] string arg = "")
         {
+            Utilities utilities = new Utilities(Context.Guild);
             SocketUser target = null;
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             target = mentionedUser ?? Context.User;
 
-            var account = UserAccounts.GetAccount(target);
+            var account = UserAccounts.GetAccount(Context.Guild, target);
             string avatar = target.GetAvatarUrl() ?? target.GetDefaultAvatarUrl();
 
             EmbedBuilder builder = new EmbedBuilder();
-
             builder
                .WithAuthor(Utilities.GetFormattedAlert("PROFILE_ACCOUNT_NAME", target.Username), avatar)
                .WithThumbnailUrl(avatar)
@@ -37,15 +37,15 @@ namespace GreenClover.Modules.AccountCommands
         [Alias("poziom", "lvl")]
         public async Task LevelAsync([Remainder] string arg = "")
         {
+            Utilities utilities = new Utilities(Context.Guild);
             SocketUser target = null;
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             target = mentionedUser ?? Context.User;
 
-            var account = UserAccounts.GetAccount(target);
+            var account = UserAccounts.GetAccount(Context.Guild, target);
             string avatar = target.GetAvatarUrl() ?? target.GetDefaultAvatarUrl();
 
             EmbedBuilder builder = new EmbedBuilder();
-
             builder
                .WithAuthor(target.Username, avatar)
                .WithDescription(Utilities.GetFormattedAlert("LEVEL_LEVEL", target.Username, account.XP));
@@ -57,7 +57,8 @@ namespace GreenClover.Modules.AccountCommands
         [Alias("desc set")]
         public async Task DescriptionSetAsync([Remainder]string desc = "")
         {
-            var account = UserAccounts.GetAccount(Context.User);
+            Utilities utilities = new Utilities(Context.Guild);
+            var account = UserAccounts.GetAccount(Context.Guild, Context.User);
             string avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
 
             if (desc.Length > 140)
@@ -70,7 +71,6 @@ namespace GreenClover.Modules.AccountCommands
             UserAccounts.SaveAccounts();
             
             EmbedBuilder builder = new EmbedBuilder();
-
             builder
                .WithAuthor(Context.Message.Author.Username, avatar)
                .WithDescription(Utilities.GetFormattedAlert("DESCRIPTION_CHANGED", account.Description))

@@ -1,4 +1,5 @@
-﻿using Google.Apis.Customsearch.v1;
+﻿using Discord.WebSocket;
+using Google.Apis.Customsearch.v1;
 using Google.Apis.Customsearch.v1.Data;
 using Google.Apis.Services;
 using System.Collections.Generic;
@@ -7,8 +8,9 @@ namespace GreenClover
 {
     public class GoogleService
     {
-        public static string GetGoogle(string query, int type)
+        public static string GetGoogle(SocketGuild guild, string query, int type)
         {
+            Utilities utilities = new Utilities(guild);
             IList<Result> paging = new List<Result>();
             paging = GoogleSearch(query, type);
             if (paging == null) return Utilities.GetAlert("GOOGLE_NULL_RESULTS");
@@ -20,7 +22,6 @@ namespace GreenClover
                 if (imageLink == null || imageLink == "") return Utilities.GetAlert("GOOGLE_IMAGE_ERROR");
                 return imageLink;
             }
-
             return Utilities.GetFormattedAlert("GOOGLE_RESULT", result.Title, result.Link);
             // You can also get more results by
             // foreach (Result result in paging.Items)
@@ -44,7 +45,6 @@ namespace GreenClover
             {
                 listRequest.SearchType = CseResource.ListRequest.SearchTypeEnum.Image;
             }
-
             return listRequest.Execute().Items;
         }
     }

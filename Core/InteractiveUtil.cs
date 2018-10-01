@@ -13,8 +13,9 @@ namespace GreenClover.Core
 
         }
 
-        public static async Task<bool> CheckAnswerAsync(SocketMessage response, ISocketMessageChannel channel)
+        public static async Task<bool> CheckAnswerAsync(SocketGuild guild, SocketMessage response, ISocketMessageChannel channel)
         {
+            Utilities utilities = new Utilities(guild);
             if (response == null)
             {
                 return true;

@@ -10,9 +10,14 @@
 
   //"BOT_INFO":
   "BOT_NAME": "Paulinka",
-  "VERSION": "GreenClovBot version: 0.19",
+  "VERSION": "GreenClovBot version: 0.199",
   "BOT_NAME_INPROFILE": "GreenCloverBot © 2018",
   "BOT_AUTHOR_INFO": "Bot został stworzony przez GreenClover#1592 \nLink do githuba: https://github.com/0GreenClover0/greenclover-bot \nPatronite na razie nie ma hehe",
+  "BOT_RELIGION": "Nie ustawiono",
+  "BOT_LANGUAGES_SHOW_LIST": "Aktualnie dostępne języki: ",
+  "BOT_LANGUAGE_CHANGED_POLISH": "Język bota został zmieniony na: polski",
+  "BOT_LANGUAGE_CHANGED_ENGLISH": "The bot language has been changed to english",
+  "BOT_LANGUAGE_ERROR": "Tego języka nie ma na liście",
 
   //"CHOOSE_COMMAND":
   "CHOOSE": "Los wybrał: {0}",
@@ -105,7 +110,7 @@
   "YOUTUBE_FILMEMBED": "Filmy",
 
   //"AUTO_COMMANDS":
-  "WELCOME": "Witaj, {0}",
+  //"WELCOME": "Witaj, {0}",
 
   //ALERTS/ERRORS/GLOBAL_VARS
   "answerTruePl": "tak",
@@ -114,7 +119,6 @@
   "answerFalseEng": "no",
   "answerCancelPl": "anuluj",
   "answerCancelEng": "cancel",
-
 
   //USER_ACCOUNTS
   "USER_DEFAULT_DESC": "Nie ustanowiono opisu"
