@@ -10,9 +10,9 @@
 
   //"BOT_INFO":
   "BOT_NAME": "Paulinka",
-  "VERSION": "GreenClovBot version: 0.199",
+  "VERSION": "GreenClovBot version: 0.2",
   "BOT_NAME_INPROFILE": "GreenCloverBot © 2018",
-  "BOT_AUTHOR_INFO": "Bot został stworzony przez GreenClover#1592 \nLink do githuba: https://github.com/0GreenClover0/greenclover-bot \nPatronite na razie nie ma hehe",
+  "BOT_AUTHOR_INFO": "Bot został stworzony przez GreenClover#1592 \nLink do githuba: https://github.com/0GreenClover0/greenclover-bot \nLink do serwera discord: https://discord.gg/ARRy5wN \nPatronite na razie nie ma hehe",
   "BOT_RELIGION": "Nie ustawiono",
   "BOT_LANGUAGES_SHOW_LIST": "Aktualnie dostępne języki: ",
   "BOT_LANGUAGE_CHANGED_POLISH": "Język bota został zmieniony na: polski",
@@ -78,7 +78,7 @@
   "HELP_PREFIX": "Domyślny prefix to: *****",
   "HELP_SPECIFIC_COMMAND": "Komenda {0}",
   "HELP_TEXT": "- Pomoc -",
-  "HELP_DESC_DESCRIPTION": "Pozwala zmienić ci opis profilu. Użycie <description set {opis}>",
+  "HELP_DESC_DESCRIPTION": "Pozwala zmienić ci opis profilu. Użycie **description set <opis>**",
   "HELP_DESC_LEVEL": "Pozwala sprawdzić kogoś poziom",
   "HELP_DESC_ABOUT": "Pokazuje najważniejsze informacje o bocie",
   "HELP_DESC_AVATAR": "Wyświetla link avatara podanego użytkownika",
@@ -89,6 +89,11 @@
 
   //"PING_COMMAND":
   "PING": "Ping. Ha! Tego się nie spodziewałeś. **{0}ms**",
+
+  //PREFIX_COMMANDS:
+  "PREFIX_ERROR_CHARS": "Prefix nie może być dłuższy niż 12 znaków",
+  "PREFIX_CHANGED": "Prefix serwera został zmieniony na: {0}",
+  "PREFIX_INFO": "Domyślny prefix bota: {0} \nPrefix serwera: {1}\nAby go zmienić użyj komendy **prefix set <prefix>**",
 
   //PROFILE_COMMANDS
   "PROFILE_ACCOUNT_NAME": "Profil użytkownika {0}",
@@ -121,5 +126,5 @@
   "answerCancelEng": "cancel",
 
   //USER_ACCOUNTS
-  "USER_DEFAULT_DESC": "Nie ustanowiono opisu"
+  "USER_DEFAULT_DESC": "Nie ustawiono opisu"
 }

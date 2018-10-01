@@ -1,8 +1,130 @@
-{
+﻿{
   // English language
   // answerTrue etc. is a TODO, when we introduce other languages (so probably now) (it's used in: InteractiveCommands, InteractiveCommands
   // InteractiveUtils and MusicModules
 
+  //"BAN_COMMAND":
+  "BAN": "User <@{0}> got banned",
+  "BAN_NULLMENTION": "You didn't mention the user to ban",
+  "BAN_USERMESSAGE": "You have been banned in: **{0}** by: {1}. Reason: {2}",
+
+  //"BOT_INFO":
+  "BOT_NAME": "Paulinka",
+  "VERSION": "GreenClovBot version: 0.2",
+  "BOT_NAME_INPROFILE": "GreenCloverBot © 2018",
+  "BOT_AUTHOR_INFO": "The bot has been created by GreenClover#1592 \nLink to github: https://github.com/0GreenClover0/greenclover-bot \nLink to our discord server: https://discord.gg/ARRy5wN \nWe don't have patronite yet :money_mouth:",
+  "BOT_RELIGION": "Not set",
+  "BOT_LANGUAGES_SHOW_LIST": "Currently available languages: ",
+  "BOT_LANGUAGE_CHANGED_POLISH": "Język bota został zmieniony na: polski",
+  "BOT_LANGUAGE_CHANGED_ENGLISH": "The bot language has been changed to english",
+  "BOT_LANGUAGE_ERROR": "This language is not on the list",
+
+  //"CHOOSE_COMMAND":
+  "CHOOSE": "Fate chose {0}",
+  "CHOOSE_NULLMSG": "What should I choose if I have nothing to choose from",
+
+  //"INTERACTIVE_COMMANDS":
+  "INTERACTIVE_CONFIRM_YES_OR_NO": "Write yes or no",
+  "INTERACTIVE_TIMEOUT": "Time for the response has passed / no response",
+
+  //"EGGPLANT_COMMAND":
+  "EGGPLANT_CONFIRM": "Are you sure you want to use this command",
+  "EGGPLANT_NO": "Good choice",
+  "EGGPLANT_WRONG_ANSWER": "I don't understand",
+
+  //AVATAR_COMMAND
+  "AVATAR_GET": ":frame_photo: User's **{0}** avatar\n {1}",
+
+  //"GOOGLE_COMMAND":
+  "GOOGLE_NULL_QUERY": "What should I search for?",
+  "GOOGLE_IMAGE_ERROR": "Error, bad link to image",
+  "GOOGLE_NULL_RESULTS": "Results not found",
+  "GOOGLE_RESULT": "Title: {0} Link: {1}",
+
+  //"HELP_COMMAND":
+  "HELP_CAT_AUDIO": "Music",
+  "HELP_CAT_COMMANDS": "Commands",
+  "HELP_CAT_FUN": "Fun",
+  "HELP_CAT_GOOGLE": "Google",
+  "HELP_CAT_MOD": "Mod",
+  "HELP_CAT_PREFIX": "Prefix",
+  "HELP_CAT_PROFILE": "Profile",
+  "HELP_CAT_SYSTEM": "System",
+  "HELP_DESC_BAN": "Bans mentioned user",
+  "HELP_DESC_CAT": "Shows a random image/gif of cat",
+  "HELP_DESC_CHOOSE": "You can't decide what to choose? Let the bot choose for you",
+  "HELP_DESC_COMMANDS": "List of available commands. To find out what the command is doing, you can also write <help [command]>. For example: --help ping",
+  "HELP_DESC_DOG": "Shows a random image/gif of dog",
+  "HELP_DESC_EGGPLANT": "You'll find out when you use it. The channel have to be NSFW",
+  "HELP_DESC_GAME": "Shows a random image/gif of games ( ͡° ͜ʖ ͡°)",
+  "HELP_DESC_GOOGLE": "You can search a phrase in Google",
+  "HELP_DESC_HUG": "Touch someone with both hands",
+  "HELP_DESC_IMAGE": "You can search a phrase in Google and it responds with an image",
+  "HELP_DESC_LEAVE": "Bot leaves voice channel",
+  "HELP_DESC_PING": "Find out how slow I am",
+  "HELP_DESC_PLAY": "Music, music is love. It allows you to play the music from youtube, soundcloud and others",
+  "HELP_DESC_PREFIX": "Default prefix: --",
+  "HELP_DESC_PROFILE": "Check your, or someone else's profile",
+  "HELP_DESC_SEARCH": "Search for the music from youtube. Responds with a list of results",
+  "HELP_DESC_SENDNUDES": "Sends some hot nudes",
+  "HELP_DESC_STOP": "Stops currently playing track",
+  "HELP_DESC_VERSION": "Shows version of the bot",
+  "HELP_LIST_AUDIO": "`play`, `search`, `stop`, `leave`",
+  "HELP_LIST_FUN": "`hug`, `send nudes`, `choose`, `game`, `cat`, `dog`, `eggplant`",
+  "HELP_LIST_GOOGLE": "`google`, `search`",
+  "HELP_LIST_MOD": "`ban`",
+  "HELP_LIST_PROFILE": "`profile`, `description`, `level`",
+  "HELP_LIST_SYSTEM": "`ping`, `version`",
+  "HELP_PREFIX": "Domyślny prefix to: --",
+  "HELP_SPECIFIC_COMMAND": "Command {0}",
+  "HELP_TEXT": "- Help -",
+  "HELP_DESC_DESCRIPTION": "It allows you to change profile description. Using **description set <description>**",
+  "HELP_DESC_LEVEL": "It allows you to check someone's level",
+  "HELP_DESC_ABOUT": "It shows the most important info about the bot",
+  "HELP_DESC_AVATAR": "It shows a link to someone's avatar",
+
+  //"HUG_COMMAND":
+  "HUG_&AUTHORNAME": "**{0}** has hugged himself :3",
+  "HUG_&AUTHORNAME_&TARGETID": "**{0}** has hugged <@{1}> :3",
+
   //"PING_COMMAND":
-  "PING": "Ping. You didn't expect that, didn't you? **{0}ms**"
+  "PING": "Ping. You didn't expect that, didn't you? **{0}ms**",
+
+  //PREFIX_COMMANDS:
+  "PREFIX_ERROR_CHARS": "Prefix can't be longer than 12 characters",
+  "PREFIX_CHANGED": "Guild's prefix has been changed to: {0}",
+  "PREFIX_INFO": "Default bot prefix: {0} \nServer prefix: {1}\nTo change it, write **prefix set <prefix>**",
+
+  //PROFILE_COMMANDS
+  "PROFILE_ACCOUNT_NAME": "{0}'s profile",
+  "PROFILE_ACCOUNT_LEVEL": "Level",
+  "LEVEL_LEVEL": ":medal: {0} has **/level/** ({1}) XP)",
+  "DESCRIPTION_TOO_MANY_CHARS": "The description can't contain more than 125 characters. Your number of characters: {0}",
+  "DESCRIPTION_CHANGED": "You have changed your description to: \"{0}\"",
+
+  //"MUSIC_COMMANDS":
+  "PLAY_CANCEL": "Canceled",
+  "PLAY_NULL_CHANNEL": "Your are not on any voice channel",
+  "PLAY_NULL_DESC": "No description",
+  "PLAY_NULL_LINK": "No name/link",
+  "PLAY_NULL_QUERY": "What should I look for?",
+  "PLAY_PLAYED_SONG": "Track added:\n",
+  "PLAY_WRONG_ANSWER": "A number from 1 to 10 is required",
+  "PLAY_YOUTUBE_LINK": "https://www.youtube.com/watch?v=",
+  "PLAY_VIDEO_DESC": "Description:",
+  "YOUTUBE_FILMEMBED": "Results:",
+
+  //"AUTO_COMMANDS":
+  //"WELCOME": "Witaj, {0}",
+
+  //ALERTS/ERRORS/GLOBAL_VARS
+  "answerTruePl": "tak",
+  "answerFalsePl": "nie",
+  "answerTrueEng": "yes",
+  "answerFalseEng": "no",
+  "answerCancelPl": "anuluj",
+  "answerCancelEng": "cancel",
+
+  //USER_ACCOUNTS
+  "USER_DEFAULT_DESC": "Description not set"
 }

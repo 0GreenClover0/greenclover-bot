@@ -18,7 +18,7 @@ namespace GreenClover.Modules.AccountCommands
 
                 if (prefix.Length > 12)
                 {
-                    await ReplyAsync("Prefix nie może być dłuższy niż 12 znaków");
+                    await ReplyAsync(Utilities.GetAlert("PREFIX_ERROR_CHARS"));
                     return;
                 }
 
@@ -29,7 +29,7 @@ namespace GreenClover.Modules.AccountCommands
                 EmbedBuilder builder = new EmbedBuilder();
                 builder
                     .WithAuthor(Context.Message.Author.Username, avatar)
-                    .WithDescription($"Prefix serwera został zmieniony na {prefix}");
+                    .WithDescription(Utilities.GetFormattedAlert("PREFIX_CHANGED", prefix));
 
                 await ReplyAsync("", false, builder.Build());
             }
@@ -44,7 +44,7 @@ namespace GreenClover.Modules.AccountCommands
                 EmbedBuilder builder = new EmbedBuilder();
                 builder
                     .WithAuthor(Context.Message.Author.Username, avatar)
-                    .WithDescription($"Domyślny prefix bota: {Config.bot.cmdPrefix} \nPrefix serwera: {guildAccount.Prefix}\nAby go zmienić użyj komendy **prefix set**");
+                    .WithDescription(Utilities.GetFormattedAlert("PREFIX_INFO", Config.bot.cmdPrefix, guildAccount.Prefix));
 
                 await ReplyAsync("", false, builder.Build());
             }
