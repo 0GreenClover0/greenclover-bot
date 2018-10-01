@@ -31,10 +31,10 @@ namespace GreenClover.Core.Accounts
 
         public static GuildAccount GetGuildAccount(SocketGuild guild)
         {
-            return GetOrCreateGuildAccount(guild, guild.Id);
+            return GetOrCreateGuildAccount(guild.Id);
         }
 
-        private static GuildAccount GetOrCreateGuildAccount(SocketGuild guild, ulong id)
+        private static GuildAccount GetOrCreateGuildAccount(ulong id)
         {
             var result = from g in guildAccounts
                          where g.ID == id
@@ -44,21 +44,20 @@ namespace GreenClover.Core.Accounts
 
             if (account == null)
             {
-                account = CreateGuildAccount(id, guild);
+                account = CreateGuildAccount(id);
                 return account;
             }
             return account;
         }
 
-        private static GuildAccount CreateGuildAccount(ulong id, SocketGuild guild)
+        private static GuildAccount CreateGuildAccount(ulong id)
         {
-            Utilities utilities = new Utilities(guild);
             var newAccount = new GuildAccount()
             {
                 ID = id,
                 Prefix = Config.bot.cmdPrefix,
                 ConfigLang = Config.bot.language,
-                BotReligion = Utilities.GetAlert("BOT_RELIGION"),
+                BotReligion = "Not set",
             };
 
             guildAccounts.Add(newAccount);
