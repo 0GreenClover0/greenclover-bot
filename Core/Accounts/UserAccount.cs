@@ -4,7 +4,7 @@
     {
         public ulong ID { get; set; }
 
-        public ulong Points { get; set; }
+        public ulong Credits { get; set; }
 
         public ulong XP { get; set; }
 

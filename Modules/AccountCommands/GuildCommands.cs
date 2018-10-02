@@ -2,6 +2,7 @@
 using Discord.Commands;
 using System.Threading.Tasks;
 using GreenClover.Core.Accounts;
+using GreenClover.Core;
 
 namespace GreenClover.Modules.AccountCommands
 {
@@ -50,61 +51,55 @@ namespace GreenClover.Modules.AccountCommands
             }
 
             [Command("language set")]
-            public async Task ChangeLanguage([Remainder] string language = "")
+            public async Task ChangeLanguageAsync([Remainder] string language = "")
             {
                 Utilities utilities = new Utilities(Context.Guild);
                 string avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
                 var guildAccount = GuildAccounts.GetGuildAccount(Context.Guild);
+                language.ToLower();
 
-                if (language == "")
+                string changedLanguage = GuildUtil.ChangeLanguage(guildAccount, language);
+                string changedLanguageAlertKey = GuildUtil.ChangedLanguageAlertKey(changedLanguage);
+
+                if (changedLanguage == null)
                 {
                     EmbedBuilder builderList = new EmbedBuilder();
                     builderList
                         .WithAuthor(Context.Message.Author.Username, avatar)
-                        .WithDescription(Utilities.GetAlert("BOT_LANGUAGES_SHOW_LIST") + Config.bot.languageList);
+                        .WithDescription(Utilities.GetAlert("LANGUAGES_SHOW_LIST") + Utilities.GetAlert("LANGUAGES_LIST") + Utilities.GetAlert("LANGUAGE_USING"))
+                        .WithColor(new Color(66, 244, 113));
 
                     await ReplyAsync("", false, builderList.Build());
                     return;
                 }
 
-                else if (language == "polish" || language == "polski")
-                {
-                    guildAccount.ConfigLang = "Texts/pl_PL.json";
-                    GuildAccounts.SaveGuilds();
-
-                    EmbedBuilder builderPolish = new EmbedBuilder();
-                    builderPolish
-                        .WithAuthor(Context.Message.Author.Username, avatar)
-                        .WithDescription(Utilities.GetAlert("BOT_LANGUAGE_CHANGED_POLISH"));
-
-                    await ReplyAsync("", false, builderPolish.Build());
-                    return;
-                }
-
-                else if (language == "english")
-                {
-                    guildAccount.ConfigLang = "Texts/en_US.json";
-                    GuildAccounts.SaveGuilds();
-
-                    EmbedBuilder builderEnglish = new EmbedBuilder();
-                    builderEnglish
-                        .WithAuthor(Context.Message.Author.Username, avatar)
-                        .WithDescription(Utilities.GetAlert("BOT_LANGUAGE_CHANGED_ENGLISH"));
-
-                    await ReplyAsync("", false, builderEnglish.Build());
-                    return;
-                }
-
                 else
                 {
-                    EmbedBuilder builderEnglish = new EmbedBuilder();
-                    builderEnglish
+                    EmbedBuilder builder = new EmbedBuilder();
+                    builder
                         .WithAuthor(Context.Message.Author.Username, avatar)
-                        .WithDescription(Utilities.GetAlert("BOT_LANGUAGE_ERROR"));
+                        .WithDescription(Utilities.GetAlert(changedLanguageAlertKey));
 
-                    await ReplyAsync("", false, builderEnglish.Build());
+                    await ReplyAsync("", false, builder.Build());
                     return;
                 }
+            }
+
+            [Command("language")]
+            public async Task LanguageAsync()
+            {
+                Utilities utilities = new Utilities(Context.Guild);
+                string avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
+                var guildAccount = GuildAccounts.GetGuildAccount(Context.Guild);
+
+                EmbedBuilder builderList = new EmbedBuilder();
+                builderList
+                    .WithAuthor(Context.Message.Author.Username, avatar)
+                    .WithDescription(Utilities.GetAlert("LANGUAGES_SHOW_LIST") + Utilities.GetAlert("LANGUAGES_LIST") + Utilities.GetAlert("LANGUAGE_USING"))
+                    .WithColor(new Color(66, 244, 113));
+
+                await ReplyAsync("", false, builderList.Build());
+                return;
             }
         }
     }

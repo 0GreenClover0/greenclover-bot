@@ -57,7 +57,7 @@ namespace GreenClover.Core.Accounts
             {
                 ID = id,
                 Description = Utilities.GetAlert("USER_DEFAULT_DESC"),
-                Points = 10,
+                Credits = 10,
                 XP = 0,
             };
 

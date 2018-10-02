@@ -10,14 +10,18 @@
 
   //"BOT_INFO":
   "BOT_NAME": "Paulinka",
-  "VERSION": "GreenClovBot version: 0.201",
+  "BOT_VERSION": "GreenClovBot version: {0}",
   "BOT_NAME_INPROFILE": "GreenCloverBot © 2018",
   "BOT_AUTHOR_INFO": "The bot has been created by GreenClover#1592 \nLink to github: https://github.com/0GreenClover0/greenclover-bot \nLink to our discord server: https://discord.gg/ARRy5wN \nWe don't have patronite yet :money_mouth:",
   "BOT_RELIGION": "Not set",
-  "BOT_LANGUAGES_SHOW_LIST": "Currently available languages: ",
-  "BOT_LANGUAGE_CHANGED_POLISH": "Język bota został zmieniony na: polski",
-  "BOT_LANGUAGE_CHANGED_ENGLISH": "The bot language has been changed to english",
-  "BOT_LANGUAGE_ERROR": "This language is not on the list",
+
+  //"LANGUAGE_COMMAND"
+  "LANGUAGE_CHANGED_POLISH": "Język bota został zmieniony na: polski",
+  "LANGUAGE_CHANGED_ENGLISH": "The bot language has been changed to english",
+  "LANGUAGE_ERROR": "This language is not on the list",
+  "LANGUAGE_USING": "Correct using: **language set <language>**",
+  "LANGUAGES_SHOW_LIST": "Currently available languages: ",
+  "LANGUAGES_LIST": "\n\n:flag_gb: **English** \n\n:flag_pl: **Polish\n\n**",
 
   //"CHOOSE_COMMAND":
   "CHOOSE": "Fate chose {0}",
