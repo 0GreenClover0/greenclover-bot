@@ -2,6 +2,7 @@
 using Discord.Commands;
 using System;
 using System.Threading.Tasks;
+using GreenClover.Core;
 
 namespace GreenClover.Modules
 {
@@ -17,12 +18,21 @@ namespace GreenClover.Modules
             if (msg != "")
             {
                 // Getting a first word after a command. There is creating an {alertkey}, which is used to get
-                // a description of a specific command.
+                // a description of a specific command. HelpAliasesCommands is checking if the user used an alias of the command
                 msg = msg.ToLower();
                 string[] wholeMsg = msg.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string aliasCommand = CommandUtil.HelpAliasesCommands(wholeMsg);
+
+                if (aliasCommand != null)
+                { 
+                    wholeMsg[0] = aliasCommand;
+                }
+
                 string alertKey = wholeMsg[0].ToUpper();
 
-                // Exception for a "send nudes" because it's the only command which is composed of two words
+                // Exception for a commands like "send nudes" because they have more than one word
+                // !GlobalVar.allCommandsEng.Contains(wholeMsg[0]) is used when the user types something like
+                // --help ping send nudes OR --help send ping nudes etc.
                 if (msg.Contains("send") && msg.Contains("nudes") && !GlobalVar.allCommandsEng.Contains(wholeMsg[0]))
                 {
                     wholeMsg[0] = "send nudes";
@@ -53,7 +63,7 @@ namespace GreenClover.Modules
                 .WithAuthor(Utilities.GetAlert("BOT_NAME"), avatar)
                 .AddField(Utilities.GetAlert("HELP_TEXT"), "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~")
                 .AddField(Utilities.GetAlert("HELP_CAT_COMMANDS"), Utilities.GetAlert("HELP_DESC_COMMANDS"))
-                .AddField(Utilities.GetAlert("HELP_CAT_PREFIX"), Utilities.GetAlert("HELP_DESC_PREFIX"))
+                .AddField(Utilities.GetAlert("HELP_CAT_PREFIX"), Utilities.GetAlert("HELP_DEFAULT_PREFIX"))
                 .AddField(Utilities.GetAlert("HELP_CAT_FUN"), Utilities.GetAlert("HELP_LIST_FUN"))
                 .AddField(Utilities.GetAlert("HELP_CAT_PROFILE"), Utilities.GetAlert("HELP_LIST_PROFILE"))
                 .AddField(Utilities.GetAlert("HELP_CAT_AUDIO"), Utilities.GetAlert("HELP_LIST_AUDIO"))

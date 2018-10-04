@@ -15,6 +15,12 @@ namespace GreenClover.Music
 
             if (!song.Contains(".com") && song != "")
             {
+                if ((Context.User as IVoiceState).VoiceChannel == null)
+                {
+                    await ReplyAsync(Utilities.GetAlert("PLAY_NULL_CHANNEL"));
+                    return;
+                }
+
                 var searchList = AudioService.GetYoutubeAsync(song, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel);
                 var searchResult = searchList.Items[0];
                 YoutubeVideo video = new YoutubeVideo();
@@ -63,7 +69,7 @@ namespace GreenClover.Music
 
             await ReplyAsync("", false, builder.Build());
 
-            var response = await NextMessageAsync();
+            var response = await NextMessageAsync(true, true, timeout: System.TimeSpan.FromSeconds(30));
             string answer = response.ToString();
             int choose = Utilities.ConvertToInt(answer);
 

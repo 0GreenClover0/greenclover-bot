@@ -72,7 +72,6 @@ namespace GreenClover.Modules
             }
 
             string[] options = message.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
-
             Random r = new Random();
             string selection = options[r.Next(0, options.Length)];
 

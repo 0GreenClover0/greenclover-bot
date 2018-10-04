@@ -1,6 +1,6 @@
 server: # REST server
   port: 2333
-  address: 0.0.0.0
+  address: 127.0.0.1
 spring:
   main:
     banner-mode: log
@@ -9,7 +9,7 @@ lavalink:
     password: "youshallnotpass"
     ws:
       port: 80
-      host: 0.0.0.0
+      host: 127.0.0.1
     sources:
       youtube: true
       bandcamp: true
@@ -18,7 +18,7 @@ lavalink:
       vimeo: true
       mixer: true
       http: true
-      local: true
+      local: false
     bufferDurationMs: 400
     youtubePlaylistLoadLimit: 600
     gc-warnings: true

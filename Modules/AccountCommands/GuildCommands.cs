@@ -51,6 +51,7 @@ namespace GreenClover.Modules.AccountCommands
             }
 
             [Command("language set")]
+            [RequireUserPermission(GuildPermission.Administrator)]
             public async Task ChangeLanguageAsync([Remainder] string language = "")
             {
                 Utilities utilities = new Utilities(Context.Guild);

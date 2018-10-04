@@ -26,9 +26,9 @@ namespace GreenClover
 
             AudioService.lavalinkManager = new LavalinkManager(_client, new LavalinkManagerConfig()
             {
-                RESTHost = "localhost",
+                RESTHost = "127.0.0.1",
                 RESTPort = 2333,
-                WebSocketHost = "localhost",
+                WebSocketHost = "127.0.0.1",
                 WebSocketPort = 80,
                 Authorization = "youshallnotpass",
                 TotalShards = 1,
