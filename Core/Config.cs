@@ -35,8 +35,8 @@ namespace GreenClover
         public string apiKey;
         public string cmdPrefix;
         public string language;
+        public ulong ownerID;
         public string searchEngineId;
         public string token;
-        public ulong ownerID;
     }
 }

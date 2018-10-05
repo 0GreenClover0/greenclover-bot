@@ -8,13 +8,13 @@ using InstaSharp;
 
 namespace GreenClover
 {
-    class Program
+    class Program : IDisposable
     {
-        static void Main(string[] args)
-            => new Program().RunBotAsync().GetAwaiter().GetResult();
-
         private DiscordSocketClient _client;
         private CommandHandler _handler;
+
+        static void Main(string[] args)
+            => new Program().RunBotAsync().GetAwaiter().GetResult();
 
         public async Task RunBotAsync()
         {
@@ -25,6 +25,14 @@ namespace GreenClover
                 LogLevel = LogSeverity.Info
             });
 
+            await InitializationClient();
+            await InitializationLogs();
+
+            await Task.Delay(-1);
+        }
+
+        private async Task InitializationClient()
+        {
             AudioService.lavalinkManager = new LavalinkManager(_client, new LavalinkManagerConfig()
             {
                 RESTHost = "127.0.0.1",
@@ -36,19 +44,8 @@ namespace GreenClover
                 LogSeverity = LogSeverity.Verbose
             });
 
-            await InitializationClient();
-            await InitializationLogs();
-
-            await Task.Delay(-1);
-        }
-
-        private async Task InitializationClient()
-        {
-            await _client.LoginAsync(TokenType.Bot, Config.bot.token);
-            await _client.StartAsync();
-
-            _handler = new CommandHandler();
-            await _handler.InitializeAsync(_client);
+            await LoginAsync();
+            await HandlerInitialize();
 
             _client.Ready += async () =>
             {
@@ -56,17 +53,30 @@ namespace GreenClover
             };
         }
 
-        private async Task InitializationLogs()
+        private async Task LoginAsync()
         {
-            _client.Log += Log;
-            //_client.UserJoined += AnnounceUserJoined;
+            await _client.LoginAsync(TokenType.Bot, Config.bot.token);
+            await _client.StartAsync();
+        }
 
-            // Lavalink logs
+        private async Task HandlerInitialize()
+        {
+            _handler = new CommandHandler();
+            await _handler.InitializeAsync(_client);
+        }
+
+        private Task InitializationLogs()
+        {
+            //_client.UserJoined += AnnounceUserJoined;
+            // Client logs and Lavalink logs
+            _client.Log += BotLog;
             AudioService.lavalinkManager.Log += message =>
             {
                 Console.WriteLine(message, Color.Gold);
                 return Task.CompletedTask;
             };
+
+            return Task.CompletedTask;
         }
 
         /*private async Task AnnounceUserJoined(SocketGuildUser user)
@@ -86,9 +96,16 @@ namespace GreenClover
         }*/
 
         // Client logs
-        private async Task Log(LogMessage msg)
+        private Task BotLog(LogMessage msg)
         {
             Console.WriteLine(msg.Message, Color.Green);
+            return Task.CompletedTask;
+        }
+
+        public void Dispose()
+        {
+            // Dispose of the client when we are done with it
+            _client.Dispose();
         }
     }
 }

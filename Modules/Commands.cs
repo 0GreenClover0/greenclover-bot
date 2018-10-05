@@ -123,6 +123,7 @@ namespace GreenClover.Modules
                 .WithAuthor(Context.Client.CurrentUser.Username, avatar)
                 .WithDescription(Utilities.GetFormattedAlert("BOT_VERSION", GlobalVar.botVersion))
                 .WithColor(Color.Gold);
+
             await ReplyAsync("", false, builder.Build());
             return;
         }
@@ -140,6 +141,7 @@ namespace GreenClover.Modules
                 .WithDescription(Utilities.GetAlert("BOT_AUTHOR_INFO"))
                 .WithFooter(Utilities.GetFormattedAlert("BOT_VERSION", GlobalVar.botVersion))
                 .WithColor(Color.Gold);
+
             await ReplyAsync("", false, builder.Build());
             return;
         }

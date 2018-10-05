@@ -21,7 +21,7 @@ namespace GreenClover
             _commands = new CommandService();
             _services = new ServiceCollection()
             .AddSingleton(_client)
-            .AddSingleton(new InteractiveService(client))
+            .AddSingleton(new InteractiveService(_client))
             .AddSingleton(_commands)
             .BuildServiceProvider();
             
