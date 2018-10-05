@@ -19,9 +19,8 @@ namespace GreenClover.Modules
             Utilities utilities = new Utilities(Context.Guild);
             string key = "HUG_&AUTHORNAME_&TARGETID";
 
-            SocketUser target = null;
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
-            target = mentionedUser ?? Context.User;
+            SocketUser target = mentionedUser ?? Context.User;
 
             if (target.Id == Context.Message.Author.Id)
             {
@@ -92,9 +91,7 @@ namespace GreenClover.Modules
                 return;
             }
 
-            SocketUser target = null;
-            target = mentionedUser ?? Context.User;
-            var dmChannel = await target.GetOrCreateDMChannelAsync();
+            SocketUser target = mentionedUser;
 
             if (target.IsBot == true)
             {
@@ -105,6 +102,7 @@ namespace GreenClover.Modules
 
             else
             {
+                var dmChannel = await target.GetOrCreateDMChannelAsync();
                 await dmChannel.SendMessageAsync(Utilities.GetFormattedAlert("BAN_USERMESSAGE",
                     Context.Guild.Name, Context.Message.Author.Username, reason));
                 await user.Guild.AddBanAsync(user, 0, reason);

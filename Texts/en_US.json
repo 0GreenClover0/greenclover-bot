@@ -77,8 +77,8 @@
   "HELP_LIST_FUN": "`hug`, `send nudes`, `choose`, `game`, `cat`, `dog`, `eggplant`",
   "HELP_LIST_GOOGLE": "`google`, `search`",
   "HELP_LIST_MOD": "`ban`, `prefix`, `language`",
-  "HELP_LIST_PROFILE": "`profile`, `description`, `level`",
-  "HELP_LIST_SYSTEM": "`ping`, `version`",
+  "HELP_LIST_PROFILE": "`profile`, `description`, `level`, `avatar`",
+  "HELP_LIST_SYSTEM": "`ping`, `version`, `about`",
   "HELP_PREFIX": "Domyślny prefix to: --",
   "HELP_SPECIFIC_COMMAND": "Command {0}",
   "HELP_TEXT": "- Help -",
@@ -129,7 +129,4 @@
   "answerTrue": "yes tak",
   "answerFalse": "no nie",
   "answerCancel": "cancel anuluj",
-
-  //USER_ACCOUNTS
-  "USER_DEFAULT_DESC": "Description not set"
 }

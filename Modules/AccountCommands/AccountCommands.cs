@@ -14,9 +14,8 @@ namespace GreenClover.Modules.AccountCommands
         public async Task ProfileAsync([Remainder] string arg = "")
         {
             Utilities utilities = new Utilities(Context.Guild);
-            SocketUser target = null;
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
-            target = mentionedUser ?? Context.User;
+            SocketUser target = mentionedUser ?? Context.User;
 
             var account = UserAccounts.GetAccount(target);
             string avatar = target.GetAvatarUrl() ?? target.GetDefaultAvatarUrl();
@@ -39,9 +38,8 @@ namespace GreenClover.Modules.AccountCommands
         {
             Utilities utilities = new Utilities(Context.Guild);
 
-            SocketUser target = null;
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
-            target = mentionedUser ?? Context.User;
+            SocketUser target = mentionedUser ?? Context.User;
             var account = UserAccounts.GetAccount(target);
             string avatar = target.GetAvatarUrl() ?? target.GetDefaultAvatarUrl();
 

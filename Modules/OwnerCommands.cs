@@ -22,7 +22,7 @@ namespace GreenClover.Modules
 
             else
             {
-                await ReplyAsync($"");
+                await ReplyAsync(Utilities.GetAlert("OWNER_SETGAME_FAIL"));
             }
         }
     }

@@ -48,10 +48,10 @@
   "HELP_CAT_COMMANDS": "Komendy",
   "HELP_CAT_FUN": "Zabawa",
   "HELP_CAT_GOOGLE": "Google",
-  "HELP_CAT_MOD": "Moderatorskie",
+  "HELP_CAT_MOD": "Zarządzanie",
   "HELP_CAT_PREFIX": "Prefix",
   "HELP_CAT_PROFILE": "Profil",
-  "HELP_CAT_SYSTEM": "Systemowe",
+  "HELP_CAT_SYSTEM": "O mnie",
   "HELP_DESC_BAN": "Banuje wskazanego użytkownika",
   "HELP_DESC_CAT": "Pokazuje losowy gif/zdjęcie kota",
   "HELP_DESC_CHOOSE": "Nie możesz zdecydować co wybrać? Pozwól botowi wybrać za ciebie",
@@ -77,8 +77,8 @@
   "HELP_LIST_FUN": "`hug`, `send nudes`, `choose`, `game`, `cat`, `dog`, `eggplant`",
   "HELP_LIST_GOOGLE": "`google`, `search`",
   "HELP_LIST_MOD": "`ban`, `prefix`, `language`",
-  "HELP_LIST_PROFILE": "`profile`, `description`, `level`",
-  "HELP_LIST_SYSTEM": "`ping`, `version`",
+  "HELP_LIST_PROFILE": "`profile`, `description`, `level`, `avatar`",
+  "HELP_LIST_SYSTEM": "`ping`, `version`, `about`",
   "HELP_PREFIX": "Domyślny prefix to: *****",
   "HELP_SPECIFIC_COMMAND": "Komenda {0}",
   "HELP_TEXT": "- Pomoc -",
@@ -129,7 +129,4 @@
   "answerTrue": "yes tak",
   "answerFalse": "no nie",
   "answerCancel": "cancel anuluj",
-
-  //USER_ACCOUNTS
-  "USER_DEFAULT_DESC": "Nie ustawiono opisu"
 }
