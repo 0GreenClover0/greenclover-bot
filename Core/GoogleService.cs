@@ -41,10 +41,8 @@ namespace GreenClover
             var listRequest = customSearchService.Cse.List(query);
             listRequest.Cx = searchEngineId;
             listRequest.Safe = CseResource.ListRequest.SafeEnum.High;
-            if (type == 0)
-            {
-                listRequest.SearchType = CseResource.ListRequest.SearchTypeEnum.Image;
-            }
+            if (type == 0) listRequest.SearchType = CseResource.ListRequest.SearchTypeEnum.Image;
+
             return listRequest.Execute().Items;
         }
     }

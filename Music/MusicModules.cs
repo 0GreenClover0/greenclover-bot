@@ -3,6 +3,7 @@ using Discord.Commands;
 using System.Threading.Tasks;
 using Discord.Addons.Interactive;
 using System;
+using GreenClover.Core;
 
 namespace GreenClover.Music
 {
@@ -58,7 +59,7 @@ namespace GreenClover.Music
 
             var searchList = AudioService.GetYoutubeAsync(query, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel);
             YoutubeVideo video = new YoutubeVideo();
-            video.SetInfoMultipleVideos(video, searchList);
+            video.SetMultipleVideosInfo(video, searchList);
 
             EmbedBuilder builder = new EmbedBuilder();
             builder
@@ -73,7 +74,7 @@ namespace GreenClover.Music
             var response = await NextMessageAsync(true, true, timeout: System.TimeSpan.FromSeconds(30));
             string answer = response.ToString();
             string[] wholeMsg = answer.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            int choose = Utilities.ConvertToInt(answer);
+            int choose = InteractiveUtil.ConvertToInt(answer);
 
             if (choose == 0)
             {

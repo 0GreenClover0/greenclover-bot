@@ -19,7 +19,7 @@ namespace GreenClover.Music
             title[0] = videoTitle;
         }
 
-        public void SetInfoMultipleVideos(YoutubeVideo video, Google.Apis.YouTube.v3.Data.SearchListResponse searchList)
+        public void SetMultipleVideosInfo(YoutubeVideo video, Google.Apis.YouTube.v3.Data.SearchListResponse searchList)
         {
             int count = 1;
             int i = 0;

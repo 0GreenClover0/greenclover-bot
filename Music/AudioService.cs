@@ -49,20 +49,16 @@ namespace GreenClover
         public static async Task LeaveAsync(ulong guildId)
         {
             LavalinkPlayer player = lavalinkManager.GetPlayer(guildId);
-            if (player == null)
-            {
-                return;
-            }
+            if (player == null) return;
+
             await lavalinkManager.LeaveAsync(guildId);
         }
 
         public static async Task StopAsync(ulong guildId)
         {
             LavalinkPlayer player = lavalinkManager.GetPlayer(guildId);
-            if (player.Playing == false)
-            {
-                return;
-            }
+            if (player.Playing == false) return;
+
             await player.PauseAsync();
         }
 
@@ -74,7 +70,6 @@ namespace GreenClover
                 ApplicationName = "DiscordBot"
             });
             var SearchListRequest = youtubeService.Search.List("snippet");
-
             SearchListRequest.Q = query;
             SearchListRequest.Type = "video";
             SearchListRequest.MaxResults = 10;

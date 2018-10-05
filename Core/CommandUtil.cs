@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GreenClover.Core
+﻿namespace GreenClover.Core
 {
     class CommandUtil
     {
@@ -19,9 +15,7 @@ namespace GreenClover.Core
             }
 
             else
-            {
                 return null;
-            }
         }
     }
 }

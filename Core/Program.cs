@@ -46,8 +46,10 @@ namespace GreenClover
         {
             await _client.LoginAsync(TokenType.Bot, Config.bot.token);
             await _client.StartAsync();
+
             _handler = new CommandHandler();
             await _handler.InitializeAsync(_client);
+
             _client.Ready += async () =>
             {
                 await AudioService.lavalinkManager.StartAsync();

@@ -18,7 +18,7 @@ namespace GreenClover.Modules.AccountCommands
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             target = mentionedUser ?? Context.User;
 
-            var account = UserAccounts.GetAccount(Context.Guild, target);
+            var account = UserAccounts.GetAccount(target);
             string avatar = target.GetAvatarUrl() ?? target.GetDefaultAvatarUrl();
 
             EmbedBuilder builder = new EmbedBuilder();
@@ -38,11 +38,11 @@ namespace GreenClover.Modules.AccountCommands
         public async Task LevelAsync([Remainder] string arg = "")
         {
             Utilities utilities = new Utilities(Context.Guild);
+
             SocketUser target = null;
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             target = mentionedUser ?? Context.User;
-
-            var account = UserAccounts.GetAccount(Context.Guild, target);
+            var account = UserAccounts.GetAccount(target);
             string avatar = target.GetAvatarUrl() ?? target.GetDefaultAvatarUrl();
 
             EmbedBuilder builder = new EmbedBuilder();
@@ -58,7 +58,7 @@ namespace GreenClover.Modules.AccountCommands
         public async Task DescriptionSetAsync([Remainder]string desc = "")
         {
             Utilities utilities = new Utilities(Context.Guild);
-            var account = UserAccounts.GetAccount(Context.Guild, Context.User);
+            var account = UserAccounts.GetAccount(Context.User);
             string avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
 
             if (desc.Length > 140)

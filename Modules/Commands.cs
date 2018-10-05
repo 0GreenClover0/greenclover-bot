@@ -196,10 +196,10 @@ namespace GreenClover.Modules
         public async Task AvatarAsync([Remainder] string arg = "")
         {
             Utilities utilities = new Utilities(Context.Guild);
+
             SocketUser target = null;
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             target = mentionedUser ?? Context.User;
-
             string avatar = target.GetAvatarUrl() ?? target.GetDefaultAvatarUrl();
 
             await ReplyAsync(Utilities.GetFormattedAlert("AVATAR_GET", target.Username, avatar));

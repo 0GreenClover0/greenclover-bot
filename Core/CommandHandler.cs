@@ -42,15 +42,8 @@ namespace GreenClover
 
             int argPos = 0;
             if (message.HasStringPrefix(Config.bot.cmdPrefix, ref argPos)
-                    || message.HasMentionPrefix(_client.CurrentUser, ref argPos))
-            {
-                var result = await _commands.ExecuteAsync(context, argPos, _services);
-
-                if (!result.IsSuccess && result.Error != CommandError.UnknownCommand)
-                    Console.WriteLine(result.ErrorReason);
-            }
-
-            else if (message.HasStringPrefix(guildAccount.Prefix, ref argPos))
+                    || message.HasMentionPrefix(_client.CurrentUser, ref argPos)
+                    || message.HasStringPrefix(guildAccount.Prefix, ref argPos))
             {
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
 

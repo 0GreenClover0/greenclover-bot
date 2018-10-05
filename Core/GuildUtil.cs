@@ -26,13 +26,12 @@ namespace GreenClover.Core
             }
 
             else
-            {
                 return null;
-            }
         }
 
         public static string ChangedLanguageAlertKey(string changedLanguage)
         {
+            //Gets an alert from string returned by ChangeLanguage method
             if (changedLanguage == null)
                 return "LANGUAGE_ERROR";
 
