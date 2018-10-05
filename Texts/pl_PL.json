@@ -1,7 +1,5 @@
 ﻿{
   // Polish language
-  // answerTrue etc. is a TODO, when we introduce other languages (it's used in: InteractiveCommands, InteractiveCommands
-  // InteractiveUtils and MusicModules
 
   //"BAN_COMMAND":
   "BAN": "Użytkownik <@{0}> został zbanowany.",
@@ -120,16 +118,17 @@
   "PLAY_VIDEO_DESC": "Opis:",
   "YOUTUBE_FILMEMBED": "Filmy",
 
+  //OWNER_COMMANDS:
+  "OWNER_SETGAME_SUCCESS": "Bot gra teraz w: `{0}`",
+  "OWNER_SETGAME_FAIL": "Nie możesz użyć tej komendy, nie jesteś właścicielem bota",
+
   //"AUTO_COMMANDS":
   //"WELCOME": "Witaj, {0}",
 
   //ALERTS/ERRORS/GLOBAL_VARS
-  "answerTruePl": "tak",
-  "answerFalsePl": "nie",
-  "answerTrueEng": "yes",
-  "answerFalseEng": "no",
-  "answerCancelPl": "anuluj",
-  "answerCancelEng": "cancel",
+  "answerTrue": "yes tak",
+  "answerFalse": "no nie",
+  "answerCancel": "cancel anuluj",
 
   //USER_ACCOUNTS
   "USER_DEFAULT_DESC": "Nie ustawiono opisu"

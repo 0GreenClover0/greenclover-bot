@@ -64,8 +64,7 @@ namespace GreenClover.Modules
                         return;
                     }
 
-                    if (answerSecond == Utilities.GetAlert("answerTrueEng")
-                        || answerSecond == Utilities.GetAlert("answerTruePl"))
+                    if (Utilities.GetAlert("answerTrue").Contains(wholeMsg[0]))
                     {
                         EmbedBuilder builderYes = new EmbedBuilder();
                         builderYes
@@ -75,8 +74,7 @@ namespace GreenClover.Modules
                         return;
                     }
 
-                    else if (answerSecond == Utilities.GetAlert("answerFalseEng")
-                        || answerSecond == Utilities.GetAlert("answerFalsePl"))
+                    else if (Utilities.GetAlert("answerFalse").Contains(wholeMsg[0]))
                     {
                         await ReplyAsync(Utilities.GetAlert("EGGPLANT_NO"));
                         return;

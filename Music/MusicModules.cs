@@ -2,6 +2,7 @@
 using Discord.Commands;
 using System.Threading.Tasks;
 using Discord.Addons.Interactive;
+using System;
 
 namespace GreenClover.Music
 {
@@ -71,6 +72,7 @@ namespace GreenClover.Music
 
             var response = await NextMessageAsync(true, true, timeout: System.TimeSpan.FromSeconds(30));
             string answer = response.ToString();
+            string[] wholeMsg = answer.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             int choose = Utilities.ConvertToInt(answer);
 
             if (choose == 0)
@@ -79,8 +81,7 @@ namespace GreenClover.Music
                 return;
             }
 
-            if (answer == Utilities.GetAlert("answerCancelEng")
-                || answer == Utilities.GetAlert("answerCancelPl"))
+            if (Utilities.GetAlert("answerCancel").Contains(wholeMsg[0]))
             {
                 await ReplyAsync(Utilities.GetAlert("PLAY_CANCEL"));
                 return;

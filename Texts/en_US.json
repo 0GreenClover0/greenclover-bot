@@ -1,7 +1,5 @@
 ﻿{
   // English language
-  // answerTrue etc. is a TODO, when we introduce other languages (so probably now) (it's used in: InteractiveCommands, InteractiveCommands
-  // InteractiveUtils and MusicModules
 
   //"BAN_COMMAND":
   "BAN": "User <@{0}> got banned",
@@ -120,16 +118,17 @@
   "PLAY_VIDEO_DESC": "Description:",
   "YOUTUBE_FILMEMBED": "Results:",
 
+  //OWNER_COMMANDS:
+  "OWNER_SETGAME_SUCCESS": "Bot game changed to: `{0}`",
+  "OWNER_SETGAME_FAIL": "You can't use this command, you are not an owner of this bot",
+
   //"AUTO_COMMANDS":
   //"WELCOME": "Witaj, {0}",
 
   //ALERTS/ERRORS/GLOBAL_VARS
-  "answerTruePl": "tak",
-  "answerFalsePl": "nie",
-  "answerTrueEng": "yes",
-  "answerFalseEng": "no",
-  "answerCancelPl": "anuluj",
-  "answerCancelEng": "cancel",
+  "answerTrue": "yes tak",
+  "answerFalse": "no nie",
+  "answerCancel": "cancel anuluj",
 
   //USER_ACCOUNTS
   "USER_DEFAULT_DESC": "Description not set"

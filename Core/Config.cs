@@ -37,5 +37,6 @@ namespace GreenClover
         public string language;
         public string searchEngineId;
         public string token;
+        public ulong ownerID;
     }
 }
