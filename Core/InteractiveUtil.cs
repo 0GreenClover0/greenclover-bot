@@ -23,9 +23,10 @@ namespace GreenClover.Core
             string[] wholeMsg = answer.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             wholeMsg[0] = Regex.Replace(wholeMsg[0], "[*]", string.Empty);
 
-            if (answer.Contains("send") && answer.Contains("nudes")
-                || GlobalVar.allCommandsEng.Contains(wholeMsg[0])
-                || GlobalVar.allCommandsPl.Contains(wholeMsg[0]))
+            if (GlobalVar.allCommandsEng.Contains(wholeMsg[0])
+                || GlobalVar.allCommandsPl.Contains(wholeMsg[0])
+                || answer.Contains("send") && answer.Contains("nudes")
+                || answer.Contains("set") && answer.Contains("game"))
             {
                 return true;
             }

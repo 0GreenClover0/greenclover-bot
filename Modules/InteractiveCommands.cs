@@ -57,9 +57,10 @@ namespace GreenClover.Modules
                     string[] wholeMsg = answerSecond.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     wholeMsg[0] = Regex.Replace(wholeMsg[0], "[*]", string.Empty);
 
-                    if (answerSecond.Contains("send") && answerSecond.Contains("nudes")
-                        || GlobalVar.allCommandsEng.Contains(wholeMsg[0])
-                        || GlobalVar.allCommandsPl.Contains(wholeMsg[0]))
+                    if (GlobalVar.allCommandsEng.Contains(wholeMsg[0])
+                        || GlobalVar.allCommandsPl.Contains(wholeMsg[0])
+                        || answerSecond.Contains("send") && answerSecond.Contains("nudes")
+                        || answerSecond.Contains("set") && answerSecond.Contains("game"))
                     {
                         return;
                     }

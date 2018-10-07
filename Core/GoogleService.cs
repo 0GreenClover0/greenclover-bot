@@ -11,6 +11,7 @@ namespace GreenClover
         public static string GetGoogle(SocketGuild guild, string query, int type)
         {
             Utilities utilities = new Utilities(guild);
+
             IList<Result> paging = new List<Result>();
             paging = GoogleSearch(query, type);
             if (paging == null) return Utilities.GetAlert("GOOGLE_NULL_RESULTS");

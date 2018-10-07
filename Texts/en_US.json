@@ -79,7 +79,6 @@
   "HELP_LIST_MOD": "`ban`, `prefix`, `language`",
   "HELP_LIST_PROFILE": "`profile`, `description`, `level`, `avatar`",
   "HELP_LIST_SYSTEM": "`ping`, `version`, `about`",
-  "HELP_PREFIX": "Domyślny prefix to: --",
   "HELP_SPECIFIC_COMMAND": "Command {0}",
   "HELP_TEXT": "- Help -",
   "HELP_DESC_DESCRIPTION": "It allows you to change profile description. Using **description set <description>**",

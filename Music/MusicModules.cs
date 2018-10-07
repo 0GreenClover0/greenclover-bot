@@ -26,7 +26,7 @@ namespace GreenClover.Music
                 var searchList = AudioService.GetYoutubeAsync(song, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel);
                 var searchResult = searchList.Items[0];
                 YoutubeVideo video = new YoutubeVideo();
-                video.SetInfoVideo(searchResult.Snippet.Description, searchResult.Snippet.Thumbnails.High.Url,
+                video.SetInfoVideo(Context.Guild, searchResult.Snippet.Description, searchResult.Snippet.Thumbnails.High.Url,
                     searchResult.Id.VideoId, searchResult.Snippet.Title);
 
                 EmbedBuilder builderPlay = new EmbedBuilder();
@@ -59,7 +59,7 @@ namespace GreenClover.Music
 
             var searchList = AudioService.GetYoutubeAsync(query, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel);
             YoutubeVideo video = new YoutubeVideo();
-            video.SetMultipleVideosInfo(video, searchList);
+            video.SetMultipleVideosInfo(Context.Guild, video, searchList);
 
             EmbedBuilder builder = new EmbedBuilder();
             builder
@@ -96,11 +96,6 @@ namespace GreenClover.Music
 
             choose = choose - 1;
             string song = video.link[choose];
-
-            if (video.desc[choose] == null || video.desc[choose] == "")
-            {
-                video.desc[choose] = Utilities.GetAlert("PLAY_NULL_DESC");
-            }
 
             EmbedBuilder builderPlay = new EmbedBuilder();
             builderPlay
