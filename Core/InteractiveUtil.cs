@@ -54,69 +54,21 @@ namespace GreenClover.Core
         // Changing user's answer (from 1 to 10) from string to int
         public static int ConvertToInt(string answer)
         {
-            int response = 0;
-            if (answer == "1")
+            int.TryParse(answer, out int response);
+            if (int.TryParse(answer, out response) == false)
             {
-                response = 1;
-                return response;
+                return 0;
             }
 
-            if (answer == "2")
+            else if (response < 1 || response > 10)
             {
-                response = 2;
-                return response;
-            }
-
-            if (answer == "3")
-            {
-                response = 3;
-                return response;
-            }
-
-            if (answer == "4")
-            {
-                response = 4;
-                return response;
-            }
-
-            if (answer == "5")
-            {
-                response = 5;
-                return response;
-            }
-
-            if (answer == "6")
-            {
-                response = 6;
-                return response;
-            }
-
-            if (answer == "7")
-            {
-                response = 7;
-                return response;
-            }
-
-            if (answer == "8")
-            {
-                response = 8;
-                return response;
-            }
-
-            if (answer == "9")
-            {
-                response = 9;
-                return response;
-            }
-
-            if (answer == "10")
-            {
-                response = 10;
-                return response;
+                return 0;
             }
 
             else
-                return 0;
+            {
+                return response;
+            }
         }
     }
 }

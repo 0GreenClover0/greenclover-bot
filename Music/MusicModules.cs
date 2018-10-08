@@ -33,7 +33,7 @@ namespace GreenClover.Music
                 builderPlay
                     .WithAuthor(Context.Message.Author.Username, avatar)
                     .WithThumbnailUrl(video.image[0])
-                    .WithDescription(Utilities.GetAlert("PLAY_PLAYED_SONG") + $"[{video.title[0]}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{video.link[0]})")
+                    .WithTitle(Utilities.GetAlert("PLAY_PLAYED_SONG") + $"[{video.title[0]}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{video.link[0]})")
                     .AddField(Utilities.GetAlert("PLAY_VIDEO_DESC"), video.desc[0])
                     .WithColor(Color.DarkRed);
 
@@ -101,7 +101,7 @@ namespace GreenClover.Music
             builderPlay
                 .WithAuthor(Context.Message.Author.Username, avatar)
                 .WithThumbnailUrl(video.image[choose])
-                .WithDescription(Utilities.GetAlert("PLAY_PLAYED_SONG") + $"[{video.title[choose]}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{song})")
+                .WithTitle(Utilities.GetAlert("PLAY_PLAYED_SONG") + $"[{video.title[choose]}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{song})")
                 .AddField(Utilities.GetAlert("PLAY_VIDEO_DESC"), video.desc[choose])
                 .WithColor(Color.DarkRed);
 
