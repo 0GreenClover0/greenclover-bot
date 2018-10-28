@@ -48,6 +48,12 @@ namespace GreenClover.Music
             LoadTracksResponse response = await lavalinkManager.GetTracksAsync(song);
             LavalinkTrack track = response.Tracks.First();
 
+            if (audioQueue.Queue.Count > 50)
+            {
+                await channel.SendMessageAsync(Utilities.GetAlert("QUEUE_OVERLOADED"));
+                return;
+            }
+
             audioQueue.Queue = AudioQueues.GetOrCreateGuildQueue(track, audioQueue);
             LavalinkTrack isFirst = audioQueue.Queue.ElementAtOrDefault(1);
 
@@ -99,29 +105,64 @@ namespace GreenClover.Music
             return searchListResponse;
         }
 
-        public static async Task QueueAsync(ISocketMessageChannel channel, List<LavalinkTrack> queue, string username, string avatar)
+        public static List<string> QueueAsync(ISocketMessageChannel channel, List<LavalinkTrack> queue, string username, string avatar)
         {
             YoutubeVideo video = new YoutubeVideo();
             int count = 1;
-            int i = 0;
+            //int i = 0;
 
             foreach (var track in queue)
             {
-                video.videosList.Add($"{count}. {track.Title} `{track.Length}` \n");
-                video.link[i] = track.Url;
-                video.title[i] = track.Title;
+                video.videosList.Add($"{count}. [{track.Title}]({track.Url}) `{track.Length}` \n");
+                //video.link[i] = track.Url;
+                //video.title[i] = track.Title;
                 count++;
-                i++;
+                //i++;
             }
 
-            EmbedBuilder builder = new EmbedBuilder();
-            builder
-                .WithAuthor(username, avatar)
-                .WithTitle(Utilities.GetAlert("YOUTUBE_FILMEMBED_QUEUE"))
-                .WithDescription($"{string.Join("\n", video.videosList.Take(10))}")
-                .WithColor(Color.Red);
+            return video.videosList;
+        }
 
-            await channel.SendMessageAsync("", false, builder.Build());
+        public static List<List<string>> QueuePaging(List<string> videoList)
+        {
+            List<List<string>> pages = new List<List<string>>();
+
+            if (videoList.Count < 11)
+            {
+                pages.Add(videoList.GetRange(0, videoList.Count));
+            }
+
+            else if (videoList.Count > 10 && videoList.Count < 21)
+            {
+                pages.Add(videoList.GetRange(0, 10));
+                pages.Add(videoList.GetRange(10, videoList.Count - 10));
+            }
+
+            else if (videoList.Count > 20 && videoList.Count < 31)
+            {
+                pages.Add(videoList.GetRange(0, 10));
+                pages.Add(videoList.GetRange(10, 10));
+                pages.Add(videoList.GetRange(20, videoList.Count - 20));
+            }
+
+            else if (videoList.Count > 30 && videoList.Count < 41)
+            {
+                pages.Add(videoList.GetRange(0, 10));
+                pages.Add(videoList.GetRange(10, 10));
+                pages.Add(videoList.GetRange(20, 10));
+                pages.Add(videoList.GetRange(30, videoList.Count - 30));
+            }
+
+            else if (videoList.Count > 40)
+            {
+                pages.Add(videoList.GetRange(0, 10));
+                pages.Add(videoList.GetRange(10, 10));
+                pages.Add(videoList.GetRange(20, 10));
+                pages.Add(videoList.GetRange(30, 10));
+                pages.Add(videoList.GetRange(40, videoList.Count - 40));
+            }
+
+            return pages;
         }
     }
 }

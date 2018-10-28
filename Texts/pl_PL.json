@@ -115,10 +115,10 @@
   "PLAY_NULL_QUERY": "Czego mam szukać?",
   "PLAY_PLAYED_SONG": "**Grany utwór:**\n",
   "PLAY_WRONG_ANSWER": "Wymagana jest liczba od 1 do 10",
-  "PLAY_YOUTUBE_LINK": "https://www.youtube.com/watch?v=",
   "PLAY_VIDEO_DESC": "Opis:",
   "YOUTUBE_FILMEMBED": "Filmy",
   "YOUTUBE_FILMEMBED_QUEUE": "Kolejka:",
+  "QUEUE_OVERLOADED": "Kolejka obsługuje do 50 utworów",
 
   //OWNER_COMMANDS:
   "OWNER_SETGAME_SUCCESS": "Bot gra teraz w: `{0}`",

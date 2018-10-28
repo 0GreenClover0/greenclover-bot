@@ -5,6 +5,8 @@ using Discord.Addons.Interactive;
 using System;
 using GreenClover.Core;
 using GreenClover.Core.Accounts;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GreenClover.Music
 {
@@ -31,16 +33,17 @@ namespace GreenClover.Music
                 video.SetInfoVideo(Context.Guild, searchResult.Snippet.Description, searchResult.Snippet.Thumbnails.High.Url,
                     searchResult.Id.VideoId, searchResult.Snippet.Title);
 
+                //TODO move this to PlayAsync (search command also use playasync)
                 EmbedBuilder builderPlay = new EmbedBuilder();
                 builderPlay
                     .WithAuthor(Context.Message.Author.Username, avatar)
                     .WithThumbnailUrl(video.image[0])
-                    .AddField(Utilities.GetAlert("PLAY_PLAYED_SONG"), $"[{video.title[0]}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{video.link[0]})")
+                    .AddField(Utilities.GetAlert("PLAY_PLAYED_SONG"), $"[{video.title[0]}](https://www.youtube.com/watch?v={video.link[0]})")
                     .AddField(Utilities.GetAlert("PLAY_VIDEO_DESC"), video.desc[0])
                     .WithColor(Color.DarkRed);
 
                 await ReplyAsync("", false, builderPlay.Build());
-                await AudioService.PlayAsync(Context.Guild, (Context.User as IVoiceState).VoiceChannel, Context.Channel, $"{Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{video.link[0]}");
+                await AudioService.PlayAsync(Context.Guild, (Context.User as IVoiceState).VoiceChannel, Context.Channel, $"https://www.youtube.com/watch?v={video.link[0]}");
                 return;
             }
 
@@ -73,7 +76,7 @@ namespace GreenClover.Music
 
             await ReplyAsync("", false, builder.Build());
 
-            var response = await NextMessageAsync(true, true, timeout: System.TimeSpan.FromSeconds(30));
+            var response = await NextMessageAsync(true, true, timeout: TimeSpan.FromSeconds(30));
             string answer = response.ToString();
             string[] wholeMsg = answer.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             int choose = InteractiveUtil.ConvertToInt(answer);
@@ -103,12 +106,12 @@ namespace GreenClover.Music
             builderPlay
                 .WithAuthor(Context.Message.Author.Username, avatar)
                 .WithThumbnailUrl(video.image[choose])
-                .AddField(Utilities.GetAlert("PLAY_PLAYED_SONG"), $"[{video.title[choose]}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{song})")
+                .AddField(Utilities.GetAlert("PLAY_PLAYED_SONG"), $"[{video.title[choose]}](https://www.youtube.com/watch?v={song})")
                 .AddField(Utilities.GetAlert("PLAY_VIDEO_DESC"), video.desc[choose])
                 .WithColor(Color.DarkRed);
 
             await ReplyAsync("", false, builderPlay.Build());
-            await AudioService.PlayAsync(Context.Guild, (Context.User as IVoiceState).VoiceChannel, Context.Channel, $"{Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{song})");
+            await AudioService.PlayAsync(Context.Guild, (Context.User as IVoiceState).VoiceChannel, Context.Channel, $"https://www.youtube.com/watch?v={song})");
             return;
         }
 
@@ -130,7 +133,51 @@ namespace GreenClover.Music
             var audioQueue = AudioQueues.GetAudioQueue(Context.Guild);
             string avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
 
-            await AudioService.QueueAsync(Context.Channel, audioQueue.Queue, Context.Message.Author.Username, avatar);
+            if (audioQueue.Queue.ElementAtOrDefault(0) == null)
+            {
+                EmbedBuilder builderNull = new EmbedBuilder();
+                builderNull
+                    .WithAuthor(Context.Message.Author.Username, avatar)
+                    .WithDescription("\n Kolejka jest pusta")
+                    .WithColor(Color.DarkRed);
+
+                await ReplyAsync("", false, builderNull.Build());
+                return;
+            }
+
+            List<string> queue = new List<string>();
+            List<List<string>> pagesContent = new List<List<string>>(5);
+
+            queue = AudioService.QueueAsync(Context.Channel, audioQueue.Queue, Context.Message.Author.Username, avatar);
+            pagesContent = AudioService.QueuePaging(queue);
+            string firstSite = string.Join("\n", pagesContent[0].ToArray());
+            string secondSite = null;
+            string thirdSite = null;
+            string fourthSite = null;
+            string fifthSite = null;
+
+            if (pagesContent.Count > 1)
+            {
+                secondSite = string.Join("\n", pagesContent[1].ToArray());
+            }
+
+            if (pagesContent.Count > 2)
+            {
+                thirdSite = string.Join("\n", pagesContent[2].ToArray());
+            }
+
+            if (pagesContent.Count > 3)
+            {
+                fourthSite = string.Join("\n", pagesContent[3].ToArray());
+            }
+
+            if (pagesContent.Count > 4)
+            {
+                fifthSite = string.Join("\n", pagesContent[4].ToArray());
+            }
+
+            var pages = new[] {firstSite, secondSite, thirdSite, fourthSite, fifthSite};
+            await PagedReplyAsync(pages);
         }
     }
 }

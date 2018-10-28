@@ -115,10 +115,10 @@
   "PLAY_NULL_QUERY": "What should I look for?",
   "PLAY_PLAYED_SONG": "**Track added:**\n",
   "PLAY_WRONG_ANSWER": "A number from 1 to 10 is required",
-  "PLAY_YOUTUBE_LINK": "https://www.youtube.com/watch?v=",
   "PLAY_VIDEO_DESC": "Description:",
   "YOUTUBE_FILMEMBED": "Results:",
   "YOUTUBE_FILMEMBED_QUEUE": "Queue:",
+  "QUEUE_OVERLOADED": "The queue supports up to 50 songs only",
 
   //OWNER_COMMANDS:
   "OWNER_SETGAME_SUCCESS": "Bot game changed to: `{0}`",
