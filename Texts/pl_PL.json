@@ -92,6 +92,8 @@
 
   //"PING_COMMAND":
   "PING": "Ping. Ha! Tego się nie spodziewałeś. **{0}ms**",
+  "PING_INIT": "Opóźnienie: **{0}**ms: Odpowiedź: ---",
+  "PING_RESPONSE": "Opóźnienie: **{0}**ms, Odpowiedź: **{1}**ms",
 
   //PREFIX_COMMANDS:
   "PREFIX_ERROR_CHARS": "Prefix nie może być dłuższy niż 12 znaków",
@@ -116,6 +118,7 @@
   "PLAY_YOUTUBE_LINK": "https://www.youtube.com/watch?v=",
   "PLAY_VIDEO_DESC": "Opis:",
   "YOUTUBE_FILMEMBED": "Filmy",
+  "YOUTUBE_FILMEMBED_QUEUE": "Kolejka:",
 
   //OWNER_COMMANDS:
   "OWNER_SETGAME_SUCCESS": "Bot gra teraz w: `{0}`",
@@ -127,5 +130,5 @@
   //ALERTS/ERRORS/GLOBAL_VARS
   "answerTrue": "yes tak",
   "answerFalse": "no nie",
-  "answerCancel": "cancel anuluj",
+  "answerCancel": "cancel anuluj"
 }

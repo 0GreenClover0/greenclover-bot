@@ -48,6 +48,24 @@ namespace GreenClover.Core
             return JsonConvert.DeserializeObject<List<GuildAccount>>(json);
         }
 
+        public static void SaveQueues(IEnumerable<AudioQueue> audioQueues, string filePath)
+        {
+            string json = JsonConvert.SerializeObject(audioQueues, Formatting.Indented);
+            File.WriteAllText(filePath, json);
+        }
+
+        public static IEnumerable<AudioQueue> LoadQueues(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("File with audio queues doesn't exist");
+                return null;
+            }
+
+            string json = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<List<AudioQueue>>(json);
+        }
+
         public static bool SaveExists(string filePath)
         {
             return File.Exists(filePath);

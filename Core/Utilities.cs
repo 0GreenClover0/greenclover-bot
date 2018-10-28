@@ -31,14 +31,14 @@ namespace GreenClover
         {
             if (alerts.ContainsKey(key)) return alerts[key];
 
-            return "Error - does not contains key to alert";
+            return "Error - does not contains key to alert. Please report this in our site.";
         }
 
         public static string GetFormattedAlert(string key, params object[] parameter)
         {
             if (alerts.ContainsKey(key)) return String.Format(alerts[key], parameter);
 
-            return "Error - does not contains key to alert";
+            return "Error - does not contains key to alert. Please report this in our site.";
         }
 
         public static string GetFormattedAlert(string key, object parameter)

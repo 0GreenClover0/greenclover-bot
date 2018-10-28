@@ -92,6 +92,8 @@
 
   //"PING_COMMAND":
   "PING": "Ping. You didn't expect that, didn't you? **{0}ms**",
+  "PING_INIT": "Latency: **{0}**ms: Response: ---",
+  "PING_RESPONSE": "Latency: **{0}**ms, Response: **{1}**ms",
 
   //PREFIX_COMMANDS:
   "PREFIX_ERROR_CHARS": "Prefix can't be longer than 12 characters",
@@ -116,6 +118,7 @@
   "PLAY_YOUTUBE_LINK": "https://www.youtube.com/watch?v=",
   "PLAY_VIDEO_DESC": "Description:",
   "YOUTUBE_FILMEMBED": "Results:",
+  "YOUTUBE_FILMEMBED_QUEUE": "Queue:",
 
   //OWNER_COMMANDS:
   "OWNER_SETGAME_SUCCESS": "Bot game changed to: `{0}`",
@@ -127,5 +130,5 @@
   //ALERTS/ERRORS/GLOBAL_VARS
   "answerTrue": "yes tak",
   "answerFalse": "no nie",
-  "answerCancel": "cancel anuluj",
+  "answerCancel": "cancel anuluj"
 }

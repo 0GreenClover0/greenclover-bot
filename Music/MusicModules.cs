@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Discord.Addons.Interactive;
 using System;
 using GreenClover.Core;
+using GreenClover.Core.Accounts;
 
 namespace GreenClover.Music
 {
@@ -13,6 +14,7 @@ namespace GreenClover.Music
         public async Task PlayAsync([Remainder] string song = "")
         {
             Utilities utilities = new Utilities(Context.Guild);
+            var guildAccount = GuildAccounts.GetGuildAccount(Context.Guild);
             string avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
 
             if (!song.Contains(".com") && song != "")
@@ -33,16 +35,16 @@ namespace GreenClover.Music
                 builderPlay
                     .WithAuthor(Context.Message.Author.Username, avatar)
                     .WithThumbnailUrl(video.image[0])
-                    .WithTitle(Utilities.GetAlert("PLAY_PLAYED_SONG") + $"[{video.title[0]}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{video.link[0]})")
+                    .AddField(Utilities.GetAlert("PLAY_PLAYED_SONG"), $"[{video.title[0]}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{video.link[0]})")
                     .AddField(Utilities.GetAlert("PLAY_VIDEO_DESC"), video.desc[0])
                     .WithColor(Color.DarkRed);
 
                 await ReplyAsync("", false, builderPlay.Build());
-                await AudioService.PlayAsync(Context.Guild, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, $"{Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{video.link[0]})", Context.Channel);
+                await AudioService.PlayAsync(Context.Guild, (Context.User as IVoiceState).VoiceChannel, Context.Channel, $"{Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{video.link[0]}");
                 return;
             }
 
-            await AudioService.PlayAsync(Context.Guild, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, song, Context.Channel);
+            await AudioService.PlayAsync(Context.Guild, (Context.User as IVoiceState).VoiceChannel, Context.Channel, song);
         }
 
         [Command("search", RunMode = RunMode.Async)]
@@ -66,7 +68,7 @@ namespace GreenClover.Music
                 .WithAuthor(Context.Message.Author.Username, avatar)
                 .WithThumbnailUrl("http://i65.tinypic.com/2uqk3yr.png")
                 .WithTitle(Utilities.GetAlert("YOUTUBE_FILMEMBED"))
-                .WithDescription(string.Format("{0}", string.Join("\n", video.videosList)))
+                .WithDescription($"{string.Join("\n", video.videosList)}")
                 .WithColor(Color.Red);
 
             await ReplyAsync("", false, builder.Build());
@@ -101,25 +103,34 @@ namespace GreenClover.Music
             builderPlay
                 .WithAuthor(Context.Message.Author.Username, avatar)
                 .WithThumbnailUrl(video.image[choose])
-                .WithTitle(Utilities.GetAlert("PLAY_PLAYED_SONG") + $"[{video.title[choose]}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{song})")
+                .AddField(Utilities.GetAlert("PLAY_PLAYED_SONG"), $"[{video.title[choose]}]({Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{song})")
                 .AddField(Utilities.GetAlert("PLAY_VIDEO_DESC"), video.desc[choose])
                 .WithColor(Color.DarkRed);
 
             await ReplyAsync("", false, builderPlay.Build());
-            await AudioService.PlayAsync(Context.Guild, Context.Guild.Id, (Context.User as IVoiceState).VoiceChannel, $"{Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{song})", Context.Channel);
+            await AudioService.PlayAsync(Context.Guild, (Context.User as IVoiceState).VoiceChannel, Context.Channel, $"{Utilities.GetAlert("PLAY_YOUTUBE_LINK")}{song})");
             return;
         }
 
         [Command("leave")]
         public async Task LeaveAsync()
         {
-            await AudioService.LeaveAsync(Context.Guild.Id);
+            await AudioService.LeaveAsync(Context.Guild);
         }
 
         [Command("stop")]
         public async Task StopAsync()
         {
             await AudioService.StopAsync(Context.Guild.Id);
+        }
+
+        [Command("queue")]
+        public async Task QueueAsync()
+        {
+            var audioQueue = AudioQueues.GetAudioQueue(Context.Guild);
+            string avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
+
+            await AudioService.QueueAsync(Context.Channel, audioQueue.Queue, Context.Message.Author.Username, avatar);
         }
     }
 }

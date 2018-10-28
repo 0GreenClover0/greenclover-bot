@@ -1,14 +1,15 @@
 ﻿using Discord;
 using Discord.WebSocket;
+using GreenClover.Music;
 using SharpLink;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using Console = Colorful.Console;
-using InstaSharp;
 
 namespace GreenClover
 {
-    class Program : IDisposable
+    internal class Program : IDisposable
     {
         private DiscordSocketClient _client;
         private CommandHandler _handler;
@@ -35,10 +36,10 @@ namespace GreenClover
         {
             AudioService.lavalinkManager = new LavalinkManager(_client, new LavalinkManagerConfig()
             {
-                RESTHost = "127.0.0.1",
-                RESTPort = 2333,
-                WebSocketHost = "127.0.0.1",
-                WebSocketPort = 80,
+                RESTHost = "localhost",
+                RESTPort = 8556,
+                WebSocketHost = "localhost",
+                WebSocketPort = 8556,
                 Authorization = "youshallnotpass",
                 TotalShards = 1,
                 LogSeverity = LogSeverity.Verbose
@@ -46,11 +47,14 @@ namespace GreenClover
 
             await LoginAsync();
             await HandlerInitialize();
+            DeleteQueues();
 
             _client.Ready += async () =>
             {
                 await AudioService.lavalinkManager.StartAsync();
             };
+
+            AudioService.lavalinkManager.TrackEnd += AudioQueuesManagment.LavalinkManager_TrackEnd;
         }
 
         private async Task LoginAsync()
@@ -100,6 +104,11 @@ namespace GreenClover
         {
             Console.WriteLine(msg.Message, Color.Green);
             return Task.CompletedTask;
+        }
+
+        private void DeleteQueues()
+        {
+            File.Delete("Resources/audioQueues.json");
         }
 
         public void Dispose()

@@ -29,7 +29,7 @@ namespace GreenClover.Music
             foreach (var searchResult in searchList.Items)
             {
                 Utilities utilities = new Utilities(guild);
-                video.videosList.Add(String.Format("{0}. {1} \n", count, searchResult.Snippet.Title));
+                video.videosList.Add($"{count}. {searchResult.Snippet.Title} \n");
                 video.link[i] = searchResult.Id.VideoId;
                 video.title[i] = searchResult.Snippet.Title;
                 video.desc[i] = searchResult.Snippet.Description;

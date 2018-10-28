@@ -14,10 +14,10 @@
   <ItemGroup>
     <PackageReference Include="Colorful.Console" Version="1.2.9" />
     <PackageReference Include="Discord.Addons.Interactive" Version="1.0.1" />
-    <PackageReference Include="Discord.Net" Version="2.0.0-beta2-00999" />
-    <PackageReference Include="Discord.Net.Commands" Version="2.0.0-beta2-00999" />
-    <PackageReference Include="Google.Apis.Customsearch.v1" Version="1.35.2.1322" />
-    <PackageReference Include="Google.Apis.YouTube.v3" Version="1.35.2.1226" />
+    <PackageReference Include="Discord.Net" Version="2.0.0-beta2-01018" />
+    <PackageReference Include="Discord.Net.Commands" Version="2.0.0-beta2-01018" />
+    <PackageReference Include="Google.Apis.Customsearch.v1" Version="1.36.1.1369" />
+    <PackageReference Include="Google.Apis.YouTube.v3" Version="1.36.1.1226" />
     <PackageReference Include="InstaSharp" Version="2.0.6" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="SharpLink" Version="1.0.0-beta-0005" />

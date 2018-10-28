@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace GreenClover.Core.Accounts
 {
-    class GuildAccounts
+    public static class GuildAccounts
     {
         private static List<GuildAccount> guildAccounts;
 

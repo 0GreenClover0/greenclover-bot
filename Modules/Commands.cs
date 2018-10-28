@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord;
@@ -40,8 +41,17 @@ namespace GreenClover.Modules
         public async Task PingAsync()
         {
             Utilities utilities = new Utilities(Context.Guild);
-            await ReplyAsync(Utilities.GetFormattedAlert("PING", Context.Client.Latency));
-            return;
+
+            IUserMessage message = null;
+            Stopwatch stopwatch = null;
+            int heartbeat = Context.Client.Latency;
+
+            stopwatch = Stopwatch.StartNew();
+            message = await ReplyAsync(Utilities.GetFormattedAlert("PING_INIT", heartbeat));
+            stopwatch.Stop();
+            var init = stopwatch.ElapsedMilliseconds;
+
+            await message.ModifyAsync(x => x.Content = Utilities.GetFormattedAlert("PING_RESPONSE", heartbeat, init));
         }
 
         [Command("send nudes")]
