@@ -16,7 +16,7 @@ lavalink:
       mixer: true
       http: true
       local: false
-    bufferDurationMs: 600
+    bufferDurationMs: 300
     youtubePlaylistLoadLimit: 6 # Number of pages at 100 each
     gc-warnings: true
 

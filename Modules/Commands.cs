@@ -19,7 +19,6 @@ namespace GreenClover.Modules
         {
             Utilities utilities = new Utilities(Context.Guild);
             string key = "HUG_&AUTHORNAME_&TARGETID";
-
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             SocketUser target = mentionedUser ?? Context.User;
 
@@ -59,6 +58,7 @@ namespace GreenClover.Modules
         public async Task NudesAsync()
         {
             Utilities utilities = new Utilities(Context.Guild);
+
             EmbedBuilder builder = new EmbedBuilder();
             builder
                 .WithDescription(":womens: | **Wyślij sms'a o treści 69 na mój numer aby dostać więcej**")
@@ -74,6 +74,7 @@ namespace GreenClover.Modules
         public async Task ChooseAsync([Remainder]string message = "")
         {
             Utilities utilities = new Utilities(Context.Guild);
+
             if (message == "")
             {
                 await ReplyAsync(Utilities.GetAlert("CHOOSE_NULLMSG"));

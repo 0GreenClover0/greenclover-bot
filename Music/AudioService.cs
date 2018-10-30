@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord;
@@ -59,6 +58,8 @@ namespace GreenClover.Music
 
             if (isFirst == null)
             {
+                audioQueue.PlayingTrackIndex = 0;
+                AudioQueues.SaveQueues();
                 await player.PlayAsync(track);
                 return;
             }
@@ -87,6 +88,13 @@ namespace GreenClover.Music
             if (player.Playing == false) return;
 
             await player.PauseAsync();
+        }
+
+        public static async Task SkipAsync(SocketGuild guild)
+        {
+            LavalinkPlayer player = lavalinkManager.GetPlayer(guild.Id);
+            await AudioQueuesManagment.RemoveAndPlay(player, player.CurrentTrack);
+            return;
         }
 
         public static Google.Apis.YouTube.v3.Data.SearchListResponse GetYoutubeAsync(string query, ulong guildId, IVoiceChannel voiceChannel)
@@ -160,6 +168,33 @@ namespace GreenClover.Music
                 pages.Add(videoList.GetRange(20, 10));
                 pages.Add(videoList.GetRange(30, 10));
                 pages.Add(videoList.GetRange(40, videoList.Count - 40));
+            }
+
+            return pages;
+        }
+
+        public static string[] QueueAddPages(string[] pages, List<List<string>> pagesContent)
+        {
+            pages[0] = string.Join("\n", pagesContent[0].ToArray());
+
+            if (pagesContent.Count > 1)
+            {
+                pages[1] = string.Join("\n", pagesContent[1].ToArray());
+            }
+
+            if (pagesContent.Count > 2)
+            {
+                pages[2] = string.Join("\n", pagesContent[2].ToArray());
+            }
+
+            if (pagesContent.Count > 3)
+            {
+                pages[3] = string.Join("\n", pagesContent[3].ToArray());
+            }
+
+            if (pagesContent.Count > 4)
+            {
+                pages[4] = string.Join("\n", pagesContent[4].ToArray());
             }
 
             return pages;

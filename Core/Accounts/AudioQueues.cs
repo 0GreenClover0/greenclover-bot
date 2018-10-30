@@ -9,7 +9,7 @@ namespace GreenClover.Core.Accounts
     {
         public static List<AudioQueue> audioQueues;
 
-        public static string queuesFile = "Resources/audioQueues.json";
+        public static readonly string queuesFile = "Resources/audioQueues.json";
 
         static AudioQueues()
         {
@@ -56,6 +56,7 @@ namespace GreenClover.Core.Accounts
             var newQueue = new AudioQueue()
             {
                 GuildID = id,
+                PlayingTrackIndex = -1,
                 Queue = new List<LavalinkTrack>()
             };
 

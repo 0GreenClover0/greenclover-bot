@@ -37,7 +37,6 @@ namespace GreenClover.Modules.AccountCommands
         public async Task LevelAsync([Remainder] string arg = "")
         {
             Utilities utilities = new Utilities(Context.Guild);
-
             var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
             SocketUser target = mentionedUser ?? Context.User;
             var account = UserAccounts.GetAccount(target);

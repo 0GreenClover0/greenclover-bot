@@ -60,14 +60,9 @@ namespace GreenClover.Core
                 return 0;
             }
 
-            else if (response < 1 || response > 10)
-            {
-                return 0;
-            }
-
             else
             {
-                return response;
+                return response < 1 || response > 10 ? 0 : response;
             }
         }
     }

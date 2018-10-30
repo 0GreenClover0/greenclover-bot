@@ -23,12 +23,8 @@ namespace GreenClover
                 if (imageLink == null || imageLink == "") return Utilities.GetAlert("GOOGLE_IMAGE_ERROR");
                 return imageLink;
             }
+
             return Utilities.GetFormattedAlert("GOOGLE_RESULT", result.Title, result.Link);
-            // You can also get more results by
-            // foreach (Result result in paging.Items)
-            // {
-            //     imageUrls.Add(result.Image.ThumbnailLink);
-            // }
         }
 
         private static IList<Result> GoogleSearch(string query, int type)

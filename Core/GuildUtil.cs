@@ -26,23 +26,25 @@ namespace GreenClover.Core
             }
 
             else
+            {
                 return null;
+            }
         }
 
         public static string ChangedLanguageAlertKey(string changedLanguage)
         {
             //Gets an alert from string returned by ChangeLanguage method
-            if (changedLanguage == null)
-                return "LANGUAGE_ERROR";
-
-            else if (changedLanguage == "polish")
-                return "LANGUAGE_CHANGED_POLISH";
-
-            else if (changedLanguage == "english")
-                return "LANGUAGE_CHANGED_ENGLISH";
-
-            else
-                return null;
+            switch (changedLanguage)
+            {
+                case null:
+                    return "LANGUAGE_ERROR";
+                case "polish":
+                    return "LANGUAGE_CHANGED_POLISH";
+                case "english":
+                    return "LANGUAGE_CHANGED_ENGLISH";
+                default:
+                    return null;
+            }
         }
     }
 }

@@ -22,8 +22,7 @@ namespace GreenClover
         private static string CheckLanguage(SocketGuild guild)
         {
             var guildAccount = GuildAccounts.GetGuildAccount(guild);
-            string filePath = guildAccount.ConfigLang;
-            return filePath;
+            return guildAccount.ConfigLang;
         }
 
         // Basic functions to get alerts
@@ -36,7 +35,7 @@ namespace GreenClover
 
         public static string GetFormattedAlert(string key, params object[] parameter)
         {
-            if (alerts.ContainsKey(key)) return String.Format(alerts[key], parameter);
+            if (alerts.ContainsKey(key)) return string.Format(alerts[key], parameter);
 
             return "Error - does not contains key to alert. Please report this in our site.";
         }

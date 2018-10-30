@@ -7,6 +7,8 @@ namespace GreenClover.Core.Accounts
     {
         public ulong GuildID { get; set; }
 
+        public int PlayingTrackIndex { get; set; }
+
         public List<LavalinkTrack> Queue { get; set; }
     }
 }

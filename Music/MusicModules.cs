@@ -127,6 +127,15 @@ namespace GreenClover.Music
             await AudioService.StopAsync(Context.Guild.Id);
         }
 
+        [Command("skip")]
+        public async Task SkipAsync()
+        {
+            var audioQueue = AudioQueues.GetAudioQueue(Context.Guild);
+            string skippedTrackTitle = audioQueue.Queue[audioQueue.PlayingTrackIndex].Title;
+            await AudioService.SkipAsync(Context.Guild);
+            await ReplyAsync($":fast_forward: {skippedTrackTitle} skipped");
+        }
+
         [Command("queue")]
         public async Task QueueAsync()
         {
@@ -150,33 +159,8 @@ namespace GreenClover.Music
 
             queue = AudioService.QueueAsync(Context.Channel, audioQueue.Queue, Context.Message.Author.Username, avatar);
             pagesContent = AudioService.QueuePaging(queue);
-            string firstSite = string.Join("\n", pagesContent[0].ToArray());
-            string secondSite = null;
-            string thirdSite = null;
-            string fourthSite = null;
-            string fifthSite = null;
+            string[] pages = new string[5];
 
-            if (pagesContent.Count > 1)
-            {
-                secondSite = string.Join("\n", pagesContent[1].ToArray());
-            }
-
-            if (pagesContent.Count > 2)
-            {
-                thirdSite = string.Join("\n", pagesContent[2].ToArray());
-            }
-
-            if (pagesContent.Count > 3)
-            {
-                fourthSite = string.Join("\n", pagesContent[3].ToArray());
-            }
-
-            if (pagesContent.Count > 4)
-            {
-                fifthSite = string.Join("\n", pagesContent[4].ToArray());
-            }
-
-            var pages = new[] {firstSite, secondSite, thirdSite, fourthSite, fifthSite};
             await PagedReplyAsync(pages);
         }
     }
