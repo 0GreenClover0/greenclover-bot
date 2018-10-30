@@ -160,6 +160,7 @@ namespace GreenClover.Music
             queue = AudioService.QueueAsync(Context.Channel, audioQueue.Queue, Context.Message.Author.Username, avatar);
             pagesContent = AudioService.QueuePaging(queue);
             string[] pages = new string[5];
+            pages = AudioService.QueueAddPages(pages, pagesContent);
 
             await PagedReplyAsync(pages);
         }
