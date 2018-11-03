@@ -46,7 +46,8 @@ namespace GreenClover.Music
             {
                 audioQueue.PlayingTrackIndex = 0;
                 AudioQueues.SaveQueues();
-                await player.PlayAsync(audioQueue.Queue.ElementAtOrDefault(0));
+                LavalinkTrack track = audioQueue.Queue.ElementAtOrDefault(0);
+                await player.PlayAsync(track);
             }
 
             await Task.CompletedTask;

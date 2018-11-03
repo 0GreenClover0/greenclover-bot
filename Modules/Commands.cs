@@ -92,21 +92,19 @@ namespace GreenClover.Modules
         [Command("ban")]
         [RequireUserPermission(GuildPermission.BanMembers)]
         [RequireBotPermission(GuildPermission.BanMembers)]
-        public async Task BanAsync(SocketGuildUser user, [Remainder] string reason = "Nie podano powodu")
+        public async Task BanAsync(SocketGuildUser target = null, [Remainder] string reason = "Nie podano powodu")
         {
             Utilities utilities = new Utilities(Context.Guild);
-            var mentionedUser = Context.Message.MentionedUsers.FirstOrDefault();
-            if (mentionedUser == null)
+            
+            if (target == null)
             {
                 await ReplyAsync(Utilities.GetAlert("BAN_NULLMENTION"));
                 return;
             }
 
-            SocketUser target = mentionedUser;
-
             if (target.IsBot == true)
             {
-                await user.Guild.AddBanAsync(user, 0, reason);
+                await target.Guild.AddBanAsync(target, 0, reason);
                 await ReplyAsync(Utilities.GetFormattedAlert("BAN", Context.Message.Author.Id));
                 return;
             }
@@ -116,7 +114,7 @@ namespace GreenClover.Modules
                 var dmChannel = await target.GetOrCreateDMChannelAsync();
                 await dmChannel.SendMessageAsync(Utilities.GetFormattedAlert("BAN_USERMESSAGE",
                     Context.Guild.Name, Context.Message.Author.Username, reason));
-                await user.Guild.AddBanAsync(user, 0, reason);
+                await target.Guild.AddBanAsync(target, 0, reason);
                 await ReplyAsync(Utilities.GetFormattedAlert("BAN", target.Id));
                 return;
             }
