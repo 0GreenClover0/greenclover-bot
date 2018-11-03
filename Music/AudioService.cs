@@ -40,6 +40,7 @@ namespace GreenClover.Music
                     await channel.SendMessageAsync(Utilities.GetAlert("PLAY_NULL_LINK"));
                     return;
                 }
+
                 await player.ResumeAsync();
                 return;
             }
@@ -54,15 +55,30 @@ namespace GreenClover.Music
             }
 
             audioQueue.Queue = AudioQueues.GetOrCreateGuildQueue(track, audioQueue);
-            LavalinkTrack isFirst = audioQueue.Queue.ElementAtOrDefault(1);
+            LavalinkTrack secondTrack = audioQueue.Queue.ElementAtOrDefault(1);
 
-            if (isFirst == null)
+            if (secondTrack == null)
             {
                 audioQueue.PlayingTrackIndex = 0;
                 AudioQueues.SaveQueues();
                 await player.PlayAsync(track);
                 return;
             }
+        }
+
+        public static async Task SongInfo(ISocketMessageChannel channel, YoutubeVideo video, SocketUserMessage message, string song, int choose = 0)
+        {
+            string avatar = message.Author.GetAvatarUrl() ?? message.Author.GetDefaultAvatarUrl();
+            
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithAuthor(message.Author.Username, avatar)
+                .WithThumbnailUrl(video.image[choose])
+                .AddField(Utilities.GetAlert("PLAY_PLAYED_SONG"), $"[{video.title[choose]}](https://www.youtube.com/watch?v={song})")
+                .AddField(Utilities.GetAlert("PLAY_VIDEO_DESC"), video.desc[choose])
+                .WithColor(Color.DarkRed);
+
+            await channel.SendMessageAsync("", false, builder.Build());
         }
 
         public static async Task LeaveAsync(SocketGuild guild)
@@ -94,7 +110,6 @@ namespace GreenClover.Music
         {
             LavalinkPlayer player = lavalinkManager.GetPlayer(guild.Id);
             await AudioQueuesManagment.RemoveAndPlay(player, player.CurrentTrack);
-            return;
         }
 
         public static Google.Apis.YouTube.v3.Data.SearchListResponse GetYoutubeAsync(string query, ulong guildId, IVoiceChannel voiceChannel)

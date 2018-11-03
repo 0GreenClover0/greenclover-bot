@@ -32,18 +32,10 @@ namespace GreenClover.Music
                 YoutubeVideo video = new YoutubeVideo();
                 video.SetInfoVideo(Context.Guild, searchResult.Snippet.Description, searchResult.Snippet.Thumbnails.High.Url,
                     searchResult.Id.VideoId, searchResult.Snippet.Title);
+                int choose = 0;
 
-                //TODO move this to PlayAsync (search command also use playasync)
-                EmbedBuilder builderPlay = new EmbedBuilder();
-                builderPlay
-                    .WithAuthor(Context.Message.Author.Username, avatar)
-                    .WithThumbnailUrl(video.image[0])
-                    .AddField(Utilities.GetAlert("PLAY_PLAYED_SONG"), $"[{video.title[0]}](https://www.youtube.com/watch?v={video.link[0]})")
-                    .AddField(Utilities.GetAlert("PLAY_VIDEO_DESC"), video.desc[0])
-                    .WithColor(Color.DarkRed);
-
-                await ReplyAsync("", false, builderPlay.Build());
                 await AudioService.PlayAsync(Context.Guild, (Context.User as IVoiceState).VoiceChannel, Context.Channel, $"https://www.youtube.com/watch?v={video.link[0]}");
+                await AudioService.SongInfo(Context.Channel, video, Context.Message, video.link[0], choose);
                 return;
             }
 
@@ -100,18 +92,9 @@ namespace GreenClover.Music
             }
 
             choose = choose - 1;
-            string song = video.link[choose];
 
-            EmbedBuilder builderPlay = new EmbedBuilder();
-            builderPlay
-                .WithAuthor(Context.Message.Author.Username, avatar)
-                .WithThumbnailUrl(video.image[choose])
-                .AddField(Utilities.GetAlert("PLAY_PLAYED_SONG"), $"[{video.title[choose]}](https://www.youtube.com/watch?v={song})")
-                .AddField(Utilities.GetAlert("PLAY_VIDEO_DESC"), video.desc[choose])
-                .WithColor(Color.DarkRed);
-
-            await ReplyAsync("", false, builderPlay.Build());
-            await AudioService.PlayAsync(Context.Guild, (Context.User as IVoiceState).VoiceChannel, Context.Channel, $"https://www.youtube.com/watch?v={song})");
+            await AudioService.PlayAsync(Context.Guild, (Context.User as IVoiceState).VoiceChannel, Context.Channel, $"https://www.youtube.com/watch?v={video.link[choose]})");
+            await AudioService.SongInfo(Context.Channel, video, Context.Message, video.link[choose], choose);
             return;
         }
 
