@@ -1,8 +1,8 @@
-﻿using Discord;
+﻿using System.Threading.Tasks;
+using Discord;
 using Discord.Commands;
-using System.Threading.Tasks;
-using GreenClover.Core.Accounts;
 using GreenClover.Core;
+using GreenClover.Core.Accounts;
 
 namespace GreenClover.Modules.AccountCommands
 {

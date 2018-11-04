@@ -1,7 +1,7 @@
-﻿using Discord.WebSocket;
-using SharpLink;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Discord.WebSocket;
+using SharpLink;
 
 namespace GreenClover.Core.Accounts
 {

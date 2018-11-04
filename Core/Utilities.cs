@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
 using Discord.WebSocket;
 using GreenClover.Core.Accounts;
-using Newtonsoft.Json;
 
 namespace GreenClover
 {

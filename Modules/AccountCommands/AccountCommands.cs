@@ -1,9 +1,9 @@
-﻿using Discord.Commands;
-using Discord;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using GreenClover.Core.Accounts;
+using Discord;
+using Discord.Commands;
 using Discord.WebSocket;
-using System.Linq;
+using GreenClover.Core.Accounts;
 
 namespace GreenClover.Modules.AccountCommands
 {

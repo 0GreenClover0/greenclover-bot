@@ -1,7 +1,7 @@
-﻿using Discord.Commands;
-using Discord.WebSocket;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Discord.Commands;
+using Discord.WebSocket;
 using Console = Colorful.Console;
 
 namespace GreenClover.Modules
