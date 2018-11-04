@@ -18,6 +18,7 @@ namespace GreenClover.Music
             Utilities utilities = new Utilities(Context.Guild);
             var guildAccount = GuildAccounts.GetGuildAccount(Context.Guild);
             string avatar = Context.Message.Author.GetAvatarUrl() ?? Context.Message.Author.GetDefaultAvatarUrl();
+            int choose = -1;
 
             if (!song.Contains(".com") && song != "")
             {
@@ -32,14 +33,14 @@ namespace GreenClover.Music
                 YoutubeVideo video = new YoutubeVideo();
                 video.SetInfoVideo(Context.Guild, searchResult.Snippet.Description, searchResult.Snippet.Thumbnails.High.Url,
                     searchResult.Id.VideoId, searchResult.Snippet.Title);
-                int choose = 0;
+                choose = 0;
+                song = $"https://www.youtube.com/watch?v={video.link[choose]}";
 
-                await AudioService.PlayAsync(Context.Guild, (Context.User as IVoiceState).VoiceChannel, Context.Channel, $"https://www.youtube.com/watch?v={video.link[0]}");
-                await AudioService.SongInfo(Context.Channel, video, Context.Message, video.link[0], choose);
+                await AudioService.PlayAsync(Context, song, choose, video);
                 return;
             }
 
-            await AudioService.PlayAsync(Context.Guild, (Context.User as IVoiceState).VoiceChannel, Context.Channel, song);
+            await AudioService.PlayAsync(Context, song, 0);
         }
 
         [Command("search", RunMode = RunMode.Async)]
@@ -85,16 +86,9 @@ namespace GreenClover.Music
                 return;
             }
 
-            if ((Context.User as IVoiceState).VoiceChannel == null)
-            {
-                await ReplyAsync(Utilities.GetAlert("PLAY_NULL_CHANNEL"));
-                return;
-            }
-
             choose = choose - 1;
-
-            await AudioService.PlayAsync(Context.Guild, (Context.User as IVoiceState).VoiceChannel, Context.Channel, $"https://www.youtube.com/watch?v={video.link[choose]})");
-            await AudioService.SongInfo(Context.Channel, video, Context.Message, video.link[choose], choose);
+            string song = $"https://www.youtube.com/watch?v={video.link[choose]}";
+            await AudioService.PlayAsync(Context, song, choose, video);
             return;
         }
 

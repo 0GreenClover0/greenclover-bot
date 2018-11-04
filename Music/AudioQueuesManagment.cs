@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Discord;
 using Discord.WebSocket;
 using SharpLink;
 using GreenClover.Core.Accounts;
@@ -34,7 +33,6 @@ namespace GreenClover.Music
 
         private static void RemoveTrack(AudioQueue audioQueue, LavalinkTrack track)
         {
-            
             audioQueue.Queue.Remove(audioQueue.Queue[audioQueue.PlayingTrackIndex]);
             AudioQueues.SaveQueues();
             return;

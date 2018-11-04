@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Discord;
+using Discord.Commands;
 using Discord.WebSocket;
 using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
@@ -15,10 +16,13 @@ namespace GreenClover.Music
         private static readonly DiscordSocketClient _client = new DiscordSocketClient();
         public static LavalinkManager lavalinkManager = new LavalinkManager(_client);
 
-        public static async Task PlayAsync(SocketGuild guild, IVoiceChannel voiceChannel, ISocketMessageChannel channel, string song)
+        public static async Task PlayAsync(SocketCommandContext context, string song, int choose, YoutubeVideo video = null)
         {
+            SocketGuild guild = context.Guild;
+            SocketUserMessage message = context.Message;
+            IVoiceChannel voiceChannel = (context.User as IVoiceState).VoiceChannel;
+            ISocketMessageChannel channel = context.Channel;
             Utilities utilities = new Utilities(guild);
-            var audioQueue = AudioQueues.GetAudioQueue(guild);
 
             if (voiceChannel == null)
             {
@@ -45,6 +49,7 @@ namespace GreenClover.Music
                 return;
             }
 
+            var audioQueue = AudioQueues.GetAudioQueue(guild);
             LoadTracksResponse response = await lavalinkManager.GetTracksAsync(song);
             LavalinkTrack track = response.Tracks.First();
 
@@ -56,25 +61,37 @@ namespace GreenClover.Music
 
             audioQueue.Queue = AudioQueues.GetOrCreateGuildQueue(track, audioQueue);
             LavalinkTrack secondTrack = audioQueue.Queue.ElementAtOrDefault(1);
+            string songAlert = "PLAY_ADDED_SONG";
 
             if (secondTrack == null)
             {
                 audioQueue.PlayingTrackIndex = 0;
                 AudioQueues.SaveQueues();
+
                 await player.PlayAsync(track);
+                if (video != null)
+                {
+                    songAlert = "PLAY_PLAYED_SONG";
+                    await SongInfo(channel, message, video, choose, songAlert);
+                }
                 return;
+            }
+
+            if (choose != -1)
+            {
+                await SongInfo(channel, message, video, choose, songAlert);
             }
         }
 
-        public static async Task SongInfo(ISocketMessageChannel channel, YoutubeVideo video, SocketUserMessage message, string song, int choose = 0)
+        private static async Task SongInfo(ISocketMessageChannel channel, SocketUserMessage message,YoutubeVideo video, int choose, string playOrAdded)
         {
             string avatar = message.Author.GetAvatarUrl() ?? message.Author.GetDefaultAvatarUrl();
-            
+
             EmbedBuilder builder = new EmbedBuilder();
             builder
                 .WithAuthor(message.Author.Username, avatar)
                 .WithThumbnailUrl(video.image[choose])
-                .AddField(Utilities.GetAlert("PLAY_PLAYED_SONG"), $"[{video.title[choose]}](https://www.youtube.com/watch?v={song})")
+                .AddField(Utilities.GetAlert(playOrAdded), $"[{video.title[choose]}](https://www.youtube.com/watch?v={video.link[choose]})")
                 .AddField(Utilities.GetAlert("PLAY_VIDEO_DESC"), video.desc[choose])
                 .WithColor(Color.DarkRed);
 

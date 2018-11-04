@@ -78,7 +78,7 @@ namespace GreenClover.Core.Accounts
 
             else
             {
-                audioQueue.Queue = GetAndAddToGuildQueue(track, audioQueue.Queue);
+                audioQueue.Queue.Add(track);
                 SaveQueues();
                 return audioQueue.Queue;
             }
@@ -90,12 +90,6 @@ namespace GreenClover.Core.Accounts
             {
                 track
             };
-            return queue;
-        }
-
-        private static List<LavalinkTrack> GetAndAddToGuildQueue(LavalinkTrack track, List<LavalinkTrack> queue)
-        {
-            queue.Add(track);
             return queue;
         }
     }

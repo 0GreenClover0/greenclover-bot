@@ -1,0 +1,8 @@
+{
+  "apiKey": "api key taken from https://console.cloud.google.com/apis/credentials?hl=pl",
+  "cmdPrefix": "bot prefix e.g. --",
+  "language": "Texts/en_US.json, path to default language",
+  "ownerID": "your id",
+  "searchEngineId": "taken from https://cse.google.com/all, select google and copy the engine id",
+  "token": "bot token taken from https://discordapp.com/developers/applications/"
+}

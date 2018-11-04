@@ -116,6 +116,7 @@
   "PLAY_NULL_LINK": "Brak nazwy/linku",
   "PLAY_NULL_QUERY": "Czego mam szukać?",
   "PLAY_PLAYED_SONG": "**Grany utwór:**\n",
+  "PLAY_ADDED_SONG": "**Dodany utwór:**\n",
   "PLAY_WRONG_ANSWER": "Wymagana jest liczba od 1 do 10",
   "PLAY_VIDEO_DESC": "Opis:",
   "YOUTUBE_FILMEMBED": "Filmy",
