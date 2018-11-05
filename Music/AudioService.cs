@@ -18,51 +18,33 @@ namespace GreenClover.Music
 
         public static async Task PlayAsync(SocketCommandContext context, string song, int choose, YoutubeVideo video = null)
         {
+            // Create used objects
             SocketGuild guild = context.Guild;
             SocketUserMessage message = context.Message;
             IVoiceChannel voiceChannel = (context.User as IVoiceState).VoiceChannel;
             ISocketMessageChannel channel = context.Channel;
             Utilities utilities = new Utilities(guild);
 
-            if (voiceChannel == null)
-            {
-                await channel.SendMessageAsync(Utilities.GetAlert("PLAY_NULL_CHANNEL"));
-                return;
-            }
-
+            // Checking if voice channel is null (and sending an error message)
+            // If not, creating or getting a lavalink player
+            // Checking if a given string is empty (if true, and there is a song in queue that is stopped, resuming it
+            if (await VoiceChannelNull(channel, voiceChannel, utilities) is true) return;
             LavalinkPlayer player = lavalinkManager.GetPlayer(guild.Id) ?? await lavalinkManager.JoinAsync(voiceChannel);
-
-            if (song == "" && player.Playing == true)
-            {
-                return;
-            }
-
-            else if (song == "" & player.Playing == false)
-            {
-                if (player.CurrentTrack == null)
-                {
-                    await channel.SendMessageAsync(Utilities.GetAlert("PLAY_NULL_LINK"));
-                    return;
-                }
-
-                await player.ResumeAsync();
-                return;
-            }
-
             var audioQueue = AudioQueues.GetAudioQueue(guild);
+            if (await CheckIfSongIsEmpty(channel, utilities, player, audioQueue, song) is true) return;
+
             LoadTracksResponse response = await lavalinkManager.GetTracksAsync(song);
             LavalinkTrack track = response.Tracks.First();
 
-            if (audioQueue.Queue.Count > 50)
-            {
-                await channel.SendMessageAsync(Utilities.GetAlert("QUEUE_OVERLOADED"));
-                return;
-            }
+            // Maximum songs in queue is 50
+            if (await CheckIfQueueIsFull(channel, utilities, audioQueue.Queue.Count) is true) return;
 
+            // Adding a track to queue
             audioQueue.Queue = AudioQueues.GetOrCreateGuildQueue(track, audioQueue);
             LavalinkTrack secondTrack = audioQueue.Queue.ElementAtOrDefault(1);
-            string songAlert = "PLAY_ADDED_SONG";
 
+            // A check if a song is first in the queue, or if it's been added
+            string songAlert = "PLAY_ADDED_SONG";
             if (secondTrack == null)
             {
                 audioQueue.PlayingTrackIndex = 0;
@@ -77,10 +59,59 @@ namespace GreenClover.Music
                 return;
             }
 
+            // If a user gives a link to a youtube video, we don't need to send song info
             if (choose != -1)
             {
                 await SongInfo(channel, message, video, choose, songAlert);
             }
+        }
+
+        private static async Task<bool> VoiceChannelNull(ISocketMessageChannel channel, IVoiceChannel voiceChannel, Utilities utilities)
+        {
+            if (voiceChannel == null)
+            {
+                await channel.SendMessageAsync(Utilities.GetAlert("PLAY_NULL_CHANNEL"));
+                return true;
+            }
+
+            return false;
+        }
+
+        private static async Task<bool> CheckIfSongIsEmpty(ISocketMessageChannel channel, Utilities utilities, LavalinkPlayer player, AudioQueue audioQueue, string song)
+        {
+            if (song == "" && player.Playing == true)
+            {
+                return true;
+            }
+
+            else if (song == "" & player.Playing == false)
+            {
+                if (player.CurrentTrack == null)
+                {
+                    await channel.SendMessageAsync(Utilities.GetAlert("PLAY_NULL_LINK"));
+                    return true;
+                }
+
+                if (audioQueue.Queue.FirstOrDefault() != null)
+                {
+                    await player.ResumeAsync();
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private static async Task<bool> CheckIfQueueIsFull(ISocketMessageChannel channel, Utilities utilities, int queueCount)
+        {
+            if (queueCount > 50)
+            {
+                await channel.SendMessageAsync(Utilities.GetAlert("QUEUE_OVERLOADED"));
+                return true;
+            }
+
+            return false;
         }
 
         private static async Task SongInfo(ISocketMessageChannel channel, SocketUserMessage message,YoutubeVideo video, int choose, string playOrAdded)
