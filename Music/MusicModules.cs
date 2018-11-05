@@ -74,17 +74,12 @@ namespace GreenClover.Music
             string[] wholeMsg = answer.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             int choose = InteractiveUtil.ConvertToInt(answer);
 
-            if (choose == 0)
-            {
-                await ReplyAsync(Utilities.GetAlert("PLAY_WRONG_ANSWER"));
-                return;
-            }
-
             if (Utilities.GetAlert("answerCancel").Contains(wholeMsg[0]))
             {
                 await ReplyAsync(Utilities.GetAlert("PLAY_CANCEL"));
                 return;
             }
+            if (choose == 0) return;
 
             choose = choose - 1;
             string song = $"https://www.youtube.com/watch?v={video.link[choose]}";
@@ -134,10 +129,10 @@ namespace GreenClover.Music
             List<string> queue = new List<string>();
             List<List<string>> pagesContent = new List<List<string>>(5);
 
-            queue = AudioService.QueueAsync(Context.Channel, audioQueue.Queue, Context.Message.Author.Username, avatar);
-            pagesContent = AudioService.QueuePaging(queue);
+            queue = AudioQueuesManagment.CreateListOfSongs(Context.Channel, audioQueue.Queue, Context.Message.Author.Username, avatar);
+            pagesContent = AudioQueuesManagment.CreateListOfPages(queue);
             string[] pages = new string[5];
-            pages = AudioService.QueueAddPages(pages, pagesContent);
+            pages = AudioQueuesManagment.AssignContentToPages(pages, pagesContent);
 
             await PagedReplyAsync(pages);
         }
