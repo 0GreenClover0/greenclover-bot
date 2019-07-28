@@ -1,7 +1,7 @@
 # GreenClover-bot
 
 ### Using:
-You probably don't want to use that bot.
+You probably don't want to use that bot. It's actually crap maybe I someday rebuild it.
 
 ### Bot can:
 - join the channel, leave the channel, play the music, EVEN ***stop the music***
